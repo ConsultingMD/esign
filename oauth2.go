@@ -577,6 +577,7 @@ func (u *UserInfo) getAccountID(id string) (string, *url.URL, error) {
 	}
 	for _, a := range u.Accounts {
 		if (id == "" && a.IsDefault) || id == a.AccountID {
+			fmt.Printf("account id: %s, base uri: %s\n", a.AccountID, a.BaseURI)
 			ux, err := url.Parse(a.BaseURI)
 			return a.AccountID, ux, err
 		}
