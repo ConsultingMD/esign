@@ -575,14 +575,26 @@ func (u *UserInfo) getAccountID(id string) (string, *url.URL, error) {
 	if u == nil {
 		return "", nil, errors.New("userInfo is nil")
 	}
+	var accountIDs strings.Builder
 	for _, a := range u.Accounts {
+		accountIDs.WriteString(a.AccountID + " ")
 		if (id == "" && a.IsDefault) || id == a.AccountID {
 			fmt.Printf("account id: %s, base uri: %s\n", a.AccountID, a.BaseURI)
 			ux, err := url.Parse(a.BaseURI)
 			return a.AccountID, ux, err
 		}
 	}
-	return "", nil, fmt.Errorf("no account %s for %s", id, u.Email)
+	if accountIDs.Len() > 0 {
+		// Remove the trailing space
+		accountIDsStr := accountIDs.String()[:accountIDs.Len()-1]
+		return "", nil, fmt.Errorf(
+			"no account %s for %s. Available accounts: %s",
+			id,
+			u.Email,
+			accountIDsStr,
+		)
+	}
+	return "", nil, fmt.Errorf("no account %s for %s %s", id, u.Email, accountIDs.String())
 }
 
 var expReplacePlusInScope = regexp.MustCompile(`[\?&_]scope=([^\+&]*\+)+`)
