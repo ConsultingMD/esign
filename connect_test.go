@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jfcote87/esign"
+	"github.com/ConsultingMD/esign"
 )
 
 func TestXML(t *testing.T) {
@@ -36,7 +36,8 @@ func TestXML(t *testing.T) {
 	if !delivered.Time().Equal(time.Date(2014, 11, 11, 13, 43, 40, 887000000, time.UTC)) {
 		t.Errorf("expected Delivered = 2014-11-11 13:43:40.887 +0000 UTC; got %v", delivered.Time())
 	}
-	if !v.EnvelopeStatus.Signed.Time().Equal(time.Date(2014, 11, 11, 13, 44, 23, 590000000, time.UTC)) {
+	if !v.EnvelopeStatus.Signed.Time().
+		Equal(time.Date(2014, 11, 11, 13, 44, 23, 590000000, time.UTC)) {
 		t.Errorf("expected Signed = 2014-11-11 13:43:45.3; got %v", v.EnvelopeStatus.Signed.Time())
 	}
 }

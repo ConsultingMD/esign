@@ -62,18 +62,17 @@
 //
 // To submit existing envelopes to an endpoint, use the [EnvelopePublish](/docs/esign-rest-api/reference/envelopes/envelopepublish/) resource.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/reference/Connect
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2.1/model"
-//   )
-//   ...
-//   connectService := connect.New(esignCredential)
-package connect // import "github.com/jfcote87/esignv2.1/connect"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2.1/model"
+//	)
+//	...
+//	connectService := connect.New(esignCredential)
+package connect // import "github.com/ConsultingMD/esignv2.1/connect"
 
 import (
 	"context"
@@ -83,8 +82,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2.1/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2.1/model"
 )
 
 // Service implements DocuSign Connect API operations
@@ -102,7 +101,9 @@ func New(cred esign.Credential) *Service {
 // https://developers.docusign.com/docs/esign-rest-api/reference/connect/connectconfigurations/create
 //
 // SDK Method Connect::createConfiguration
-func (s *Service) ConfigurationsCreate(connectCustomConfiguration *model.ConnectCustomConfiguration) *ConfigurationsCreateOp {
+func (s *Service) ConfigurationsCreate(
+	connectCustomConfiguration *model.ConnectCustomConfiguration,
+) *ConfigurationsCreateOp {
 	return &ConfigurationsCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -117,7 +118,9 @@ func (s *Service) ConfigurationsCreate(connectCustomConfiguration *model.Connect
 type ConfigurationsCreateOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ConfigurationsCreateOp) Do(ctx context.Context) (*model.ConnectCustomConfiguration, error) {
+func (op *ConfigurationsCreateOp) Do(
+	ctx context.Context,
+) (*model.ConnectCustomConfiguration, error) {
 	var res *model.ConnectCustomConfiguration
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -215,7 +218,9 @@ func (s *Service) ConfigurationsListUsers(connectID string) *ConfigurationsListU
 type ConfigurationsListUsersOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ConfigurationsListUsersOp) Do(ctx context.Context) (*model.IntegratedUserInfoList, error) {
+func (op *ConfigurationsListUsersOp) Do(
+	ctx context.Context,
+) (*model.IntegratedUserInfoList, error) {
 	var res *model.IntegratedUserInfoList
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -291,7 +296,9 @@ func (op *ConfigurationsListUsersOp) UserNameSubstring(val string) *Configuratio
 // https://developers.docusign.com/docs/esign-rest-api/reference/connect/connectconfigurations/update
 //
 // SDK Method Connect::updateConfiguration
-func (s *Service) ConfigurationsUpdate(connectCustomConfiguration *model.ConnectCustomConfiguration) *ConfigurationsUpdateOp {
+func (s *Service) ConfigurationsUpdate(
+	connectCustomConfiguration *model.ConnectCustomConfiguration,
+) *ConfigurationsUpdateOp {
 	return &ConfigurationsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -307,7 +314,9 @@ func (s *Service) ConfigurationsUpdate(connectCustomConfiguration *model.Connect
 type ConfigurationsUpdateOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ConfigurationsUpdateOp) Do(ctx context.Context) (*model.ConnectCustomConfiguration, error) {
+func (op *ConfigurationsUpdateOp) Do(
+	ctx context.Context,
+) (*model.ConnectCustomConfiguration, error) {
 	var res *model.ConnectCustomConfiguration
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -355,7 +364,9 @@ func (s *Service) EventsDeleteFailure(failureID string) *EventsDeleteFailureOp {
 type EventsDeleteFailureOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *EventsDeleteFailureOp) Do(ctx context.Context) (*model.ConnectDeleteFailureResult, error) {
+func (op *EventsDeleteFailureOp) Do(
+	ctx context.Context,
+) (*model.ConnectDeleteFailureResult, error) {
 	var res *model.ConnectDeleteFailureResult
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -512,7 +523,11 @@ func (op *EventsListFailuresOp) ToDate(val time.Time) *EventsListFailuresOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/connect/connectevents/retryforenvelope
 //
 // SDK Method Connect::retryEventForEnvelope
-func (s *Service) EventsRetryForEnvelope(envelopeID string, media io.Reader, mimeType string) *EventsRetryForEnvelopeOp {
+func (s *Service) EventsRetryForEnvelope(
+	envelopeID string,
+	media io.Reader,
+	mimeType string,
+) *EventsRetryForEnvelopeOp {
 	return &EventsRetryForEnvelopeOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -538,7 +553,9 @@ func (op *EventsRetryForEnvelopeOp) Do(ctx context.Context) (*model.ConnectFailu
 // https://developers.docusign.com/docs/esign-rest-api/reference/connect/connectevents/retryforenvelopes
 //
 // SDK Method Connect::retryEventForEnvelopes
-func (s *Service) EventsRetryForEnvelopes(connectFailureFilter *model.ConnectFailureFilter) *EventsRetryForEnvelopesOp {
+func (s *Service) EventsRetryForEnvelopes(
+	connectFailureFilter *model.ConnectFailureFilter,
+) *EventsRetryForEnvelopesOp {
 	return &EventsRetryForEnvelopesOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -564,7 +581,9 @@ func (op *EventsRetryForEnvelopesOp) Do(ctx context.Context) (*model.ConnectFail
 // https://developers.docusign.com/docs/esign-rest-api/reference/connect/connectconfigurations/createconnectoauthconfig
 //
 // SDK Method Connect::createConnectOAuthConfig
-func (s *Service) ConfigurationsCreateConnectOAuthConfig(connectOAuthConfig *model.ConnectOAuthConfig) *ConfigurationsCreateConnectOAuthConfigOp {
+func (s *Service) ConfigurationsCreateConnectOAuthConfig(
+	connectOAuthConfig *model.ConnectOAuthConfig,
+) *ConfigurationsCreateConnectOAuthConfigOp {
 	return &ConfigurationsCreateConnectOAuthConfigOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -579,7 +598,9 @@ func (s *Service) ConfigurationsCreateConnectOAuthConfig(connectOAuthConfig *mod
 type ConfigurationsCreateConnectOAuthConfigOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ConfigurationsCreateConnectOAuthConfigOp) Do(ctx context.Context) (*model.ConnectOAuthConfig, error) {
+func (op *ConfigurationsCreateConnectOAuthConfigOp) Do(
+	ctx context.Context,
+) (*model.ConnectOAuthConfig, error) {
 	var res *model.ConnectOAuthConfig
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -612,7 +633,9 @@ func (op *ConfigurationsDeleteConnectOAuthConfigOp) Do(ctx context.Context) erro
 // https://developers.docusign.com/docs/esign-rest-api/reference/connect/connectconfigurations/getconnectallusers
 //
 // SDK Method Connect::getConnectAllUsers
-func (s *Service) ConfigurationsGetConnectAllUsers(connectID string) *ConfigurationsGetConnectAllUsersOp {
+func (s *Service) ConfigurationsGetConnectAllUsers(
+	connectID string,
+) *ConfigurationsGetConnectAllUsersOp {
 	return &ConfigurationsGetConnectAllUsersOp{
 		Credential: s.credential,
 		Method:     "GET",
@@ -627,13 +650,17 @@ func (s *Service) ConfigurationsGetConnectAllUsers(connectID string) *Configurat
 type ConfigurationsGetConnectAllUsersOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ConfigurationsGetConnectAllUsersOp) Do(ctx context.Context) (*model.IntegratedConnectUserInfoList, error) {
+func (op *ConfigurationsGetConnectAllUsersOp) Do(
+	ctx context.Context,
+) (*model.IntegratedConnectUserInfoList, error) {
 	var res *model.IntegratedConnectUserInfoList
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
 
 // Count is the maximum number of results to return.
-func (op *ConfigurationsGetConnectAllUsersOp) Count(val string) *ConfigurationsGetConnectAllUsersOp {
+func (op *ConfigurationsGetConnectAllUsersOp) Count(
+	val string,
+) *ConfigurationsGetConnectAllUsersOp {
 	if op != nil {
 		op.QueryOpts.Set("count", val)
 	}
@@ -641,7 +668,9 @@ func (op *ConfigurationsGetConnectAllUsersOp) Count(val string) *ConfigurationsG
 }
 
 // DomainUsersOnly set the call query parameter domain_users_only
-func (op *ConfigurationsGetConnectAllUsersOp) DomainUsersOnly(val string) *ConfigurationsGetConnectAllUsersOp {
+func (op *ConfigurationsGetConnectAllUsersOp) DomainUsersOnly(
+	val string,
+) *ConfigurationsGetConnectAllUsersOp {
 	if op != nil {
 		op.QueryOpts.Set("domain_users_only", val)
 	}
@@ -649,7 +678,9 @@ func (op *ConfigurationsGetConnectAllUsersOp) DomainUsersOnly(val string) *Confi
 }
 
 // EmailSubstring filters returned user records by full email address or a substring of email address.
-func (op *ConfigurationsGetConnectAllUsersOp) EmailSubstring(val string) *ConfigurationsGetConnectAllUsersOp {
+func (op *ConfigurationsGetConnectAllUsersOp) EmailSubstring(
+	val string,
+) *ConfigurationsGetConnectAllUsersOp {
 	if op != nil {
 		op.QueryOpts.Set("email_substring", val)
 	}
@@ -657,7 +688,9 @@ func (op *ConfigurationsGetConnectAllUsersOp) EmailSubstring(val string) *Config
 }
 
 // StartPosition is the position within the total result set from which to start returning values. The value **thumbnail** may be used to return the page image.
-func (op *ConfigurationsGetConnectAllUsersOp) StartPosition(val string) *ConfigurationsGetConnectAllUsersOp {
+func (op *ConfigurationsGetConnectAllUsersOp) StartPosition(
+	val string,
+) *ConfigurationsGetConnectAllUsersOp {
 	if op != nil {
 		op.QueryOpts.Set("start_position", val)
 	}
@@ -665,7 +698,9 @@ func (op *ConfigurationsGetConnectAllUsersOp) StartPosition(val string) *Configu
 }
 
 // Status is the status of the item.
-func (op *ConfigurationsGetConnectAllUsersOp) Status(val string) *ConfigurationsGetConnectAllUsersOp {
+func (op *ConfigurationsGetConnectAllUsersOp) Status(
+	val string,
+) *ConfigurationsGetConnectAllUsersOp {
 	if op != nil {
 		op.QueryOpts.Set("status", val)
 	}
@@ -675,7 +710,9 @@ func (op *ConfigurationsGetConnectAllUsersOp) Status(val string) *Configurations
 // UserNameSubstring filters results based on a full or partial user name.
 //
 // **Note:** When you enter a partial user name, you do not use a wildcard character.
-func (op *ConfigurationsGetConnectAllUsersOp) UserNameSubstring(val string) *ConfigurationsGetConnectAllUsersOp {
+func (op *ConfigurationsGetConnectAllUsersOp) UserNameSubstring(
+	val string,
+) *ConfigurationsGetConnectAllUsersOp {
 	if op != nil {
 		op.QueryOpts.Set("user_name_substring", val)
 	}
@@ -702,7 +739,9 @@ func (s *Service) ConfigurationsGetConnectOAuthConfig() *ConfigurationsGetConnec
 type ConfigurationsGetConnectOAuthConfigOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ConfigurationsGetConnectOAuthConfigOp) Do(ctx context.Context) (*model.ConnectOAuthConfig, error) {
+func (op *ConfigurationsGetConnectOAuthConfigOp) Do(
+	ctx context.Context,
+) (*model.ConnectOAuthConfig, error) {
 	var res *model.ConnectOAuthConfig
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }

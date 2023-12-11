@@ -8,20 +8,17 @@
 // Package roomfolders implements the DocuSign SDK
 // category RoomFolders.
 //
-//
-//
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/rooms-api/reference/RoomFolders
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/rooms"
-//   )
-//   ...
-//   roomfoldersService := roomfolders.New(esignCredential)
-package roomfolders // import "github.com/jfcote87/esignrooms//roomfolders"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/rooms"
+//	)
+//	...
+//	roomfoldersService := roomfolders.New(esignCredential)
+package roomfolders // import "github.com/ConsultingMD/esignrooms//roomfolders"
 
 import (
 	"context"
@@ -29,8 +26,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/rooms"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/rooms"
 )
 
 // Service implements DocuSign RoomFolders API operations

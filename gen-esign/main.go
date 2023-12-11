@@ -1,3 +1,5 @@
+package main
+
 // Copyright 2019 James Cote
 // All rights reserved.
 // Use of this source code is governed by a BSD-style
@@ -7,7 +9,6 @@
 // esignature.rest.swagger.json definition file.
 
 // Package main is the executable for gen-esign
-package main
 
 import (
 	"bytes"
@@ -23,15 +24,15 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/gen-esign/swagger"
-	"github.com/jfcote87/esign/gen-esign/templates"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/gen-esign/swagger"
+	"github.com/ConsultingMD/esign/gen-esign/templates"
 )
 
 const (
 	openAPIdefinition = "https://github.com/docusign/eSign-OpenAPI-Specification"
 	generatorVersion  = "20190720"
-	pkgBaseName       = "github.com/jfcote87/esign"
+	pkgBaseName       = "github.com/ConsultingMD/esign"
 )
 
 var (
@@ -123,8 +124,12 @@ var (
 	baseDir     = flag.String("src", ".", "source directory")
 	serviceTmpl = flag.String("service_templ", "", "override service package template")
 	modelTmpl   = flag.String("model_templ", "", "api definitions template")
-	specsFolder = flag.String("swaggerfiles", "gen-esign/specs", "directory containing swagger specification files")
-	skipFormat  = flag.Bool("skip_format", false, "skip gofmt command on generated files")
+	specsFolder = flag.String(
+		"swaggerfiles",
+		"gen-esign/specs",
+		"directory containing swagger specification files",
+	)
+	skipFormat = flag.Bool("skip_format", false, "skip gofmt command on generated files")
 )
 
 // APIGenerateCfg contains parameters for generating an eSignature version
@@ -325,7 +330,10 @@ func (api *APIGenerateCfg) genVersion(doc *swagger.Document) error {
 }
 
 // doModel generates the model.go in the model package
-func (api *APIGenerateCfg) doModel(defList []swagger.Definition, defMap map[string]swagger.Definition) error {
+func (api *APIGenerateCfg) doModel(
+	defList []swagger.Definition,
+	defMap map[string]swagger.Definition,
+) error {
 	modelTempl := api.Templates.Lookup("model.tmpl")
 	// create model.go
 	// get field overrides and tab overrides
@@ -388,8 +396,13 @@ type ExtOperation struct {
 }
 
 // doPackage creates a subpackage go file
-func (api *APIGenerateCfg) doPackage(resTempl *template.Template, serviceName string, description string,
-	ops []swagger.Operation, defMap map[string]swagger.Definition) error {
+func (api *APIGenerateCfg) doPackage(
+	resTempl *template.Template,
+	serviceName string,
+	description string,
+	ops []swagger.Operation,
+	defMap map[string]swagger.Definition,
+) error {
 	packageName := strings.ToLower(serviceName)
 	packageFile := packageName + "/" + packageName + ".go"
 	if api.PackagePath > "" {

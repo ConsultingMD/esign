@@ -13,11 +13,10 @@ import (
 	"fmt"
 	"io"
 	"mime/multipart"
-	"strings"
-
 	"net/http"
 	"net/textproto"
 	"net/url"
+	"strings"
 )
 
 // ErrNilOp used to indicate a nil operation pointer
@@ -220,7 +219,8 @@ func (op *Op) CreateRequest() (*http.Request, error) {
 	if err != nil {
 		return nil, err
 	}
-	req, err := http.NewRequest(op.Method, op.Path, body)
+	ctx := context.Background()
+	req, err := http.NewRequestWithContext(ctx, op.Method, op.Path, body)
 	if err != nil {
 		if b, ok := body.(io.ReadCloser); ok {
 			b.Close()
@@ -320,7 +320,11 @@ func multiPartBody(files []*UploadFile) (io.Reader, string) {
 			if err == nil {
 				contentDisp := "form-data"
 				if f.ID > "" {
-					contentDisp = fmt.Sprintf("file; filename=\"%s\";documentid=%s", url.PathEscape(f.FileName), f.ID)
+					contentDisp = fmt.Sprintf(
+						"file; filename=\"%s\";documentid=%s",
+						url.PathEscape(f.FileName),
+						f.ID,
+					)
 				}
 				mh := textproto.MIMEHeader{
 					"Content-Type":        []string{f.ContentType},

@@ -12,25 +12,24 @@
 //
 // You can use the API only to retrieve and assign eSignature permission profiles. You create and modify permission profiles in the DocuSign console.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/rooms-api/reference/ESignPermissionProfiles
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/rooms"
-//   )
-//   ...
-//   esignpermissionprofilesService := esignpermissionprofiles.New(esignCredential)
-package esignpermissionprofiles // import "github.com/jfcote87/esignrooms//esignpermissionprofiles"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/rooms"
+//	)
+//	...
+//	esignpermissionprofilesService := esignpermissionprofiles.New(esignCredential)
+package esignpermissionprofiles // import "github.com/ConsultingMD/esignrooms//esignpermissionprofiles"
 
 import (
 	"context"
 	"net/url"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/rooms"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/rooms"
 )
 
 // Service implements DocuSign ESignPermissionProfiles API operations
@@ -63,7 +62,9 @@ func (s *Service) GetESignPermissionProfiles() *GetESignPermissionProfilesOp {
 type GetESignPermissionProfilesOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetESignPermissionProfilesOp) Do(ctx context.Context) (*rooms.ESignPermissionProfileList, error) {
+func (op *GetESignPermissionProfilesOp) Do(
+	ctx context.Context,
+) (*rooms.ESignPermissionProfileList, error) {
 	var res *rooms.ESignPermissionProfileList
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }

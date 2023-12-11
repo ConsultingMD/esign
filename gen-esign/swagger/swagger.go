@@ -150,7 +150,8 @@ func (d Definition) CommentLines() []string {
 	}
 	comments := strings.Split(d.Description, "\n")
 	tspace := " "
-	if strings.HasPrefix(comments[0], "A ") || strings.HasPrefix(comments[0], "An ") || strings.HasPrefix(comments[0], "The ") {
+	if strings.HasPrefix(comments[0], "A ") || strings.HasPrefix(comments[0], "An ") ||
+		strings.HasPrefix(comments[0], "The ") {
 		tspace = " is "
 	}
 	comments[0] = d.StructName() + tspace + strings.ToLower(comments[0][0:1]) + comments[0][1:]
@@ -219,7 +220,10 @@ func handleArray(fldType string) string {
 // the struct field definition (go name, json name, comments, type).
 // defMap is a map of all definitions and the overrides specify
 // type overrides.
-func (d Definition) StructFields(defMap map[string]Definition, overrides map[string]map[string]string) []StructField {
+func (d Definition) StructFields(
+	defMap map[string]Definition,
+	overrides map[string]map[string]string,
+) []StructField {
 	// use x-definition-name for lookup
 	overrideMap, ok := overrides[d.Name]
 	if !ok {
@@ -227,7 +231,7 @@ func (d Definition) StructFields(defMap map[string]Definition, overrides map[str
 	}
 	var fldType string
 	var fields []StructField
-	if s, ok := overrideMap["TABS"]; ok {
+	if s, ok2 := overrideMap["TABS"]; ok2 {
 		for _, nm := range strings.Split(s, ",") {
 			fields = append(fields, StructField{
 				Name: nm,
@@ -298,10 +302,11 @@ func (ds DefSlice) Less(i, j int) bool {
 
 // StructField provides info to generate a struct definition
 // ex:
-// type <StructName> struct {
-//     // <Comments>
-//     <Name> <Type> `json:"<JSON>,omitempty"`
-// }
+//
+//	type <StructName> struct {
+//	    // <Comments>
+//	    <Name> <Type> `json:"<JSON>,omitempty"`
+//	}
 type StructField struct {
 	Name     string
 	Comments []string
@@ -390,7 +395,11 @@ func (o Operation) ContentType() string {
 }
 
 // CommentLines returns a list of comments to annotate the operation.
-func (o Operation) CommentLines(funcName, docService, docPrefix string, hasFileUploads bool, isMediaUpload bool) []string {
+func (o Operation) CommentLines(
+	funcName, docService, docPrefix string,
+	hasFileUploads bool,
+	isMediaUpload bool,
+) []string {
 
 	comments := strings.Split(o.Summary, "\n")
 	tspace := " "
@@ -400,12 +409,16 @@ func (o Operation) CommentLines(funcName, docService, docPrefix string, hasFileU
 	}
 
 	if len(comments[0]) > 0 {
-		if strings.HasPrefix(comments[0], "A ") || strings.HasPrefix(comments[0], "An ") || strings.HasPrefix(comments[0], "The ") {
+		if strings.HasPrefix(comments[0], "A ") || strings.HasPrefix(comments[0], "An ") ||
+			strings.HasPrefix(comments[0], "The ") {
 			tspace = " is "
 		}
 		comments[0] = funcName + tspace + strings.ToLower(comments[0][0:1]) + comments[0][1:]
 		if hasFileUploads {
-			comments = append(comments, "If any uploads[x].Reader is an io.ReadCloser(s), Do() will always close Reader.")
+			comments = append(
+				comments,
+				"If any uploads[x].Reader is an io.ReadCloser(s), Do() will always close Reader.",
+			)
 		}
 		if isMediaUpload {
 			comments = append(comments, "If media is an io.ReadCloser, Do() will close media.")
@@ -429,7 +442,13 @@ func (o Operation) CommentLines(funcName, docService, docPrefix string, hasFileU
 	if o.InSDK {
 		comments[0] = funcName + " is SDK Method " + o.SDK()
 		if len(o.Tags) > 0 {
-			comments = append(comments, "", "https://developers.docusign.com/docs/"+strings.ToLower(docPrefix+"reference/")+o.Service+"/"+o.Tags[0]+"/"+o.Method)
+			comments = append(
+				comments,
+				"",
+				"https://developers.docusign.com/docs/"+strings.ToLower(
+					docPrefix+"reference/",
+				)+o.Service+"/"+o.Tags[0]+"/"+o.Method,
+			)
 		}
 	}
 	return comments
@@ -547,7 +566,7 @@ func (o Operation) PathParameters() []PathParam {
 	return params
 }
 
-// QueryOpt describes a possibe url query parameters. Used to
+// QueryOpt describes a possible url query parameters. Used to
 // construct option funcs for a call.
 type QueryOpt struct {
 	Name     string
@@ -573,7 +592,8 @@ func queryComments(p Property) []string {
 		return []string{ToGoName(p.Name) + " set the call query parameter " + p.Name}
 	}
 	tspace := " "
-	if strings.HasPrefix(l[0], "A ") || strings.HasPrefix(l[0], "An ") || strings.HasPrefix(l[0], "The ") {
+	if strings.HasPrefix(l[0], "A ") || strings.HasPrefix(l[0], "An ") ||
+		strings.HasPrefix(l[0], "The ") {
 		tspace = " is "
 	}
 	l[0] = ToGoName(p.Name) + tspace + strings.ToLower(l[0][0:1]) + l[0][1:]
@@ -799,7 +819,7 @@ func split(str string) (words []string) {
 	// Get the final list of words
 	words = rex2.FindAllString(str, -1)
 
-	return
+	return words
 }
 
 // Taken from https://github.com/golang/lint/blob/3390df4df2787994aea98de825b964ac7944b817/lint.go#L732-L769

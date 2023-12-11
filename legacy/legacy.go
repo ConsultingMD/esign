@@ -15,8 +15,9 @@ import (
 	"net/url"
 
 	"github.com/jfcote87/ctxclient"
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2/model"
+
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2/model"
 )
 
 // Documentation: https://docs.docusign.com/esign/
@@ -30,11 +31,12 @@ import (
 // https://eu.docusign.net/restapi/v2/accounts/{accountId}
 //
 // EXAMPLES
-// 	"https://www.docusign.net/restapi/v2"  (deprecated?)
-// 	"https://na2.docusign.net/restapi/v2"   (north america)
-// 	"https://na3.docusign.net/restapi/v2"   (north america)
-// 	"https://eu.docusign.net/restapi/v2"   (europe)
-// 	"https://demo.docusign.net/restapi/v2" (sandbox)
+//
+//	"https://www.docusign.net/restapi/v2"  (deprecated?)
+//	"https://na2.docusign.net/restapi/v2"   (north america)
+//	"https://na3.docusign.net/restapi/v2"   (north america)
+//	"https://eu.docusign.net/restapi/v2"   (europe)
+//	"https://demo.docusign.net/restapi/v2" (sandbox)
 var (
 	demoHost = "demo.docusign.net"
 	baseHost = "www.docusign.net"
@@ -65,7 +67,12 @@ func (o OauthCredential) AuthDo(ctx context.Context, op *esign.Op) (*http.Respon
 	if err != nil {
 		return nil, err
 	}
-	req.URL = op.Version.ResolveDSURL(req.URL, getHost(o.IsDemoAccount, o.Host), o.AccountID, o.IsDemoAccount)
+	req.URL = op.Version.ResolveDSURL(
+		req.URL,
+		getHost(o.IsDemoAccount, o.Host),
+		o.AccountID,
+		o.IsDemoAccount,
+	)
 
 	var auth string
 	if o.TokenType == "" {
@@ -151,7 +158,10 @@ func (c *Config) OauthCredential(ctx context.Context) (*OauthCredential, error) 
 
 // OnBehalfOfCredential returns an *OauthCredential for the user name specied by nm.  oauthCred
 // must be a credential for a user with administrative rights on the account.
-func (o *OauthCredential) OnBehalfOfCredential(ctx context.Context, integratorKey, nm string) (*OauthCredential, error) {
+func (o *OauthCredential) OnBehalfOfCredential(
+	ctx context.Context,
+	integratorKey, nm string,
+) (*OauthCredential, error) {
 	call := &esign.Op{
 		Credential: o,
 		Method:     "POST",
@@ -184,7 +194,12 @@ func (c Config) AuthDo(ctx context.Context, op *esign.Op) (*http.Response, error
 	if err != nil {
 		return nil, err
 	}
-	req.URL = op.Version.ResolveDSURL(req.URL, getHost(c.IsDemoAccount, c.Host), c.AccountID, c.IsDemoAccount)
+	req.URL = op.Version.ResolveDSURL(
+		req.URL,
+		getHost(c.IsDemoAccount, c.Host),
+		c.AccountID,
+		c.IsDemoAccount,
+	)
 
 	var onBehalfOf string
 	if c.OnBehalfOf != "" {

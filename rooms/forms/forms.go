@@ -18,18 +18,17 @@
 //
 // Form administrators must have the `canManageFormGroups` permission assigned to their user role. This gives them access to the **Forms** tab in **Admin**. However, you should also consider the user's access level. For example, if the user has access to specific offices, they can only administer form groups for those offices.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/rooms-api/reference/Forms
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/rooms"
-//   )
-//   ...
-//   formsService := forms.New(esignCredential)
-package forms // import "github.com/jfcote87/esignrooms//forms"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/rooms"
+//	)
+//	...
+//	formsService := forms.New(esignCredential)
+package forms // import "github.com/ConsultingMD/esignrooms//forms"
 
 import (
 	"context"
@@ -38,8 +37,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/rooms"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/rooms"
 )
 
 // Service implements DocuSign Forms API operations
@@ -57,7 +56,9 @@ func New(cred esign.Credential) *Service {
 // https://developers.docusign.com/docs/rooms-api/reference/forms/externalformfillsessions/createexternalformfillsession
 //
 // SDK Method Forms::CreateExternalFormFillSession
-func (s *Service) CreateExternalFormFillSession(body *rooms.ExternalFormFillSessionForCreate) *CreateExternalFormFillSessionOp {
+func (s *Service) CreateExternalFormFillSession(
+	body *rooms.ExternalFormFillSessionForCreate,
+) *CreateExternalFormFillSessionOp {
 	return &CreateExternalFormFillSessionOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -73,7 +74,9 @@ func (s *Service) CreateExternalFormFillSession(body *rooms.ExternalFormFillSess
 type CreateExternalFormFillSessionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *CreateExternalFormFillSessionOp) Do(ctx context.Context) (*rooms.ExternalFormFillSession, error) {
+func (op *CreateExternalFormFillSessionOp) Do(
+	ctx context.Context,
+) (*rooms.ExternalFormFillSession, error) {
 	var res *rooms.ExternalFormFillSession
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -108,7 +111,10 @@ func (op *GetFormDetailsOp) Do(ctx context.Context) (*rooms.FormDetails, error) 
 // https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/assignformgroupform
 //
 // SDK Method Forms::AssignFormGroupForm
-func (s *Service) AssignFormGroupForm(formGroupID string, body *rooms.FormGroupFormToAssign) *AssignFormGroupFormOp {
+func (s *Service) AssignFormGroupForm(
+	formGroupID string,
+	body *rooms.FormGroupFormToAssign,
+) *AssignFormGroupFormOp {
 	return &AssignFormGroupFormOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -249,14 +255,22 @@ func (op *GetFormGroupsOp) StartPosition(val int) *GetFormGroupsOp {
 // https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/grantofficeaccesstoformgroup
 //
 // SDK Method Forms::GrantOfficeAccessToFormGroup
-func (s *Service) GrantOfficeAccessToFormGroup(formGroupID string, officeID string, media io.Reader, mimeType string) *GrantOfficeAccessToFormGroupOp {
+func (s *Service) GrantOfficeAccessToFormGroup(
+	formGroupID string,
+	officeID string,
+	media io.Reader,
+	mimeType string,
+) *GrantOfficeAccessToFormGroupOp {
 	return &GrantOfficeAccessToFormGroupOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"form_groups", formGroupID, "grant_office_access", officeID}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		QueryOpts:  make(url.Values),
-		Version:    esign.RoomsV2,
+		Path: strings.Join(
+			[]string{"form_groups", formGroupID, "grant_office_access", officeID},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		QueryOpts: make(url.Values),
+		Version:   esign.RoomsV2,
 	}
 }
 
@@ -274,7 +288,12 @@ func (op *GrantOfficeAccessToFormGroupOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/removeformgroupform
 //
 // SDK Method Forms::RemoveFormGroupForm
-func (s *Service) RemoveFormGroupForm(formGroupID string, formID string, media io.Reader, mimeType string) *RemoveFormGroupFormOp {
+func (s *Service) RemoveFormGroupForm(
+	formGroupID string,
+	formID string,
+	media io.Reader,
+	mimeType string,
+) *RemoveFormGroupFormOp {
 	return &RemoveFormGroupFormOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -298,7 +317,10 @@ func (op *RemoveFormGroupFormOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/renameformgroup
 //
 // SDK Method Forms::RenameFormGroup
-func (s *Service) RenameFormGroup(formGroupID string, body *rooms.FormGroupForUpdate) *RenameFormGroupOp {
+func (s *Service) RenameFormGroup(
+	formGroupID string,
+	body *rooms.FormGroupForUpdate,
+) *RenameFormGroupOp {
 	return &RenameFormGroupOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -325,14 +347,22 @@ func (op *RenameFormGroupOp) Do(ctx context.Context) (*rooms.FormGroup, error) {
 // https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/revokeofficeaccessfromformgroup
 //
 // SDK Method Forms::RevokeOfficeAccessFromFormGroup
-func (s *Service) RevokeOfficeAccessFromFormGroup(formGroupID string, officeID string, media io.Reader, mimeType string) *RevokeOfficeAccessFromFormGroupOp {
+func (s *Service) RevokeOfficeAccessFromFormGroup(
+	formGroupID string,
+	officeID string,
+	media io.Reader,
+	mimeType string,
+) *RevokeOfficeAccessFromFormGroupOp {
 	return &RevokeOfficeAccessFromFormGroupOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"form_groups", formGroupID, "revoke_office_access", officeID}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		QueryOpts:  make(url.Values),
-		Version:    esign.RoomsV2,
+		Path: strings.Join(
+			[]string{"form_groups", formGroupID, "revoke_office_access", officeID},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		QueryOpts: make(url.Values),
+		Version:   esign.RoomsV2,
 	}
 }
 

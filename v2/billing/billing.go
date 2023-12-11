@@ -14,18 +14,17 @@
 // * Retrieve invoices.
 // * Retrieve and update payment information.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/Billing
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2/model"
-//   )
-//   ...
-//   billingService := billing.New(esignCredential)
-package billing // import "github.com/jfcote87/esignv2/billing"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2/model"
+//	)
+//	...
+//	billingService := billing.New(esignCredential)
+package billing // import "github.com/ConsultingMD/esignv2/billing"
 
 import (
 	"context"
@@ -33,8 +32,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2/model"
 )
 
 // Service implements DocuSign Billing API operations
@@ -92,7 +91,9 @@ func (s *Service) PlansGetAccountPlan() *PlansGetAccountPlanOp {
 type PlansGetAccountPlanOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *PlansGetAccountPlanOp) Do(ctx context.Context) (*model.AccountBillingPlanResponse, error) {
+func (op *PlansGetAccountPlanOp) Do(
+	ctx context.Context,
+) (*model.AccountBillingPlanResponse, error) {
 	var res *model.AccountBillingPlanResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -176,7 +177,9 @@ func (op *PlansListOp) Do(ctx context.Context) (*model.BillingPlansResponse, err
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/billing/billingplans/purchaseenvelopes
 //
 // SDK Method Billing::purchaseEnvelopes
-func (s *Service) PlansPurchaseEnvelopes(purchasedEnvelopesInformation *model.PurchasedEnvelopesInformation) *PlansPurchaseEnvelopesOp {
+func (s *Service) PlansPurchaseEnvelopes(
+	purchasedEnvelopesInformation *model.PurchasedEnvelopesInformation,
+) *PlansPurchaseEnvelopesOp {
 	return &PlansPurchaseEnvelopesOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -325,7 +328,9 @@ func (op *InvoicesListPastDueOp) Do(ctx context.Context) (*model.BillingInvoices
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/billing/payments/create
 //
 // SDK Method Billing::makePayment
-func (s *Service) PaymentsCreate(billingPaymentRequest *model.BillingPaymentRequest) *PaymentsCreateOp {
+func (s *Service) PaymentsCreate(
+	billingPaymentRequest *model.BillingPaymentRequest,
+) *PaymentsCreateOp {
 	return &PaymentsCreateOp{
 		Credential: s.credential,
 		Method:     "POST",

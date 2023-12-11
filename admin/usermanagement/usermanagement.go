@@ -10,18 +10,17 @@
 //
 // Methods to manage users in an account.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/admin-api/reference/UserManagement
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/admin"
-//   )
-//   ...
-//   usermanagementService := usermanagement.New(esignCredential)
-package usermanagement // import "github.com/jfcote87/esignadmin/usermanagement"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/admin"
+//	)
+//	...
+//	usermanagementService := usermanagement.New(esignCredential)
+package usermanagement // import "github.com/ConsultingMD/esignadmin/usermanagement"
 
 import (
 	"context"
@@ -29,8 +28,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/admin"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/admin"
 )
 
 // Service implements DocuSign UserManagement API operations
@@ -52,10 +51,13 @@ func (s *Service) GetGroups(organizationID string) *GetGroupsOp {
 	return &GetGroupsOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "accounts", "{accountId}", "groups"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "accounts", "{accountId}", "groups"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -101,10 +103,13 @@ func (s *Service) GetPermissions(organizationID string) *GetPermissionsOp {
 	return &GetPermissionsOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "accounts", "{accountId}", "permissions"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "accounts", "{accountId}", "permissions"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -122,15 +127,21 @@ func (op *GetPermissionsOp) Do(ctx context.Context) (*admin.PermissionsResponse,
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/adddsgroup
 //
 // SDK Method UserManagement::addDSGroup
-func (s *Service) AddDSGroup(organizationID string, addRequest *admin.DSGroupAddRequest) *AddDSGroupOp {
+func (s *Service) AddDSGroup(
+	organizationID string,
+	addRequest *admin.DSGroupAddRequest,
+) *AddDSGroupOp {
 	return &AddDSGroupOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "dsgroups"}, "/"),
-		Payload:    addRequest,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "dsgroups"},
+			"/",
+		),
+		Payload:   addRequest,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -148,15 +159,32 @@ func (op *AddDSGroupOp) Do(ctx context.Context) (*admin.DSGroupResponse, error) 
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/adddsgroupusers
 //
 // SDK Method UserManagement::addDSGroupUsers
-func (s *Service) AddDSGroupUsers(organizationID string, dsGroupID string, dSGroupUsersAddRequest *admin.DSGroupUsersAddRequest) *AddDSGroupUsersOp {
+func (s *Service) AddDSGroupUsers(
+	organizationID string,
+	dsGroupID string,
+	dSGroupUsersAddRequest *admin.DSGroupUsersAddRequest,
+) *AddDSGroupUsersOp {
 	return &AddDSGroupUsersOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "dsgroups", dsGroupID, "users"}, "/"),
-		Payload:    dSGroupUsersAddRequest,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2.1",
+				"organizations",
+				organizationID,
+				"accounts",
+				"{accountId}",
+				"dsgroups",
+				dsGroupID,
+				"users",
+			},
+			"/",
+		),
+		Payload:   dSGroupUsersAddRequest,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -178,10 +206,22 @@ func (s *Service) DeleteDSGroup(organizationID string, dsGroupID string) *Delete
 	return &DeleteDSGroupOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "dsgroups", dsGroupID}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2.1",
+				"organizations",
+				organizationID,
+				"accounts",
+				"{accountId}",
+				"dsgroups",
+				dsGroupID,
+			},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -202,10 +242,22 @@ func (s *Service) GetDSGroup(organizationID string, dsGroupID string) *GetDSGrou
 	return &GetDSGroupOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "dsgroups", dsGroupID}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2.1",
+				"organizations",
+				organizationID,
+				"accounts",
+				"{accountId}",
+				"dsgroups",
+				dsGroupID,
+			},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -227,10 +279,23 @@ func (s *Service) GetDSGroupUsers(organizationID string, dsGroupID string) *GetD
 	return &GetDSGroupUsersOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "dsgroups", dsGroupID, "users"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2.1",
+				"organizations",
+				organizationID,
+				"accounts",
+				"{accountId}",
+				"dsgroups",
+				dsGroupID,
+				"users",
+			},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -268,10 +333,13 @@ func (s *Service) GetDSGroups(organizationID string) *GetDSGroupsOp {
 	return &GetDSGroupsOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "dsgroups"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "dsgroups"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -305,15 +373,32 @@ func (op *GetDSGroupsOp) PageSize(val int) *GetDSGroupsOp {
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/removedsgroupusers
 //
 // SDK Method UserManagement::removeDSGroupUsers
-func (s *Service) RemoveDSGroupUsers(organizationID string, dsGroupID string, dSGroupUsersRemoveRequest *admin.DSGroupUsersRemoveRequest) *RemoveDSGroupUsersOp {
+func (s *Service) RemoveDSGroupUsers(
+	organizationID string,
+	dsGroupID string,
+	dSGroupUsersRemoveRequest *admin.DSGroupUsersRemoveRequest,
+) *RemoveDSGroupUsersOp {
 	return &RemoveDSGroupUsersOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "dsgroups", dsGroupID, "users"}, "/"),
-		Payload:    dSGroupUsersRemoveRequest,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2.1",
+				"organizations",
+				organizationID,
+				"accounts",
+				"{accountId}",
+				"dsgroups",
+				dsGroupID,
+				"users",
+			},
+			"/",
+		),
+		Payload:   dSGroupUsersRemoveRequest,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -331,15 +416,33 @@ func (op *RemoveDSGroupUsersOp) Do(ctx context.Context) (*admin.RemoveDSGroupUse
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/adduserproductpermissionprofiles
 //
 // SDK Method UserManagement::addUserProductPermissionProfiles
-func (s *Service) AddUserProductPermissionProfiles(organizationID string, userID string, productPermissionProfilesRequest *admin.ProductPermissionProfilesRequest) *AddUserProductPermissionProfilesOp {
+func (s *Service) AddUserProductPermissionProfiles(
+	organizationID string,
+	userID string,
+	productPermissionProfilesRequest *admin.ProductPermissionProfilesRequest,
+) *AddUserProductPermissionProfilesOp {
 	return &AddUserProductPermissionProfilesOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "products", "users", userID, "permission_profiles"}, "/"),
-		Payload:    productPermissionProfilesRequest,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2.1",
+				"organizations",
+				organizationID,
+				"accounts",
+				"{accountId}",
+				"products",
+				"users",
+				userID,
+				"permission_profiles",
+			},
+			"/",
+		),
+		Payload:   productPermissionProfilesRequest,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -347,7 +450,9 @@ func (s *Service) AddUserProductPermissionProfiles(organizationID string, userID
 type AddUserProductPermissionProfilesOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *AddUserProductPermissionProfilesOp) Do(ctx context.Context) (*admin.UserProductPermissionProfilesResponse, error) {
+func (op *AddUserProductPermissionProfilesOp) Do(
+	ctx context.Context,
+) (*admin.UserProductPermissionProfilesResponse, error) {
 	var res *admin.UserProductPermissionProfilesResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -357,14 +462,28 @@ func (op *AddUserProductPermissionProfilesOp) Do(ctx context.Context) (*admin.Us
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getproductpermissionprofiles
 //
 // SDK Method UserManagement::getProductPermissionProfiles
-func (s *Service) GetProductPermissionProfiles(organizationID string) *GetProductPermissionProfilesOp {
+func (s *Service) GetProductPermissionProfiles(
+	organizationID string,
+) *GetProductPermissionProfilesOp {
 	return &GetProductPermissionProfilesOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "products", "permission_profiles"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2.1",
+				"organizations",
+				organizationID,
+				"accounts",
+				"{accountId}",
+				"products",
+				"permission_profiles",
+			},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -372,7 +491,9 @@ func (s *Service) GetProductPermissionProfiles(organizationID string) *GetProduc
 type GetProductPermissionProfilesOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetProductPermissionProfilesOp) Do(ctx context.Context) (*admin.ProductPermissionProfilesResponse, error) {
+func (op *GetProductPermissionProfilesOp) Do(
+	ctx context.Context,
+) (*admin.ProductPermissionProfilesResponse, error) {
 	var res *admin.ProductPermissionProfilesResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -382,14 +503,31 @@ func (op *GetProductPermissionProfilesOp) Do(ctx context.Context) (*admin.Produc
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getuserproductpermissionprofiles
 //
 // SDK Method UserManagement::getUserProductPermissionProfiles
-func (s *Service) GetUserProductPermissionProfiles(organizationID string, userID string) *GetUserProductPermissionProfilesOp {
+func (s *Service) GetUserProductPermissionProfiles(
+	organizationID string,
+	userID string,
+) *GetUserProductPermissionProfilesOp {
 	return &GetUserProductPermissionProfilesOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "products", "users", userID, "permission_profiles"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2.1",
+				"organizations",
+				organizationID,
+				"accounts",
+				"{accountId}",
+				"products",
+				"users",
+				userID,
+				"permission_profiles",
+			},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -397,7 +535,9 @@ func (s *Service) GetUserProductPermissionProfiles(organizationID string, userID
 type GetUserProductPermissionProfilesOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetUserProductPermissionProfilesOp) Do(ctx context.Context) (*admin.ProductPermissionProfilesResponse, error) {
+func (op *GetUserProductPermissionProfilesOp) Do(
+	ctx context.Context,
+) (*admin.ProductPermissionProfilesResponse, error) {
 	var res *admin.ProductPermissionProfilesResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -407,15 +547,21 @@ func (op *GetUserProductPermissionProfilesOp) Do(ctx context.Context) (*admin.Pr
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/addorupdateuser
 //
 // SDK Method UserManagement::addOrUpdateUser
-func (s *Service) AddOrUpdateUser(organizationID string, request *admin.NewMultiProductUserAddRequest) *AddOrUpdateUserOp {
+func (s *Service) AddOrUpdateUser(
+	organizationID string,
+	request *admin.NewMultiProductUserAddRequest,
+) *AddOrUpdateUserOp {
 	return &AddOrUpdateUserOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "users"}, "/"),
-		Payload:    request,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2.1", "organizations", organizationID, "accounts", "{accountId}", "users"},
+			"/",
+		),
+		Payload:   request,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -544,15 +690,21 @@ func (op *GetUsersOp) LastModifiedSince(val string) *GetUsersOp {
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/users/updateemailaddress
 //
 // SDK Method UserManagement::updateEmailAddress
-func (s *Service) UpdateEmailAddress(organizationID string, request *admin.UpdateUsersEmailRequest) *UpdateEmailAddressOp {
+func (s *Service) UpdateEmailAddress(
+	organizationID string,
+	request *admin.UpdateUsersEmailRequest,
+) *UpdateEmailAddressOp {
 	return &UpdateEmailAddressOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "users", "email_addresses"}, "/"),
-		Payload:    request,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "users", "email_addresses"},
+			"/",
+		),
+		Payload:   request,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -570,15 +722,32 @@ func (op *UpdateEmailAddressOp) Do(ctx context.Context) (*admin.UsersUpdateRespo
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/activatemembership
 //
 // SDK Method UserManagement::activateMembership
-func (s *Service) ActivateMembership(organizationID string, userID string, membershipID string, request *admin.ForceActivateMembershipRequest) *ActivateMembershipOp {
+func (s *Service) ActivateMembership(
+	organizationID string,
+	userID string,
+	membershipID string,
+	request *admin.ForceActivateMembershipRequest,
+) *ActivateMembershipOp {
 	return &ActivateMembershipOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "users", userID, "memberships", membershipID}, "/"),
-		Payload:    request,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2",
+				"organizations",
+				organizationID,
+				"users",
+				userID,
+				"memberships",
+				membershipID,
+			},
+			"/",
+		),
+		Payload:   request,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -596,15 +765,21 @@ func (op *ActivateMembershipOp) Do(ctx context.Context) (*admin.UpdateResponse, 
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/addusers
 //
 // SDK Method UserManagement::addUsers
-func (s *Service) AddUsers(organizationID string, request *admin.NewAccountUserRequest) *AddUsersOp {
+func (s *Service) AddUsers(
+	organizationID string,
+	request *admin.NewAccountUserRequest,
+) *AddUsersOp {
 	return &AddUsersOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "accounts", "{accountId}", "users"}, "/"),
-		Payload:    request,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "accounts", "{accountId}", "users"},
+			"/",
+		),
+		Payload:   request,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -622,15 +797,22 @@ func (op *AddUsersOp) Do(ctx context.Context) (*admin.NewUserResponse, error) {
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/closememberships
 //
 // SDK Method UserManagement::closeMemberships
-func (s *Service) CloseMemberships(organizationID string, userID string, request *admin.DeleteMembershipsRequest) *CloseMembershipsOp {
+func (s *Service) CloseMemberships(
+	organizationID string,
+	userID string,
+	request *admin.DeleteMembershipsRequest,
+) *CloseMembershipsOp {
 	return &CloseMembershipsOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "users", userID, "accounts"}, "/"),
-		Payload:    request,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "users", userID, "accounts"},
+			"/",
+		),
+		Payload:   request,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -674,15 +856,22 @@ func (op *CreateUserOp) Do(ctx context.Context) (*admin.NewUserResponse, error) 
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/deleteidentities
 //
 // SDK Method UserManagement::deleteIdentities
-func (s *Service) DeleteIdentities(organizationID string, userID string, requestModel *admin.DeleteUserIdentityRequest) *DeleteIdentitiesOp {
+func (s *Service) DeleteIdentities(
+	organizationID string,
+	userID string,
+	requestModel *admin.DeleteUserIdentityRequest,
+) *DeleteIdentitiesOp {
 	return &DeleteIdentitiesOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "users", userID, "identities"}, "/"),
-		Payload:    requestModel,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "users", userID, "identities"},
+			"/",
+		),
+		Payload:   requestModel,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -697,7 +886,6 @@ func (op *DeleteIdentitiesOp) Do(ctx context.Context) (*admin.DeleteResponse, er
 
 // GetUserProfiles returns information about recently modified users.
 //
-//
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getuserprofiles
 //
 // SDK Method UserManagement::getUserProfiles
@@ -705,10 +893,13 @@ func (s *Service) GetUserProfiles(organizationID string) *GetUserProfilesOp {
 	return &GetUserProfilesOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "users", "profile"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "users", "profile"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -734,15 +925,21 @@ func (op *GetUserProfilesOp) Email(val string) *GetUserProfilesOp {
 // https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/updateuser
 //
 // SDK Method UserManagement::updateUser
-func (s *Service) UpdateUser(organizationID string, request *admin.UpdateUsersRequest) *UpdateUserOp {
+func (s *Service) UpdateUser(
+	organizationID string,
+	request *admin.UpdateUsersRequest,
+) *UpdateUserOp {
 	return &UpdateUserOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "users", "profiles"}, "/"),
-		Payload:    request,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "users", "profiles"},
+			"/",
+		),
+		Payload:   request,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 

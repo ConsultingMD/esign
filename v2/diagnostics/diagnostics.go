@@ -14,26 +14,25 @@
 // * Requesting and managing the API call-logging feature. (Perfect for debugging your app!)
 // * Getting information on the API's resources and versions.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/Diagnostics
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2/model"
-//   )
-//   ...
-//   diagnosticsService := diagnostics.New(esignCredential)
-package diagnostics // import "github.com/jfcote87/esignv2/diagnostics"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2/model"
+//	)
+//	...
+//	diagnosticsService := diagnostics.New(esignCredential)
+package diagnostics // import "github.com/ConsultingMD/esignv2/diagnostics"
 
 import (
 	"context"
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2/model"
 )
 
 // Service implements DocuSign Diagnostics API operations
@@ -113,7 +112,9 @@ func (s *Service) RequestLogsGetSettings() *RequestLogsGetSettingsOp {
 type RequestLogsGetSettingsOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *RequestLogsGetSettingsOp) Do(ctx context.Context) (*model.DiagnosticsSettingsInformation, error) {
+func (op *RequestLogsGetSettingsOp) Do(
+	ctx context.Context,
+) (*model.DiagnosticsSettingsInformation, error) {
 	var res *model.DiagnosticsSettingsInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -156,7 +157,9 @@ func (op *RequestLogsListOp) Encoding(val string) *RequestLogsListOp {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/diagnostics/requestlogs/updatesettings
 //
 // SDK Method Diagnostics::updateRequestLogSettings
-func (s *Service) RequestLogsUpdateSettings(diagnosticsSettingsInformation *model.DiagnosticsSettingsInformation) *RequestLogsUpdateSettingsOp {
+func (s *Service) RequestLogsUpdateSettings(
+	diagnosticsSettingsInformation *model.DiagnosticsSettingsInformation,
+) *RequestLogsUpdateSettingsOp {
 	return &RequestLogsUpdateSettingsOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -172,7 +175,9 @@ func (s *Service) RequestLogsUpdateSettings(diagnosticsSettingsInformation *mode
 type RequestLogsUpdateSettingsOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *RequestLogsUpdateSettingsOp) Do(ctx context.Context) (*model.DiagnosticsSettingsInformation, error) {
+func (op *RequestLogsUpdateSettingsOp) Do(
+	ctx context.Context,
+) (*model.DiagnosticsSettingsInformation, error) {
 	var res *model.DiagnosticsSettingsInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }

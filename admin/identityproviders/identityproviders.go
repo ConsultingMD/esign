@@ -10,26 +10,25 @@
 //
 // Methods to get a list of identity providers.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/admin-api/reference/IdentityProviders
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/admin"
-//   )
-//   ...
-//   identityprovidersService := identityproviders.New(esignCredential)
-package identityproviders // import "github.com/jfcote87/esignadmin/identityproviders"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/admin"
+//	)
+//	...
+//	identityprovidersService := identityproviders.New(esignCredential)
+package identityproviders // import "github.com/ConsultingMD/esignadmin/identityproviders"
 
 import (
 	"context"
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/admin"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/admin"
 )
 
 // Service implements DocuSign IdentityProviders API operations
@@ -51,10 +50,13 @@ func (s *Service) GetIdentityProviders(organizationID string) *GetIdentityProvid
 	return &GetIdentityProvidersOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "identity_providers"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "identity_providers"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -62,7 +64,9 @@ func (s *Service) GetIdentityProviders(organizationID string) *GetIdentityProvid
 type GetIdentityProvidersOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetIdentityProvidersOp) Do(ctx context.Context) (*admin.IdentityProvidersResponse, error) {
+func (op *GetIdentityProvidersOp) Do(
+	ctx context.Context,
+) (*admin.IdentityProvidersResponse, error) {
 	var res *admin.IdentityProvidersResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }

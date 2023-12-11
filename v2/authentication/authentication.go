@@ -14,26 +14,25 @@
 // * Managing linked social accounts.
 // * Getting and revoking OAuth tokens.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/Authentication
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2/model"
-//   )
-//   ...
-//   authenticationService := authentication.New(esignCredential)
-package authentication // import "github.com/jfcote87/esignv2/authentication"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2/model"
+//	)
+//	...
+//	authenticationService := authentication.New(esignCredential)
+package authentication // import "github.com/ConsultingMD/esignv2/authentication"
 
 import (
 	"context"
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2/model"
 )
 
 // Service implements DocuSign Authentication API operations
@@ -113,7 +112,10 @@ func (op *LoginOp) LoginSettings(val string) *LoginOp {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/authentication/authentication/updatepassword
 //
 // SDK Method Authentication::updatePassword
-func (s *Service) UpdatePassword(loginPart string, userPasswordInformation *model.UserPasswordInformation) *UpdatePasswordOp {
+func (s *Service) UpdatePassword(
+	loginPart string,
+	userPasswordInformation *model.UserPasswordInformation,
+) *UpdatePasswordOp {
 	return &UpdatePasswordOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -137,7 +139,10 @@ func (op *UpdatePasswordOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/authentication/usersocialaccountlogins/delete
 //
 // SDK Method Authentication::deleteSocialLogin
-func (s *Service) UserSocialAccountLoginsDelete(userID string, socialAccountInformation *model.SocialAccountInformation) *UserSocialAccountLoginsDeleteOp {
+func (s *Service) UserSocialAccountLoginsDelete(
+	userID string,
+	socialAccountInformation *model.SocialAccountInformation,
+) *UserSocialAccountLoginsDeleteOp {
 	return &UserSocialAccountLoginsDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -176,7 +181,9 @@ func (s *Service) UserSocialAccountLoginsList(userID string) *UserSocialAccountL
 type UserSocialAccountLoginsListOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *UserSocialAccountLoginsListOp) Do(ctx context.Context) (*model.UserSocialIDResult, error) {
+func (op *UserSocialAccountLoginsListOp) Do(
+	ctx context.Context,
+) (*model.UserSocialIDResult, error) {
 	var res *model.UserSocialIDResult
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -186,7 +193,10 @@ func (op *UserSocialAccountLoginsListOp) Do(ctx context.Context) (*model.UserSoc
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/authentication/usersocialaccountlogins/update
 //
 // SDK Method Authentication::updateSocialLogin
-func (s *Service) UserSocialAccountLoginsUpdate(userID string, socialAccountInformation *model.SocialAccountInformation) *UserSocialAccountLoginsUpdateOp {
+func (s *Service) UserSocialAccountLoginsUpdate(
+	userID string,
+	socialAccountInformation *model.SocialAccountInformation,
+) *UserSocialAccountLoginsUpdateOp {
 	return &UserSocialAccountLoginsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",

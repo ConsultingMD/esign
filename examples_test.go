@@ -13,19 +13,19 @@ import (
 	"log"
 	"os"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2.1/envelopes"
-	"github.com/jfcote87/esign/v2.1/folders"
-	"github.com/jfcote87/esign/v2.1/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2.1/envelopes"
+	"github.com/ConsultingMD/esign/v2.1/folders"
+	"github.com/ConsultingMD/esign/v2.1/model"
 )
 
 func ExampleOAuth2Config() {
 	ctx := context.TODO()
 	cfg := &esign.OAuth2Config{
-		IntegratorKey:    "51d1a791-489c-4622-b743-19e0bd6f359e",
-		Secret:           "f625e6f7-48e3-4226-adc5-66e434b21355",
+		IntegratorKey:    "foo",
+		Secret:           "foo",
 		RedirURL:         "https://yourdomain.com/auth",
-		AccountID:        "c23357a7-4f00-47f5-8802-94d2b1fb9a29",
+		AccountID:        "foo",
 		ExtendedLifetime: true,
 		IsDemo:           true,
 	}
@@ -57,15 +57,11 @@ func ExampleOAuth2Config() {
 func ExampleJWTConfig() {
 	ctx := context.TODO()
 	cfg := &esign.JWTConfig{
-		IntegratorKey: "51d1a791-489c-4622-b743-19e0bd6f359e",
-		KeyPairID:     "1f57a66f-cc71-45cd-895e-9aaf39d5ccc4",
-		PrivateKey: `-----BEGIN RSA PRIVATE KEY-----
-		MIICWwIBAAKBgGeDMVfH1+RBI/JMPfrIJDmBWxJ/wGQRjPUm6Cu2aHXMqtOjK3+u
-		.........
-		ZS1NWRHL8r7hdJL8lQYZPfNqyYcW7C1RW3vWbCRGMA==
-		-----END RSFolderA PRIVATE KEY-----`,
-		AccountID: "c23357a7-4f00-47f5-8802-94d2b1fb9a29",
-		IsDemo:    true,
+		IntegratorKey: "foo",
+		KeyPairID:     "foo",
+		PrivateKey:    `test`,
+		AccountID:     "foo",
+		IsDemo:        true,
 	}
 
 	apiUserName := "78e5a047-f767-41f8-8dbd-10e3eed65c55"
@@ -92,13 +88,9 @@ func ExampleJWTConfig_UserConsentURL() {
 	cfg := &esign.JWTConfig{
 		IntegratorKey: "51d1a791-489c-4622-b743-19e0bd6f359e",
 		KeyPairID:     "1f57a66f-cc71-45cd-895e-9aaf39d5ccc4",
-		PrivateKey: `-----BEGIN RSA PRIVATE KEY-----
-		MIICWwIBAAKBgGeDMVfH1+RBI/JMPfrIJDmBWxJ/wGQRjPUm6Cu2aHXMqtOjK3+u
-		.........
-		ZS1NWRHL8r7hdJL8lQYZPfNqyYcW7C1RW3vWbCRGMA==
-		-----END RSA PRIVATE KEY-----`,
-		AccountID: "c23357a7-4f00-47f5-8802-94d2b1fb9a29",
-		IsDemo:    true,
+		PrivateKey:    `test`,
+		AccountID:     "c23357a7-4f00-47f5-8802-94d2b1fb9a29",
+		IsDemo:        true,
 	}
 
 	// the redirURL must match one entered in DocuSign's Edit API
@@ -121,17 +113,13 @@ func ExampleJWTConfig_UserConsentURL() {
 
 }
 
-func getCredential(ctx context.Context, apiUser string) (*esign.OAuth2Credential, error) {
+func getCredential(apiUser string) (*esign.OAuth2Credential, error) {
 	cfg := &esign.JWTConfig{
 		IntegratorKey: "51d1a791-489c-4622-b743-19e0bd6f359e",
 		KeyPairID:     "1f57a66f-cc71-45cd-895e-9aaf39d5ccc4",
-		PrivateKey: `-----BEGIN RSA PRIVATE KEY-----
-		MIICWwIBAAKBgGeDMVfH1+RBI/JMPfrIJDmBWxJ/wGQRjPUm6Cu2aHXMqtOjK3+u
-		.........
-		ZS1NWRHL8r7hdJL8lQYZPfNqyYcW7C1RW3vWbCRGMA==
-		-----END RSA PRIVATE KEY-----`,
-		AccountID: "c23357a7-4f00-47f5-8802-94d2b1fb9a29",
-		IsDemo:    true,
+		PrivateKey:    `test`,
+		AccountID:     "c23357a7-4f00-47f5-8802-94d2b1fb9a29",
+		IsDemo:        true,
 	}
 
 	return cfg.Credential(apiUser, nil, nil)
@@ -142,7 +130,7 @@ func ExampleTokenCredential() {
 	// retrieve token frm DocuSign OAuthGenerator
 	// https://developers.docusign.com/oauth-token-generator
 	// or generate or
-	var accessToken = `eyJ0eXAiOiJNVCIsImF...`
+	var accessToken = `foo`
 	credential := esign.TokenCredential(accessToken, true)
 	fl, err := folders.New(credential).List().Do(context.Background())
 	if err != nil {
@@ -156,7 +144,7 @@ func ExampleTokenCredential() {
 func Example_create_envelope() {
 	ctx := context.TODO()
 	apiUserID := "78e5a047-f767-41f8-8dbd-10e3eed65c55"
-	cred, err := getCredential(ctx, apiUserID)
+	cred, err := getCredential(apiUserID)
 	if err != nil {
 		log.Fatalf("credential error: %v", err)
 	}
@@ -228,7 +216,7 @@ func Example_create_envelope() {
 func Example_create_envelope_fileupload() {
 	ctx := context.TODO()
 	apiUserID := "78e5a047-f767-41f8-8dbd-10e3eed65c55"
-	cred, err := getCredential(ctx, apiUserID)
+	cred, err := getCredential(apiUserID)
 	if err != nil {
 		log.Fatalf("credential error: %v", err)
 	}
@@ -342,7 +330,7 @@ func Example_document_download() {
 
 	ctx := context.TODO()
 	envID := "78e5a047-f767-41f8-8dbd-10e3eed65c55"
-	cred, err := getCredential(ctx, envID)
+	cred, err := getCredential(envID)
 	if err != nil {
 		log.Fatalf("credential error: %v", err)
 	}

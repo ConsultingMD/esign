@@ -12,14 +12,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/ratelimit"
-	"github.com/jfcote87/esign/v2.1/envelopes"
-	"github.com/jfcote87/esign/v2.1/folders"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/ratelimit"
+	"github.com/ConsultingMD/esign/v2.1/envelopes"
+	"github.com/ConsultingMD/esign/v2.1/folders"
 )
 
 func ExampleCredential_context() {
-	existingCredential, _ := getCredential(context.Background(), "me")
+	existingCredential, _ := getCredential("me")
 	var rpt *ratelimit.Report
 	ctx := context.WithValue(context.Background(), ratelimit.ReportPtrContextKey, &rpt)
 	cred := &ratelimit.Credential{Credential: existingCredential}
@@ -30,13 +30,18 @@ func ExampleCredential_context() {
 	}
 	log.Printf("total folders: %s", fl.TotalSetSize)
 
-	log.Printf("Limit: %d  Remaining: %d   Refresh Time: %s", rpt.RateLimit, rpt.RateRemaining, rpt.ResetAt().Format("2006-01-02T15:04:05"))
+	log.Printf(
+		"Limit: %d  Remaining: %d   Refresh Time: %s",
+		rpt.RateLimit,
+		rpt.RateRemaining,
+		rpt.ResetAt().Format("2006-01-02T15:04:05"),
+	)
 }
 
 func ExampleCredential_handler() {
 	ctx := context.TODO()
 	apiUserID := "78e5a047-f767-41f8-8dbd-10e3eed65c55"
-	cred, err := getCredential(ctx, apiUserID)
+	cred, err := getCredential(apiUserID)
 	if err != nil {
 		log.Fatalf("credential error: %v", err)
 	}
@@ -58,7 +63,7 @@ func ExampleCredential_handler() {
 	}
 	if rlr := globalRateLimitHandler.Report(); rlr != nil {
 		log.Printf("Rate Limit: %d", rlr.RateLimit)
-		log.Printf("Rate Limit Remaing: %d", rlr.RateRemaining)
+		log.Printf("Rate Limit Remaining: %d", rlr.RateRemaining)
 		log.Printf("Reset Time: %s", rlr.ResetAt().Format("15:04:05"))
 		log.Printf("Rate Limit: %d", rlr.BurstLimit)
 		log.Printf("Rate Limit: %d", rlr.BurstRemaining)
@@ -106,17 +111,13 @@ func (rlc *RLHandler) Handle(ctx context.Context, res *http.Response) error {
 	return nil
 }
 
-func getCredential(ctx context.Context, apiUser string) (*esign.OAuth2Credential, error) {
+func getCredential(apiUser string) (*esign.OAuth2Credential, error) {
 	cfg := &esign.JWTConfig{
 		IntegratorKey: "51d1a791-489c-4622-b743-19e0bd6f359e",
 		KeyPairID:     "1f57a66f-cc71-45cd-895e-9aaf39d5ccc4",
-		PrivateKey: `-----BEGIN RSA PRIVATE KEY-----
-		MIICWwIBAAKBgGeDMVfH1+RBI/JMPfrIJDmBWxJ/wGQRjPUm6Cu2aHXMqtOjK3+u
-		.........
-		ZS1NWRHL8r7hdJL8lQYZPfNqyYcW7C1RW3vWbCRGMA==
-		-----END RSA PRIVATE KEY-----`,
-		AccountID: "c23357a7-4f00-47f5-8802-94d2b1fb9a29",
-		IsDemo:    true,
+		PrivateKey:    `test`,
+		AccountID:     "c23357a7-4f00-47f5-8802-94d2b1fb9a29",
+		IsDemo:        true,
 	}
 
 	return cfg.Credential(apiUser, nil, nil)

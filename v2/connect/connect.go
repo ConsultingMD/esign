@@ -27,18 +27,17 @@
 // * Retrieving and managing the event log for your Connect configurations.
 // * Requesting that an event be re-published to the listener.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/Connect
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2/model"
-//   )
-//   ...
-//   connectService := connect.New(esignCredential)
-package connect // import "github.com/jfcote87/esignv2/connect"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2/model"
+//	)
+//	...
+//	connectService := connect.New(esignCredential)
+package connect // import "github.com/ConsultingMD/esignv2/connect"
 
 import (
 	"context"
@@ -48,8 +47,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2/model"
 )
 
 // Service implements DocuSign Connect API operations
@@ -67,7 +66,9 @@ func New(cred esign.Credential) *Service {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/connect/connectconfigurations/create
 //
 // SDK Method Connect::createConfiguration
-func (s *Service) ConfigurationsCreate(connectCustomConfiguration *model.ConnectCustomConfiguration) *ConfigurationsCreateOp {
+func (s *Service) ConfigurationsCreate(
+	connectCustomConfiguration *model.ConnectCustomConfiguration,
+) *ConfigurationsCreateOp {
 	return &ConfigurationsCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -82,7 +83,9 @@ func (s *Service) ConfigurationsCreate(connectCustomConfiguration *model.Connect
 type ConfigurationsCreateOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ConfigurationsCreateOp) Do(ctx context.Context) (*model.ConnectCustomConfiguration, error) {
+func (op *ConfigurationsCreateOp) Do(
+	ctx context.Context,
+) (*model.ConnectCustomConfiguration, error) {
 	var res *model.ConnectCustomConfiguration
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -180,7 +183,9 @@ func (s *Service) ConfigurationsListUsers(connectID string) *ConfigurationsListU
 type ConfigurationsListUsersOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ConfigurationsListUsersOp) Do(ctx context.Context) (*model.IntegratedUserInfoList, error) {
+func (op *ConfigurationsListUsersOp) Do(
+	ctx context.Context,
+) (*model.IntegratedUserInfoList, error) {
 	var res *model.IntegratedUserInfoList
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -246,7 +251,9 @@ func (op *ConfigurationsListUsersOp) UserNameSubstring(val string) *Configuratio
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/connect/connectconfigurations/update
 //
 // SDK Method Connect::updateConfiguration
-func (s *Service) ConfigurationsUpdate(connectCustomConfiguration *model.ConnectCustomConfiguration) *ConfigurationsUpdateOp {
+func (s *Service) ConfigurationsUpdate(
+	connectCustomConfiguration *model.ConnectCustomConfiguration,
+) *ConfigurationsUpdateOp {
 	return &ConfigurationsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -262,7 +269,9 @@ func (s *Service) ConfigurationsUpdate(connectCustomConfiguration *model.Connect
 type ConfigurationsUpdateOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ConfigurationsUpdateOp) Do(ctx context.Context) (*model.ConnectCustomConfiguration, error) {
+func (op *ConfigurationsUpdateOp) Do(
+	ctx context.Context,
+) (*model.ConnectCustomConfiguration, error) {
 	var res *model.ConnectCustomConfiguration
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -457,7 +466,11 @@ func (op *EventsListFailuresOp) ToDate(val time.Time) *EventsListFailuresOp {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/connect/connectevents/retryforenvelope
 //
 // SDK Method Connect::retryEventForEnvelope
-func (s *Service) EventsRetryForEnvelope(envelopeID string, media io.Reader, mimeType string) *EventsRetryForEnvelopeOp {
+func (s *Service) EventsRetryForEnvelope(
+	envelopeID string,
+	media io.Reader,
+	mimeType string,
+) *EventsRetryForEnvelopeOp {
 	return &EventsRetryForEnvelopeOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -483,7 +496,9 @@ func (op *EventsRetryForEnvelopeOp) Do(ctx context.Context) (*model.ConnectFailu
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/connect/connectevents/retryforenvelopes
 //
 // SDK Method Connect::retryEventForEnvelopes
-func (s *Service) EventsRetryForEnvelopes(connectFailureFilter *model.ConnectFailureFilter) *EventsRetryForEnvelopesOp {
+func (s *Service) EventsRetryForEnvelopes(
+	connectFailureFilter *model.ConnectFailureFilter,
+) *EventsRetryForEnvelopesOp {
 	return &EventsRetryForEnvelopesOp{
 		Credential: s.credential,
 		Method:     "PUT",

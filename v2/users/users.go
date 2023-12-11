@@ -17,18 +17,17 @@
 // * Add delete users.
 // * Add and delete the intials and signature images for a user.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/Users
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2/model"
-//   )
-//   ...
-//   usersService := users.New(esignCredential)
-package users // import "github.com/jfcote87/esignv2/users"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2/model"
+//	)
+//	...
+//	usersService := users.New(esignCredential)
+package users // import "github.com/ConsultingMD/esignv2/users"
 
 import (
 	"context"
@@ -37,8 +36,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2/model"
 )
 
 // Service implements DocuSign Users API operations
@@ -106,7 +105,9 @@ func (op *ContactsDeleteOp) Do(ctx context.Context) (*model.ContactUpdateRespons
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/users/contacts/deletelist
 //
 // SDK Method Users::deleteContacts
-func (s *Service) ContactsDeleteList(contactModRequest *model.ContactModRequest) *ContactsDeleteListOp {
+func (s *Service) ContactsDeleteList(
+	contactModRequest *model.ContactModRequest,
+) *ContactsDeleteListOp {
 	return &ContactsDeleteListOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -183,7 +184,10 @@ func (op *ContactsUpdateOp) Do(ctx context.Context) (*model.ContactUpdateRespons
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/users/usercustomsettings/delete
 //
 // SDK Method Users::deleteCustomSettings
-func (s *Service) CustomSettingsDelete(userID string, customSettingsInformation *model.CustomSettingsInformation) *CustomSettingsDeleteOp {
+func (s *Service) CustomSettingsDelete(
+	userID string,
+	customSettingsInformation *model.CustomSettingsInformation,
+) *CustomSettingsDeleteOp {
 	return &CustomSettingsDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -199,7 +203,9 @@ func (s *Service) CustomSettingsDelete(userID string, customSettingsInformation 
 type CustomSettingsDeleteOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *CustomSettingsDeleteOp) Do(ctx context.Context) (*model.CustomSettingsInformation, error) {
+func (op *CustomSettingsDeleteOp) Do(
+	ctx context.Context,
+) (*model.CustomSettingsInformation, error) {
 	var res *model.CustomSettingsInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -234,7 +240,10 @@ func (op *CustomSettingsListOp) Do(ctx context.Context) (*model.CustomSettingsIn
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/users/usercustomsettings/update
 //
 // SDK Method Users::updateCustomSettings
-func (s *Service) CustomSettingsUpdate(userID string, customSettingsInformation *model.CustomSettingsInformation) *CustomSettingsUpdateOp {
+func (s *Service) CustomSettingsUpdate(
+	userID string,
+	customSettingsInformation *model.CustomSettingsInformation,
+) *CustomSettingsUpdateOp {
 	return &CustomSettingsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -250,7 +259,9 @@ func (s *Service) CustomSettingsUpdate(userID string, customSettingsInformation 
 type CustomSettingsUpdateOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *CustomSettingsUpdateOp) Do(ctx context.Context) (*model.CustomSettingsInformation, error) {
+func (op *CustomSettingsUpdateOp) Do(
+	ctx context.Context,
+) (*model.CustomSettingsInformation, error) {
 	var res *model.CustomSettingsInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -310,7 +321,11 @@ func (op *ProfilesUpdateOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/users/usersignatures/create
 //
 // SDK Method Users::createSignatures
-func (s *Service) SignaturesCreate(userID string, userSignaturesInformation *model.UserSignaturesInformation, uploads ...*esign.UploadFile) *SignaturesCreateOp {
+func (s *Service) SignaturesCreate(
+	userID string,
+	userSignaturesInformation *model.UserSignaturesInformation,
+	uploads ...*esign.UploadFile,
+) *SignaturesCreateOp {
 	return &SignaturesCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -359,7 +374,11 @@ func (op *SignaturesDeleteOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/users/usersignatures/deleteimage
 //
 // SDK Method Users::deleteSignatureImage
-func (s *Service) SignaturesDeleteImage(imageType string, signatureID string, userID string) *SignaturesDeleteImageOp {
+func (s *Service) SignaturesDeleteImage(
+	imageType string,
+	signatureID string,
+	userID string,
+) *SignaturesDeleteImageOp {
 	return &SignaturesDeleteImageOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -409,7 +428,11 @@ func (op *SignaturesGetOp) Do(ctx context.Context) (*model.UserSignature, error)
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/users/usersignatures/getimage
 //
 // SDK Method Users::getSignatureImage
-func (s *Service) SignaturesGetImage(imageType string, signatureID string, userID string) *SignaturesGetImageOp {
+func (s *Service) SignaturesGetImage(
+	imageType string,
+	signatureID string,
+	userID string,
+) *SignaturesGetImageOp {
 	return &SignaturesGetImageOp{
 		Credential: s.credential,
 		Method:     "GET",
@@ -474,7 +497,11 @@ func (op *SignaturesListOp) StampType(val string) *SignaturesListOp {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/users/usersignatures/update
 //
 // SDK Method Users::updateSignature
-func (s *Service) SignaturesUpdate(signatureID string, userID string, userSignatureDefinition *model.UserSignatureDefinition) *SignaturesUpdateOp {
+func (s *Service) SignaturesUpdate(
+	signatureID string,
+	userID string,
+	userSignatureDefinition *model.UserSignatureDefinition,
+) *SignaturesUpdateOp {
 	return &SignaturesUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -509,7 +536,13 @@ func (op *SignaturesUpdateOp) CloseExistingSignature() *SignaturesUpdateOp {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/users/usersignatures/updateimage
 //
 // SDK Method Users::updateSignatureImage
-func (s *Service) SignaturesUpdateImage(imageType string, signatureID string, userID string, media io.Reader, mimeType string) *SignaturesUpdateImageOp {
+func (s *Service) SignaturesUpdateImage(
+	imageType string,
+	signatureID string,
+	userID string,
+	media io.Reader,
+	mimeType string,
+) *SignaturesUpdateImageOp {
 	return &SignaturesUpdateImageOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -535,7 +568,10 @@ func (op *SignaturesUpdateImageOp) Do(ctx context.Context) (*model.UserSignature
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/users/usersignatures/updatelist
 //
 // SDK Method Users::updateSignatures
-func (s *Service) SignaturesUpdateList(userID string, userSignaturesInformation *model.UserSignaturesInformation) *SignaturesUpdateListOp {
+func (s *Service) SignaturesUpdateList(
+	userID string,
+	userSignaturesInformation *model.UserSignaturesInformation,
+) *SignaturesUpdateListOp {
 	return &SignaturesUpdateListOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -551,7 +587,9 @@ func (s *Service) SignaturesUpdateList(userID string, userSignaturesInformation 
 type SignaturesUpdateListOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *SignaturesUpdateListOp) Do(ctx context.Context) (*model.UserSignaturesInformation, error) {
+func (op *SignaturesUpdateListOp) Do(
+	ctx context.Context,
+) (*model.UserSignaturesInformation, error) {
 	var res *model.UserSignaturesInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -905,7 +943,11 @@ func (op *UpdateListOp) Do(ctx context.Context) (*model.UserInformationList, err
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/users/users/updateprofileimage
 //
 // SDK Method Users::updateProfileImage
-func (s *Service) UpdateProfileImage(userID string, media io.Reader, mimeType string) *UpdateProfileImageOp {
+func (s *Service) UpdateProfileImage(
+	userID string,
+	media io.Reader,
+	mimeType string,
+) *UpdateProfileImageOp {
 	return &UpdateProfileImageOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -930,7 +972,10 @@ func (op *UpdateProfileImageOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/users/users/updatesettings
 //
 // SDK Method Users::updateSettings
-func (s *Service) UpdateSettings(userID string, userSettingsInformation *model.UserSettingsInformation) *UpdateSettingsOp {
+func (s *Service) UpdateSettings(
+	userID string,
+	userSettingsInformation *model.UserSettingsInformation,
+) *UpdateSettingsOp {
 	return &UpdateSettingsOp{
 		Credential: s.credential,
 		Method:     "PUT",

@@ -8,7 +8,7 @@ package swagger
 import (
 	"strings"
 
-	"github.com/jfcote87/esign"
+	"github.com/ConsultingMD/esign"
 )
 
 // ServiceNameOverride provides map of new names x-ds-service
@@ -648,7 +648,12 @@ func GetDownloadAdditions(opID string) []DownloadAddition {
 			{
 				Name:     "PDF",
 				MimeType: "application/pdf",
-				Comments: []string{"PDF returns a pdf version of the invoice by setting", "the Accept header to application/pdf", "", "**not included in swagger definition"},
+				Comments: []string{
+					"PDF returns a pdf version of the invoice by setting",
+					"the Accept header to application/pdf",
+					"",
+					"**not included in swagger definition",
+				},
 			},
 		}
 	case "APIRequestLog_GetRequestLogs":
@@ -656,15 +661,24 @@ func GetDownloadAdditions(opID string) []DownloadAddition {
 			{
 				Name:     "Zip",
 				MimeType: "application/zip",
-				Comments: []string{"Zip returns a zip file containing log files by setting", "the Accept header to application/zip", "", "**not included in swagger definition"},
+				Comments: []string{
+					"Zip returns a zip file containing log files by setting",
+					"the Accept header to application/zip",
+					"",
+					"**not included in swagger definition",
+				},
 			},
 		}
 	}
 	return nil
 }
 
-// TabDefs return a list of embeded tab structs based upon the version
-func TabDefs(apiname string, defMap map[string]Definition, overrides map[string]map[string]string) []Definition {
+// TabDefs return a list of embedded tab structs based upon the version
+func TabDefs(
+	apiname string,
+	defMap map[string]Definition,
+	overrides map[string]map[string]string,
+) []Definition {
 	switch apiname {
 	case esign.APIv2.Name():
 		return TabDefsV2(defMap, overrides)
@@ -1165,7 +1179,7 @@ const (
 	FALSE Bool = "false"
 
 	// REQUIRED_DEFAULT sets the default value for (BOOL) Required field on a tab. This
-	// constant is kept from a previous version where the Requried tab field was defined
+	// constant is kept from a previous version where the Required tab field was defined
 	// as a integer.
 	REQUIRED_DEFAULT Bool = ""
 	// REQUIRED_FALSE sets the default value for (BOOL) Required field on a tab
@@ -1257,7 +1271,7 @@ func PackageScopes(ver esign.APIVersion) string {
 
 const (
 	scopesAdmin = `
-// For more infomation on how to use scopes, see https://developers.docusign.com/docs/admin-api/admin101/auth/
+// For more information on how to use scopes, see https://developers.docusign.com/docs/admin-api/admin101/auth/
 const (
 	// OAuthScopeOrganizationRead required to get lists of organizations and organization data.
 	OAuthScopeOrganizationRead = "organization_read"
@@ -1278,7 +1292,7 @@ const (
 )
 `
 	scopesRooms = `
-// For more infomation on how to use scopes, see https://developers.docusign.com/docs/rooms-api/rooms101/auth/
+// For more information on how to use scopes, see https://developers.docusign.com/docs/rooms-api/rooms101/auth/
 const (
 	// OAuthScopeRead authorizes reading DocuSign Rooms data
 	OAuthScopeRead = "dtr.rooms.read"
@@ -1301,7 +1315,7 @@ const (
 )
 `
 	scopesClick = `
-// For more infomation on how to use scopes, see https://developers.docusign.com/docs/click-api/click101/auth/
+// For more information on how to use scopes, see https://developers.docusign.com/docs/click-api/click101/auth/
 const (
 	// OAuthScopeManage enables all clickwrap operations, including creating, sending, and updating clickwraps;
 	// getting a list of clickwraps, creating user agreements, getting a list of users, and retrieving responses.
@@ -1319,10 +1333,11 @@ const (
 //
 // In the specification, DocuSign lists every field as a string.
 // I generated much of this list with the following rules.
-// - definition properties with **true** or Boolean on the top lines' description are
-//   assumed to be bools set to Bool
-// - fields containing base64 in the name are assumed to be []byte
-// - fields ending in DateTime are *time.Time//
+//   - definition properties with **true** or Boolean on the top lines' description are
+//     assumed to be bools set to Bool
+//   - fields containing base64 in the name are assumed to be []byte
+//   - fields ending in DateTime are *time.Time//
+//
 // I eyeballed the doc as best I could so please let me know of any additions
 // or corrections.
 func GetFieldOverrides() map[string]map[string]string {

@@ -10,26 +10,25 @@
 //
 // Use the BulkEnvelopes category to manage the sending of envelopes to multiple recipients.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/reference/BulkEnvelopes
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2.1/model"
-//   )
-//   ...
-//   bulkenvelopesService := bulkenvelopes.New(esignCredential)
-package bulkenvelopes // import "github.com/jfcote87/esignv2.1/bulkenvelopes"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2.1/model"
+//	)
+//	...
+//	bulkenvelopesService := bulkenvelopes.New(esignCredential)
+package bulkenvelopes // import "github.com/ConsultingMD/esignv2.1/bulkenvelopes"
 
 import (
 	"context"
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2.1/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2.1/model"
 )
 
 // Service implements DocuSign BulkEnvelopes API operations
@@ -47,7 +46,9 @@ func New(cred esign.Credential) *Service {
 // https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendlist
 //
 // SDK Method BulkEnvelopes::createBulkSendList
-func (s *Service) BulkSendCreateBulkSendList(bulkSendingList *model.BulkSendingList) *BulkSendCreateBulkSendListOp {
+func (s *Service) BulkSendCreateBulkSendList(
+	bulkSendingList *model.BulkSendingList,
+) *BulkSendCreateBulkSendListOp {
 	return &BulkSendCreateBulkSendListOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -72,7 +73,10 @@ func (op *BulkSendCreateBulkSendListOp) Do(ctx context.Context) (*model.BulkSend
 // https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendrequest
 //
 // SDK Method BulkEnvelopes::createBulkSendRequest
-func (s *Service) BulkSendCreateBulkSendRequest(bulkSendListID string, bulkSendRequest *model.BulkSendRequest) *BulkSendCreateBulkSendRequestOp {
+func (s *Service) BulkSendCreateBulkSendRequest(
+	bulkSendListID string,
+	bulkSendRequest *model.BulkSendRequest,
+) *BulkSendCreateBulkSendRequestOp {
 	return &BulkSendCreateBulkSendRequestOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -87,7 +91,9 @@ func (s *Service) BulkSendCreateBulkSendRequest(bulkSendListID string, bulkSendR
 type BulkSendCreateBulkSendRequestOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *BulkSendCreateBulkSendRequestOp) Do(ctx context.Context) (*model.BulkSendResponse, error) {
+func (op *BulkSendCreateBulkSendRequestOp) Do(
+	ctx context.Context,
+) (*model.BulkSendResponse, error) {
 	var res *model.BulkSendResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -97,7 +103,10 @@ func (op *BulkSendCreateBulkSendRequestOp) Do(ctx context.Context) (*model.BulkS
 // https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendtestrequest
 //
 // SDK Method BulkEnvelopes::createBulkSendTestRequest
-func (s *Service) BulkSendCreateBulkSendTestRequest(bulkSendListID string, bulkSendRequest *model.BulkSendRequest) *BulkSendCreateBulkSendTestRequestOp {
+func (s *Service) BulkSendCreateBulkSendTestRequest(
+	bulkSendListID string,
+	bulkSendRequest *model.BulkSendRequest,
+) *BulkSendCreateBulkSendTestRequestOp {
 	return &BulkSendCreateBulkSendTestRequestOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -112,7 +121,9 @@ func (s *Service) BulkSendCreateBulkSendTestRequest(bulkSendListID string, bulkS
 type BulkSendCreateBulkSendTestRequestOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *BulkSendCreateBulkSendTestRequestOp) Do(ctx context.Context) (*model.BulkSendTestResponse, error) {
+func (op *BulkSendCreateBulkSendTestRequestOp) Do(
+	ctx context.Context,
+) (*model.BulkSendTestResponse, error) {
 	var res *model.BulkSendTestResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -137,7 +148,9 @@ func (s *Service) BulkSendDeleteBulkSendList(bulkSendListID string) *BulkSendDel
 type BulkSendDeleteBulkSendListOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *BulkSendDeleteBulkSendListOp) Do(ctx context.Context) (*model.BulkSendingListSummaries, error) {
+func (op *BulkSendDeleteBulkSendListOp) Do(
+	ctx context.Context,
+) (*model.BulkSendingListSummaries, error) {
 	var res *model.BulkSendingListSummaries
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -147,7 +160,9 @@ func (op *BulkSendDeleteBulkSendListOp) Do(ctx context.Context) (*model.BulkSend
 // https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/getbulksendbatchenvelopes
 //
 // SDK Method BulkEnvelopes::getBulkSendBatchEnvelopes
-func (s *Service) BulkSendGetBulkSendBatchEnvelopes(bulkSendBatchID string) *BulkSendGetBulkSendBatchEnvelopesOp {
+func (s *Service) BulkSendGetBulkSendBatchEnvelopes(
+	bulkSendBatchID string,
+) *BulkSendGetBulkSendBatchEnvelopesOp {
 	return &BulkSendGetBulkSendBatchEnvelopesOp{
 		Credential: s.credential,
 		Method:     "GET",
@@ -162,7 +177,9 @@ func (s *Service) BulkSendGetBulkSendBatchEnvelopes(bulkSendBatchID string) *Bul
 type BulkSendGetBulkSendBatchEnvelopesOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *BulkSendGetBulkSendBatchEnvelopesOp) Do(ctx context.Context) (*model.EnvelopesInformation, error) {
+func (op *BulkSendGetBulkSendBatchEnvelopesOp) Do(
+	ctx context.Context,
+) (*model.EnvelopesInformation, error) {
 	var res *model.EnvelopesInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -172,7 +189,9 @@ func (op *BulkSendGetBulkSendBatchEnvelopesOp) Do(ctx context.Context) (*model.E
 // Use `start_position` to specify the number of results to skip.
 //
 // Valid values: `1` to `1000`
-func (op *BulkSendGetBulkSendBatchEnvelopesOp) Count(val string) *BulkSendGetBulkSendBatchEnvelopesOp {
+func (op *BulkSendGetBulkSendBatchEnvelopesOp) Count(
+	val string,
+) *BulkSendGetBulkSendBatchEnvelopesOp {
 	if op != nil {
 		op.QueryOpts.Set("count", val)
 	}
@@ -180,7 +199,9 @@ func (op *BulkSendGetBulkSendBatchEnvelopesOp) Count(val string) *BulkSendGetBul
 }
 
 // Include when `recipients`, only envelopes with recipient nodes will be included in the response.
-func (op *BulkSendGetBulkSendBatchEnvelopesOp) Include(val string) *BulkSendGetBulkSendBatchEnvelopesOp {
+func (op *BulkSendGetBulkSendBatchEnvelopesOp) Include(
+	val string,
+) *BulkSendGetBulkSendBatchEnvelopesOp {
 	if op != nil {
 		op.QueryOpts.Set("include", val)
 	}
@@ -191,7 +212,9 @@ func (op *BulkSendGetBulkSendBatchEnvelopesOp) Include(val string) *BulkSendGetB
 //
 // - Descending order: `desc` (default)
 // - Ascending order: `asc`
-func (op *BulkSendGetBulkSendBatchEnvelopesOp) Order(val string) *BulkSendGetBulkSendBatchEnvelopesOp {
+func (op *BulkSendGetBulkSendBatchEnvelopesOp) Order(
+	val string,
+) *BulkSendGetBulkSendBatchEnvelopesOp {
 	if op != nil {
 		op.QueryOpts.Set("order", val)
 	}
@@ -207,7 +230,9 @@ func (op *BulkSendGetBulkSendBatchEnvelopesOp) Order(val string) *BulkSendGetBul
 // - `status`
 // - `subject`
 // - `status_changed`
-func (op *BulkSendGetBulkSendBatchEnvelopesOp) OrderBy(val string) *BulkSendGetBulkSendBatchEnvelopesOp {
+func (op *BulkSendGetBulkSendBatchEnvelopesOp) OrderBy(
+	val string,
+) *BulkSendGetBulkSendBatchEnvelopesOp {
 	if op != nil {
 		op.QueryOpts.Set("order_by", val)
 	}
@@ -215,7 +240,9 @@ func (op *BulkSendGetBulkSendBatchEnvelopesOp) OrderBy(val string) *BulkSendGetB
 }
 
 // SearchText use this parameter to search for specific text.
-func (op *BulkSendGetBulkSendBatchEnvelopesOp) SearchText(val string) *BulkSendGetBulkSendBatchEnvelopesOp {
+func (op *BulkSendGetBulkSendBatchEnvelopesOp) SearchText(
+	val string,
+) *BulkSendGetBulkSendBatchEnvelopesOp {
 	if op != nil {
 		op.QueryOpts.Set("search_text", val)
 	}
@@ -229,7 +256,9 @@ func (op *BulkSendGetBulkSendBatchEnvelopesOp) SearchText(val string) *BulkSendG
 // of results.
 //
 // The default value is `0`.
-func (op *BulkSendGetBulkSendBatchEnvelopesOp) StartPosition(val string) *BulkSendGetBulkSendBatchEnvelopesOp {
+func (op *BulkSendGetBulkSendBatchEnvelopesOp) StartPosition(
+	val string,
+) *BulkSendGetBulkSendBatchEnvelopesOp {
 	if op != nil {
 		op.QueryOpts.Set("start_position", val)
 	}
@@ -241,7 +270,9 @@ func (op *BulkSendGetBulkSendBatchEnvelopesOp) StartPosition(val string) *BulkSe
 // Note that `any` should not be included with other statuses. In other words, `any` is a valid parameter value, but `any,sent` is not.
 //
 // Use the value `deliveryfailure` to get all envelopes with `AuthFailed` and `AutoResponded` status. This value is specific to bulk sending.
-func (op *BulkSendGetBulkSendBatchEnvelopesOp) Status(val string) *BulkSendGetBulkSendBatchEnvelopesOp {
+func (op *BulkSendGetBulkSendBatchEnvelopesOp) Status(
+	val string,
+) *BulkSendGetBulkSendBatchEnvelopesOp {
 	if op != nil {
 		op.QueryOpts.Set("status", val)
 	}
@@ -253,7 +284,9 @@ func (op *BulkSendGetBulkSendBatchEnvelopesOp) Status(val string) *BulkSendGetBu
 // https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/getbulksendbatchstatus
 //
 // SDK Method BulkEnvelopes::getBulkSendBatchStatus
-func (s *Service) BulkSendGetBulkSendBatchStatus(bulkSendBatchID string) *BulkSendGetBulkSendBatchStatusOp {
+func (s *Service) BulkSendGetBulkSendBatchStatus(
+	bulkSendBatchID string,
+) *BulkSendGetBulkSendBatchStatusOp {
 	return &BulkSendGetBulkSendBatchStatusOp{
 		Credential: s.credential,
 		Method:     "GET",
@@ -268,7 +301,9 @@ func (s *Service) BulkSendGetBulkSendBatchStatus(bulkSendBatchID string) *BulkSe
 type BulkSendGetBulkSendBatchStatusOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *BulkSendGetBulkSendBatchStatusOp) Do(ctx context.Context) (*model.BulkSendBatchStatus, error) {
+func (op *BulkSendGetBulkSendBatchStatusOp) Do(
+	ctx context.Context,
+) (*model.BulkSendBatchStatus, error) {
 	var res *model.BulkSendBatchStatus
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -293,7 +328,9 @@ func (s *Service) BulkSendGetBulkSendBatches() *BulkSendGetBulkSendBatchesOp {
 type BulkSendGetBulkSendBatchesOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *BulkSendGetBulkSendBatchesOp) Do(ctx context.Context) (*model.BulkSendBatchSummaries, error) {
+func (op *BulkSendGetBulkSendBatchesOp) Do(
+	ctx context.Context,
+) (*model.BulkSendBatchSummaries, error) {
 	var res *model.BulkSendBatchSummaries
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -427,7 +464,9 @@ func (s *Service) BulkSendGetBulkSendLists() *BulkSendGetBulkSendListsOp {
 type BulkSendGetBulkSendListsOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *BulkSendGetBulkSendListsOp) Do(ctx context.Context) (*model.BulkSendingListSummaries, error) {
+func (op *BulkSendGetBulkSendListsOp) Do(
+	ctx context.Context,
+) (*model.BulkSendingListSummaries, error) {
 	var res *model.BulkSendingListSummaries
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -437,7 +476,11 @@ func (op *BulkSendGetBulkSendListsOp) Do(ctx context.Context) (*model.BulkSendin
 // https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/updatebulksendbatchaction
 //
 // SDK Method BulkEnvelopes::updateBulkSendBatchAction
-func (s *Service) BulkSendUpdateBulkSendBatchAction(bulkAction string, bulkSendBatchID string, bulkSendBatchActionRequest *model.BulkSendBatchActionRequest) *BulkSendUpdateBulkSendBatchActionOp {
+func (s *Service) BulkSendUpdateBulkSendBatchAction(
+	bulkAction string,
+	bulkSendBatchID string,
+	bulkSendBatchActionRequest *model.BulkSendBatchActionRequest,
+) *BulkSendUpdateBulkSendBatchActionOp {
 	return &BulkSendUpdateBulkSendBatchActionOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -453,7 +496,9 @@ func (s *Service) BulkSendUpdateBulkSendBatchAction(bulkAction string, bulkSendB
 type BulkSendUpdateBulkSendBatchActionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *BulkSendUpdateBulkSendBatchActionOp) Do(ctx context.Context) (*model.BulkSendBatchStatus, error) {
+func (op *BulkSendUpdateBulkSendBatchActionOp) Do(
+	ctx context.Context,
+) (*model.BulkSendBatchStatus, error) {
 	var res *model.BulkSendBatchStatus
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -463,7 +508,10 @@ func (op *BulkSendUpdateBulkSendBatchActionOp) Do(ctx context.Context) (*model.B
 // https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/updatebulksendbatchstatus
 //
 // SDK Method BulkEnvelopes::updateBulkSendBatchStatus
-func (s *Service) BulkSendUpdateBulkSendBatchStatus(bulkSendBatchID string, bulkSendBatchRequest *model.BulkSendBatchRequest) *BulkSendUpdateBulkSendBatchStatusOp {
+func (s *Service) BulkSendUpdateBulkSendBatchStatus(
+	bulkSendBatchID string,
+	bulkSendBatchRequest *model.BulkSendBatchRequest,
+) *BulkSendUpdateBulkSendBatchStatusOp {
 	return &BulkSendUpdateBulkSendBatchStatusOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -479,7 +527,9 @@ func (s *Service) BulkSendUpdateBulkSendBatchStatus(bulkSendBatchID string, bulk
 type BulkSendUpdateBulkSendBatchStatusOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *BulkSendUpdateBulkSendBatchStatusOp) Do(ctx context.Context) (*model.BulkSendBatchStatus, error) {
+func (op *BulkSendUpdateBulkSendBatchStatusOp) Do(
+	ctx context.Context,
+) (*model.BulkSendBatchStatus, error) {
 	var res *model.BulkSendBatchStatus
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -489,7 +539,10 @@ func (op *BulkSendUpdateBulkSendBatchStatusOp) Do(ctx context.Context) (*model.B
 // https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/updatebulksendlist
 //
 // SDK Method BulkEnvelopes::updateBulkSendList
-func (s *Service) BulkSendUpdateBulkSendList(bulkSendListID string, bulkSendingList *model.BulkSendingList) *BulkSendUpdateBulkSendListOp {
+func (s *Service) BulkSendUpdateBulkSendList(
+	bulkSendListID string,
+	bulkSendingList *model.BulkSendingList,
+) *BulkSendUpdateBulkSendListOp {
 	return &BulkSendUpdateBulkSendListOp{
 		Credential: s.credential,
 		Method:     "PUT",

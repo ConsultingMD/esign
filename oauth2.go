@@ -52,7 +52,11 @@ func (df demoFlag) tokenURI() string {
 	return "account.docusign.com"
 }
 
-func (df demoFlag) getUserInfoForToken(ctx context.Context, f ctxclient.Func, tk *oauth2.Token) (*UserInfo, error) {
+func (df demoFlag) getUserInfoForToken(
+	ctx context.Context,
+	f ctxclient.Func,
+	tk *oauth2.Token,
+) (*UserInfo, error) {
 	// needed to use token credential due to different host and path parameters for op
 	var u *UserInfo
 	err := (&Op{
@@ -277,10 +281,15 @@ func (c *JWTConfig) UserConsentURL(redirectURL string, scopes ...string) string 
 // prompt determines whether the user is prompted for re-authentication, even with an active login session.
 //
 // scopes permissions being requested for the application from each user in the organization.  Valid values are
-//   signature — allows your application to create and send envelopes, and obtain links for starting signing sessions.
-//   extended — issues your application a refresh token that can be used any number of times (Authorization Code flow only).
-//   impersonation — allows your application to access a user’s account and act on their behalf via JWT authentication.
-func (c *JWTConfig) ExternalAdminConsentURL(redirectURL, authType, state string, prompt bool, scopes ...string) (string, error) {
+//
+//	signature — allows your application to create and send envelopes, and obtain links for starting signing sessions.
+//	extended — issues your application a refresh token that can be used any number of times (Authorization Code flow only).
+//	impersonation — allows your application to access a user’s account and act on their behalf via JWT authentication.
+func (c *JWTConfig) ExternalAdminConsentURL(
+	redirectURL, authType, state string,
+	prompt bool,
+	scopes ...string,
+) (string, error) {
 	if authType != "code" && authType != "token" {
 		return "", fmt.Errorf("invalid authType %s, must be code or token", authType)
 	}
@@ -319,7 +328,11 @@ type AdminConsentResponse struct {
 	COID      []string `json:"coid"`      //  list of organization IDs for the organizations whose admin has granted consent
 }
 
-func (c *JWTConfig) jwtRefresher(apiUserName string, signer jws.Signer, scopes ...string) func(ctx context.Context, tk *oauth2.Token) (*oauth2.Token, error) {
+func (c *JWTConfig) jwtRefresher(
+	apiUserName string,
+	signer jws.Signer,
+	scopes ...string,
+) func(ctx context.Context, tk *oauth2.Token) (*oauth2.Token, error) {
 	if len(scopes) == 0 {
 		scopes = append(scopes, OAuthScopeSignature)
 	}
@@ -342,7 +355,12 @@ func (c *JWTConfig) jwtRefresher(apiUserName string, signer jws.Signer, scopes .
 
 // Credential returns an *OAuth2Credential.  The passed token will be refreshed
 // as needed.  If no scopes listed, signature is assumed.
-func (c *JWTConfig) Credential(apiUserName string, token *oauth2.Token, u *UserInfo, scopes ...string) (*OAuth2Credential, error) {
+func (c *JWTConfig) Credential(
+	apiUserName string,
+	token *oauth2.Token,
+	u *UserInfo,
+	scopes ...string,
+) (*OAuth2Credential, error) {
 	signer, err := jws.RS256FromPEM([]byte(c.PrivateKey), c.KeyPairID)
 	if err != nil {
 		return nil, err
@@ -470,7 +488,8 @@ func (cred *OAuth2Credential) Token(ctx context.Context) (*oauth2.Token, error) 
 		}
 		updateCache = (cred.cacheFunc != nil)
 	}
-	if cred.baseURI == nil || cred.accountID == "" { // values may be blank if loading userinfo from cache
+	if cred.baseURI == nil ||
+		cred.accountID == "" { // values may be blank if loading userinfo from cache
 		if cred.accountID, cred.baseURI, err = cred.userInfo.getAccountID(cred.accountID); err != nil {
 			return nil, err
 		}
@@ -490,7 +509,9 @@ func (cred *OAuth2Credential) SetClientFunc(f ctxclient.Func) *OAuth2Credential 
 }
 
 // SetCacheFunc safely replaces the caching function for the credential
-func (cred *OAuth2Credential) SetCacheFunc(f func(context.Context, oauth2.Token, UserInfo)) *OAuth2Credential {
+func (cred *OAuth2Credential) SetCacheFunc(
+	f func(context.Context, oauth2.Token, UserInfo),
+) *OAuth2Credential {
 	cred.mu.Lock()
 	cred.cacheFunc = f
 	cred.mu.Unlock()

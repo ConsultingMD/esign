@@ -10,18 +10,17 @@
 //
 // A room can hold documents, envelopes, a list of tasks comprising a workflow, and other related information. You can invite others to this space and assign them permissions on a per-room basis. The documentation in this section shows you how to perform these and other tasks.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/rooms-api/reference/Rooms
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/rooms"
-//   )
-//   ...
-//   roomsService := rooms.New(esignCredential)
-package rooms // import "github.com/jfcote87/esignrooms//rooms"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/rooms"
+//	)
+//	...
+//	roomsService := rooms.New(esignCredential)
+package rooms // import "github.com/ConsultingMD/esignrooms//rooms"
 
 import (
 	"context"
@@ -30,8 +29,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/rooms"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/rooms"
 )
 
 // Service implements DocuSign Rooms API operations
@@ -76,7 +75,11 @@ func (op *AddDocumentToRoomOp) Do(ctx context.Context) (*rooms.RoomDocument, err
 // https://developers.docusign.com/docs/rooms-api/reference/rooms/rooms/adddocumenttoroomviafileupload
 //
 // SDK Method Rooms::AddDocumentToRoomViaFileUpload
-func (s *Service) AddDocumentToRoomViaFileUpload(roomID string, media io.Reader, mimeType string) *AddDocumentToRoomViaFileUploadOp {
+func (s *Service) AddDocumentToRoomViaFileUpload(
+	roomID string,
+	media io.Reader,
+	mimeType string,
+) *AddDocumentToRoomViaFileUploadOp {
 	return &AddDocumentToRoomViaFileUploadOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -504,7 +507,6 @@ func (op *GetRoomsOp) FieldDataChangedStartDate(val string) *GetRoomsOp {
 
 // FieldDataChangedEndDate (Optional) Ending date and time to filter rooms whose field data has changed before this date. Date and time is always given as UTC. If the time (`hh:mm:ss`) is omitted, it defaults to `00:00:00`.
 //
-//
 // Valid formats:
 //
 // - `yyyy-mm-dd hh:mm:ss`
@@ -579,7 +581,11 @@ func (op *InviteUserOp) Do(ctx context.Context) (*rooms.RoomInviteResponse, erro
 // https://developers.docusign.com/docs/rooms-api/reference/rooms/rooms/putroomuser
 //
 // SDK Method Rooms::PutRoomUser
-func (s *Service) PutRoomUser(roomID string, userID string, body *rooms.RoomUserForUpdate) *PutRoomUserOp {
+func (s *Service) PutRoomUser(
+	roomID string,
+	userID string,
+	body *rooms.RoomUserForUpdate,
+) *PutRoomUserOp {
 	return &PutRoomUserOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -606,7 +612,12 @@ func (op *PutRoomUserOp) Do(ctx context.Context) (*rooms.RoomUser, error) {
 // https://developers.docusign.com/docs/rooms-api/reference/rooms/rooms/restoreroomuseraccess
 //
 // SDK Method Rooms::RestoreRoomUserAccess
-func (s *Service) RestoreRoomUserAccess(roomID string, userID string, media io.Reader, mimeType string) *RestoreRoomUserAccessOp {
+func (s *Service) RestoreRoomUserAccess(
+	roomID string,
+	userID string,
+	media io.Reader,
+	mimeType string,
+) *RestoreRoomUserAccessOp {
 	return &RestoreRoomUserAccessOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -630,7 +641,11 @@ func (op *RestoreRoomUserAccessOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/rooms-api/reference/rooms/rooms/revokeroomuseraccess
 //
 // SDK Method Rooms::RevokeRoomUserAccess
-func (s *Service) RevokeRoomUserAccess(roomID string, userID string, body *rooms.RoomUserRemovalDetail) *RevokeRoomUserAccessOp {
+func (s *Service) RevokeRoomUserAccess(
+	roomID string,
+	userID string,
+	body *rooms.RoomUserRemovalDetail,
+) *RevokeRoomUserAccessOp {
 	return &RevokeRoomUserAccessOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -682,7 +697,10 @@ func (op *UpdatePictureOp) Do(ctx context.Context) (*rooms.RoomPicture, error) {
 // https://developers.docusign.com/docs/rooms-api/reference/rooms/rooms/updateroomfielddata
 //
 // SDK Method Rooms::UpdateRoomFieldData
-func (s *Service) UpdateRoomFieldData(roomID string, body *rooms.FieldDataForUpdate) *UpdateRoomFieldDataOp {
+func (s *Service) UpdateRoomFieldData(
+	roomID string,
+	body *rooms.FieldDataForUpdate,
+) *UpdateRoomFieldDataOp {
 	return &UpdateRoomFieldDataOp{
 		Credential: s.credential,
 		Method:     "PUT",

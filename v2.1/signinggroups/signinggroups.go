@@ -16,26 +16,25 @@
 //
 // For more information about this topic, see [Signing Groups](https://support.docusign.com/en/guides/ndse-user-guide-signing-groups).
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/reference/SigningGroups
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2.1/model"
-//   )
-//   ...
-//   signinggroupsService := signinggroups.New(esignCredential)
-package signinggroups // import "github.com/jfcote87/esignv2.1/signinggroups"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2.1/model"
+//	)
+//	...
+//	signinggroupsService := signinggroups.New(esignCredential)
+package signinggroups // import "github.com/ConsultingMD/esignv2.1/signinggroups"
 
 import (
 	"context"
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2.1/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2.1/model"
 )
 
 // Service implements DocuSign SigningGroups API operations
@@ -53,7 +52,10 @@ func New(cred esign.Credential) *Service {
 // https://developers.docusign.com/docs/esign-rest-api/reference/signinggroups/signinggroupusers/delete
 //
 // SDK Method SigningGroups::deleteUsers
-func (s *Service) UsersDelete(signingGroupID string, signingGroupUsers *model.SigningGroupUsers) *UsersDeleteOp {
+func (s *Service) UsersDelete(
+	signingGroupID string,
+	signingGroupUsers *model.SigningGroupUsers,
+) *UsersDeleteOp {
 	return &UsersDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -104,7 +106,10 @@ func (op *UsersListOp) Do(ctx context.Context) (*model.SigningGroupUsers, error)
 // https://developers.docusign.com/docs/esign-rest-api/reference/signinggroups/signinggroupusers/update
 //
 // SDK Method SigningGroups::updateUsers
-func (s *Service) UsersUpdate(signingGroupID string, signingGroupUsers *model.SigningGroupUsers) *UsersUpdateOp {
+func (s *Service) UsersUpdate(
+	signingGroupID string,
+	signingGroupUsers *model.SigningGroupUsers,
+) *UsersUpdateOp {
 	return &UsersUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",

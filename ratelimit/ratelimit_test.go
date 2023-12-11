@@ -18,8 +18,9 @@ import (
 	"time"
 
 	"github.com/jfcote87/ctxclient"
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/ratelimit"
+
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/ratelimit"
 )
 
 type RateLimitServer struct {
@@ -99,8 +100,19 @@ func TestRateLimitCredential_AuthDo(t *testing.T) {
 		errmsg     string
 		want       *ratelimit.Report
 	}{
-		{name: "test00", msg: "", wantErr: true, errmsg: "ratelimitcredential no child credential specified"},
-		{name: "test01", credential: stndCred, msg: "404", wantErr: true, errmsg: "response returned 404 404 Not Found: path not found"},
+		{
+			name:    "test00",
+			msg:     "",
+			wantErr: true,
+			errmsg:  "ratelimitcredential no child credential specified",
+		},
+		{
+			name:       "test01",
+			credential: stndCred,
+			msg:        "404",
+			wantErr:    true,
+			errmsg:     "response returned 404 404 Not Found: path not found",
+		},
 		{name: "test02", credential: stndCred, msg: "noheader", wantErr: true, errmsg: "empty report"},
 		{name: "test03", credential: stndCred, wantErr: false},
 	}

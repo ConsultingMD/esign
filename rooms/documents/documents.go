@@ -10,26 +10,25 @@
 //
 // Information about documents.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/rooms-api/reference/Documents
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/rooms"
-//   )
-//   ...
-//   documentsService := documents.New(esignCredential)
-package documents // import "github.com/jfcote87/esignrooms//documents"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/rooms"
+//	)
+//	...
+//	documentsService := documents.New(esignCredential)
+package documents // import "github.com/ConsultingMD/esignrooms//documents"
 
 import (
 	"context"
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/rooms"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/rooms"
 )
 
 // Service implements DocuSign Documents API operations
@@ -47,7 +46,10 @@ func New(cred esign.Credential) *Service {
 // https://developers.docusign.com/docs/rooms-api/reference/documents/documents/createdocumentuser
 //
 // SDK Method Documents::CreateDocumentUser
-func (s *Service) CreateDocumentUser(documentID string, body *rooms.DocumentUserForCreate) *CreateDocumentUserOp {
+func (s *Service) CreateDocumentUser(
+	documentID string,
+	body *rooms.DocumentUserForCreate,
+) *CreateDocumentUserOp {
 	return &CreateDocumentUserOp{
 		Credential: s.credential,
 		Method:     "POST",

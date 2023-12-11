@@ -16,18 +16,17 @@
 // * Add users to, and delete users from, your groups.
 // * Manage the brand information associated with a group.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/UserGroups
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2/model"
-//   )
-//   ...
-//   usergroupsService := usergroups.New(esignCredential)
-package usergroups // import "github.com/jfcote87/esignv2/usergroups"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2/model"
+//	)
+//	...
+//	usergroupsService := usergroups.New(esignCredential)
+package usergroups // import "github.com/ConsultingMD/esignv2/usergroups"
 
 import (
 	"context"
@@ -35,8 +34,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2/model"
 )
 
 // Service implements DocuSign UserGroups API operations
@@ -54,7 +53,10 @@ func New(cred esign.Credential) *Service {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/usergroups/groupbrands/delete
 //
 // SDK Method UserGroups::deleteBrands
-func (s *Service) GroupBrandsDelete(groupID string, brandsRequest *model.BrandsRequest) *GroupBrandsDeleteOp {
+func (s *Service) GroupBrandsDelete(
+	groupID string,
+	brandsRequest *model.BrandsRequest,
+) *GroupBrandsDeleteOp {
 	return &GroupBrandsDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -76,7 +78,6 @@ func (op *GroupBrandsDeleteOp) Do(ctx context.Context) (*model.BrandsResponse, e
 }
 
 // GroupBrandsGet gets group brand ID Information.
-//
 //
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/usergroups/groupbrands/get
 //
@@ -106,7 +107,10 @@ func (op *GroupBrandsGetOp) Do(ctx context.Context) (*model.BrandsResponse, erro
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/usergroups/groupbrands/update
 //
 // SDK Method UserGroups::updateBrands
-func (s *Service) GroupBrandsUpdate(groupID string, brandsRequest *model.BrandsRequest) *GroupBrandsUpdateOp {
+func (s *Service) GroupBrandsUpdate(
+	groupID string,
+	brandsRequest *model.BrandsRequest,
+) *GroupBrandsUpdateOp {
 	return &GroupBrandsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -132,7 +136,10 @@ func (op *GroupBrandsUpdateOp) Do(ctx context.Context) (*model.BrandsResponse, e
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/usergroups/groupusers/delete
 //
 // SDK Method UserGroups::deleteGroupUsers
-func (s *Service) GroupUsersDelete(groupID string, userInfoList *model.UserInfoList) *GroupUsersDeleteOp {
+func (s *Service) GroupUsersDelete(
+	groupID string,
+	userInfoList *model.UserInfoList,
+) *GroupUsersDeleteOp {
 	return &GroupUsersDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -199,7 +206,10 @@ func (op *GroupUsersListOp) StartPosition(val int) *GroupUsersListOp {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/usergroups/groupusers/update
 //
 // SDK Method UserGroups::updateGroupUsers
-func (s *Service) GroupUsersUpdate(groupID string, userInfoList *model.UserInfoList) *GroupUsersUpdateOp {
+func (s *Service) GroupUsersUpdate(
+	groupID string,
+	userInfoList *model.UserInfoList,
+) *GroupUsersUpdateOp {
 	return &GroupUsersUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",

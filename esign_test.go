@@ -23,11 +23,12 @@ import (
 	"time"
 
 	"github.com/jfcote87/ctxclient"
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2.1/folders"
-	"github.com/jfcote87/esign/v2.1/templates"
 	"github.com/jfcote87/oauth2"
 	"github.com/jfcote87/testutils"
+
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2.1/folders"
+	"github.com/ConsultingMD/esign/v2.1/templates"
 )
 
 type TestCred struct {
@@ -37,7 +38,7 @@ type TestCred struct {
 	ctxclient.Func
 }
 
-//func (t *TestCred) AuthDo(ctx context.Context, req *http.Request, v esign.APIVersion) (*http.Response, error) {
+// func (t *TestCred) AuthDo(ctx context.Context, req *http.Request, v esign.APIVersion) (*http.Response, error) {
 func (t *TestCred) AuthDo(ctx context.Context, op *esign.Op) (*http.Response, error) {
 	req, err := op.CreateRequest()
 	if err != nil {
@@ -104,9 +105,13 @@ func TestOp_Do(t *testing.T) {
 			Response: testutils.MakeResponse(400, []byte(`No JSON`), nil),
 		},
 		&testutils.RequestTester{ // test 6
-			Auth:     "TESTAUTH",
-			Method:   "GET",
-			Response: testutils.MakeResponse(400, []byte(`{"errorCode": "A", "message":"error desc"}`), nil),
+			Auth:   "TESTAUTH",
+			Method: "GET",
+			Response: testutils.MakeResponse(
+				400,
+				[]byte(`{"errorCode": "A", "message":"error desc"}`),
+				nil,
+			),
 		},
 		&testutils.RequestTester{ // test 7
 			Path:     "/restapi/v2/accounts/1234/do/test7/go",
@@ -265,7 +270,14 @@ func testMultipart(req *http.Request) (*http.Response, error) {
 	p, err := mpr.NextPart()
 	for i := 0; err == nil && i < len(expectedContent); i++ {
 		if expectedContent[i] != p.Header.Get("Content-Type") || expectedFileName[i] != p.FileName() {
-			err = fmt.Errorf("multipart[%d] expected content-type: %s and file name: %s; got %s  %s", i, expectedContent[i], expectedFileName[i], p.Header.Get("Content-Type"), p.FileName())
+			err = fmt.Errorf(
+				"multipart[%d] expected content-type: %s and file name: %s; got %s  %s",
+				i,
+				expectedContent[i],
+				expectedFileName[i],
+				p.Header.Get("Content-Type"),
+				p.FileName(),
+			)
 		}
 		p.Close()
 
@@ -404,7 +416,11 @@ func TestOp_Do_FileDownload(t *testing.T) {
 	testTransport.Add(&testutils.RequestTester{
 		Header: http.Header{"Accept": []string{"text/plain"}},
 		ResponseFunc: func(req *http.Request) (*http.Response, error) {
-			res := testutils.MakeResponse(200, []byte("0123456789"), http.Header{"Content-Type": []string{"text/plain"}})
+			res := testutils.MakeResponse(
+				200,
+				[]byte("0123456789"),
+				http.Header{"Content-Type": []string{"text/plain"}},
+			)
 			res.Body = f1
 			return res, nil
 		},
@@ -556,7 +572,7 @@ func TestGeneratedOps(t *testing.T) {
 		t.Skip()
 	}
 	ctx := context.Background()
-	// Read throught  all folders
+	// Read thought  all folders
 	sv := folders.New(cred)
 	l, err := sv.List().Do(ctx)
 	if err != nil {
@@ -594,7 +610,10 @@ func getLocalCredential() (*esign.OAuth2Credential, error) {
 	if jwtConfigJSON, ok := os.LookupEnv("DOCUSIGN_JWTConfig"); ok {
 		jwtAPIUserName, ok := os.LookupEnv("DOCUSIGN_JWTAPIUser")
 		if !ok {
-			return nil, fmt.Errorf("expected DOCUSIGN_JWTAPIUser environment variable with DOCUSIGN_JWTConfig=%s", jwtConfigJSON)
+			return nil, fmt.Errorf(
+				"expected DOCUSIGN_JWTAPIUser environment variable with DOCUSIGN_JWTConfig=%s",
+				jwtConfigJSON,
+			)
 		}
 
 		buffer, err := ioutil.ReadFile(jwtConfigJSON)

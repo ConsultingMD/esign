@@ -14,7 +14,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/jfcote87/esign"
+	"github.com/ConsultingMD/esign"
 )
 
 type reportCtxKey struct{}

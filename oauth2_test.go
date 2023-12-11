@@ -11,9 +11,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/jfcote87/esign"
 	"github.com/jfcote87/oauth2"
 	"github.com/jfcote87/testutils"
+
+	"github.com/ConsultingMD/esign"
 )
 
 const tokenSuccessResponse = `{
@@ -97,11 +98,13 @@ func TestOuauth2Config_AuthURL(t *testing.T) {
 }
 
 var exchangeResponseTest = &testutils.RequestTester{
-	Host:    "account-d.docusign.com",
-	Path:    "/oauth/token",
-	Method:  "POST",
-	Auth:    "Basic S0VZOlNFQ1JFVA==",
-	Payload: []byte("code=CODE&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fwww.example.com%2Ftoken"),
+	Host:   "account-d.docusign.com",
+	Path:   "/oauth/token",
+	Method: "POST",
+	Auth:   "Basic S0VZOlNFQ1JFVA==",
+	Payload: []byte(
+		"code=CODE&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fwww.example.com%2Ftoken",
+	),
 	ResponseFunc: func(r *http.Request) (*http.Response, error) {
 		return testutils.MakeResponse(200, []byte(tokenSuccessResponse), nil), nil
 	},
@@ -161,7 +164,11 @@ func TestOAuth2Config_Exchange(t *testing.T) {
 		t.Fatalf("expected user name Susan Smart; got %s", u.Name)
 	}
 	if savedToken == nil || savedUserInfo == nil {
-		t.Fatalf("token and userinfo should be cached; got savedToken is nil %v and savedUserInfo is nil %v", (savedToken == nil), (savedUserInfo == nil))
+		t.Fatalf(
+			"token and userinfo should be cached; got savedToken is nil %v and savedUserInfo is nil %v",
+			(savedToken == nil),
+			(savedUserInfo == nil),
+		)
 	}
 
 	tk, err := ocr.Token(ctx)
@@ -169,7 +176,8 @@ func TestOAuth2Config_Exchange(t *testing.T) {
 		t.Fatalf("expected token; got %v", err)
 	}
 	cfg.AccountID = "INVALID ACCOUNT"
-	if _, err = cfg.Credential(tk, u); err == nil || err.Error() != "no account INVALID ACCOUNT for susan.smart@example.com" {
+	if _, err = cfg.Credential(tk, u); err == nil ||
+		err.Error() != "no account INVALID ACCOUNT for susan.smart@example.com" {
 		t.Fatalf("expected no account INVALID ACCOUNT for susan.smart@example.com; got %v", err)
 	}
 	cfg.AccountID = "fe0b61a3-3b9b-cafe-b7be-4592af32aa9b"
@@ -237,7 +245,11 @@ func TestOAuth2Config_Refresh(t *testing.T) {
 	}
 
 	if savedToken == nil || savedUserInfo == nil {
-		t.Fatalf("token and userinfo should be cached; got savedToken is nil %v and savedUserInfo is nil %v", (savedToken == nil), (savedUserInfo == nil))
+		t.Fatalf(
+			"token and userinfo should be cached; got savedToken is nil %v and savedUserInfo is nil %v",
+			(savedToken == nil),
+			(savedUserInfo == nil),
+		)
 	}
 
 	testTransport.Add(&testutils.RequestTester{
@@ -272,33 +284,7 @@ func TestOAuth2Config_Refresh(t *testing.T) {
 }
 
 func TestJWTConfig(t *testing.T) {
-	var testPK = `-----BEGIN RSA PRIVATE KEY-----
-MIIEpQIBAAKCAQEAyki3KNQlqFYHQOg+uywV1GNbi/Zvgs2MLYVMiJ/NYeBIZgMm
-STDW8mtiR1kLSMq/glzvQdFWPZTzbxkIqiYESoUsErIbZVsMzDNgneDy3XZqXYAS
-qT5X2QH1vsCP6Cni4T7Ooj6aFqAsq/7ERGoudP4CO8he82QlcWNMupoWrNZw12AB
-J4HSqGT6ebi2YaPXCPCVMr3NqBc8AJGkaFG+RokhRCqSUZUboVQ52vLt7f4Xn4FI
-0HAWYegA3kEsCTVQmsNSX/3pUGoCtg4kAOKDUfyPHPCWjA94M8OAU5qnXg/HnZTP
-1uP5XnaNhd+po/LklqxMY2tCUf6VUhilUNyw0QIDAQABAoIBAQCh0oIT+4MUo52x
-4xksCxx7h/CYi1Cxx1W4pMaRFaXsAsxoL2TVcGjEDfvVL/rDBM8nrskIUjs3kI0d
-91zjIP6VzutvGWSpNKmMQh2sr2QanryAiBBlrCYCyHqbWtjE1Z1WrDQJvyLtrr2N
-6oWAZaE8nmeTA7xR4W/CwbmEHfi90nB9xxtb6iJNMJAguMsvQ+oBxN4tQYCeNUGo
-r88wd8vQyQjFCuU7Jzt8oSzcrP7D/pCgR4XhpU4ODsif8KMaAXS6H7Pt0QfLTkST
-AaIq9NBjBvQ5VqkpwWvGHzE2oZ2cfVBu3+sfhi3bmNCkHnmoPlOhfortVDDObwpw
-FA4+f71BAoGBAP80L/WseRIOqDkQ+wKbdMOwmyk8p6AlqnDiiGNXe2OsOarImTNn
-U2L4xr8MpmOjkDr1aF7e6lIXvtDWyqrIaqmlMf/8xNGMNu24kFTRNxqlII9Yq3fP
-sB0LGygnm1aEznK3uKzEIPFdHG0liOdsI3O6TF0PZXPFDFkJV+ERaRFFAoGBAMrq
-Q9MjCYrVX2hlyYnv8l2EhQA3AtUXcQhM2JoH1pY/0QwLjloPrUnHSsWuRxf3vuA0
-jkSzaoqOu2g/RyVEIPfhaLSptSs82vnLytsE+oPOKfQB28EyfJZcddbONmnCuJY1
-4QKYVOzZBqDArD1U5JMZu3UotL2QmXDZDzamtIwdAoGBAMtU0UF0gaIZe368QMH7
-CjVAaN+aLBQ07m+yjehYsz7e4bNo0GdcU9vvSqq9cXTBxRC0psuv4BI4SRgrip43
-wIQZ0pSa2FX82WbePmDVsInSNvb/Nt7m4vLA/oonxGRSvAo6xzEfsv+bqCJuXX3F
-cxmpvV4H/lUXEpd+Ej6ImKXhAoGBALBQ0tJ5lWcPdLGQEIlM97oO1kqTgmCK1+qw
-a12cBffUR99Bg1X6XUbIZs5SWvAWk8LZp+1GQQNYdrtkkHtvMX5yXLru479IR7Xa
-QNADCXLSB15A5yR+rAczHCmkUV+glSfgdT3+A30yLzIreP5p75tqNprc3gABz3Jh
-CXkhbax5AoGAMrZdtA8h9gTdQfqo7QTpUHVP7sFm1Cv/JVDR+iIguF9inLPA/jqN
-LHOH+9K3mKx8s6FIuSKsB9it1xCBx5PcP5lBE/9E0z72HC4S7eVVZJEQU2YxfLyS
-ZhC2gm1mAAZF9SBYwxTJ7vIcXRWi8uOB6yM7QQhuUpduK236a1lJZao=
------END RSA PRIVATE KEY-----`
+	var testPK = `test`
 	testTransport := &testutils.Transport{}
 	clx := &http.Client{Transport: testTransport}
 
@@ -433,7 +419,8 @@ func TestTokenCredential(t *testing.T) {
 		t.Errorf("%v", err)
 	}
 	testOp.Credential = cred.WithAccountID("BAD_ACCT")
-	if err := testOp.Do(ctx, nil); err == nil || err.Error() != "no account BAD_ACCT for susan.smart@example.com" {
+	if err := testOp.Do(ctx, nil); err == nil ||
+		err.Error() != "no account BAD_ACCT for susan.smart@example.com" {
 		t.Errorf("expected no account BAD_ACCT; got %v", err)
 		return
 	}
@@ -459,13 +446,27 @@ func TestJWTExternalAdminConsentURL(t *testing.T) {
 		t.Errorf("expected error; got success")
 	}
 
-	authURL, _ := jwtCfg.ExternalAdminConsentURL("https://www.example.com", "code", "STATE", false, "signature", "impersonation")
+	authURL, _ := jwtCfg.ExternalAdminConsentURL(
+		"https://www.example.com",
+		"code",
+		"STATE",
+		false,
+		"signature",
+		"impersonation",
+	)
 	expectedURL := "https://account.docusign.com/oauth/auth?admin_consent_scope=signature%20impersonation&client_id=INT_KEY&redirect_uri=https%3A%2F%2Fwww.example.com&response_type=code&scope=openid&state=STATE"
 	if authURL != expectedURL {
 		t.Errorf("expected %s; got %s", expectedURL, authURL)
 		return
 	}
-	authURL, _ = jwtCfg.ExternalAdminConsentURL("https://www.example.com", "token", "STATE", true, "signature", "impersonation")
+	authURL, _ = jwtCfg.ExternalAdminConsentURL(
+		"https://www.example.com",
+		"token",
+		"STATE",
+		true,
+		"signature",
+		"impersonation",
+	)
 	expectedURL = "https://account.docusign.com/oauth/auth?admin_consent_scope=signature%20impersonation&client_id=INT_KEY&prompt=login&redirect_uri=https%3A%2F%2Fwww.example.com&response_type=token&scope=openid&state=STATE"
 	if authURL != expectedURL {
 		t.Errorf("expected %s; got %s", expectedURL, authURL)
@@ -484,7 +485,12 @@ func (tv *testVersion) Name() string {
 	return tv.Ver
 }
 
-func (tv *testVersion) ResolveDSURL(u *url.URL, host string, accountID string, isDemo bool) *url.URL {
+func (tv *testVersion) ResolveDSURL(
+	u *url.URL,
+	host string,
+	accountID string,
+	isDemo bool,
+) *url.URL {
 	if tv == nil {
 		return u
 	}

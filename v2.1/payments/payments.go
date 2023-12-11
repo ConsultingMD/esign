@@ -10,25 +10,24 @@
 //
 // This category includes resources for managing payment gateways. Payment information is added to envelopes via methods in the Envelopes category.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/reference/Payments
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2.1/model"
-//   )
-//   ...
-//   paymentsService := payments.New(esignCredential)
-package payments // import "github.com/jfcote87/esignv2.1/payments"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2.1/model"
+//	)
+//	...
+//	paymentsService := payments.New(esignCredential)
+package payments // import "github.com/ConsultingMD/esignv2.1/payments"
 
 import (
 	"context"
 	"net/url"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2.1/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2.1/model"
 )
 
 // Service implements DocuSign Payments API operations
@@ -61,7 +60,9 @@ func (s *Service) GatewayAccountsList() *GatewayAccountsListOp {
 type GatewayAccountsListOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GatewayAccountsListOp) Do(ctx context.Context) (*model.PaymentGatewayAccountsInfo, error) {
+func (op *GatewayAccountsListOp) Do(
+	ctx context.Context,
+) (*model.PaymentGatewayAccountsInfo, error) {
 	var res *model.PaymentGatewayAccountsInfo
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }

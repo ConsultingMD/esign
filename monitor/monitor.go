@@ -12,17 +12,16 @@
 //
 // **Note**: Your accounts must exist inside an organization to access this data.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/monitor-api/reference/monitor
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//   )
-//   ...
-//   monitorService := monitor.New(esignCredential)
-package monitor // import "github.com/jfcote87/esign/monitor"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	)
+//	...
+//	monitorService := monitor.New(esignCredential)
+package monitor // import "github.com/ConsultingMD/esign/monitor"
 
 import (
 	"context"
@@ -30,7 +29,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
+	"github.com/ConsultingMD/esign"
 )
 
 // Service implements DocuSign Monitor API operations
@@ -52,10 +51,13 @@ func (s *Service) GetStream(dataSetName string, version string) *GetStreamOp {
 	return &GetStreamOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "api", "v{version}", "datasets", dataSetName, "stream"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.MonitorV2,
+		Path: strings.Join(
+			[]string{"", "api", "v{version}", "datasets", dataSetName, "stream"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.MonitorV2,
 	}
 }
 

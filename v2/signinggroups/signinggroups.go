@@ -12,26 +12,25 @@
 //
 // The category allows you create the signing group and manage the users in the group.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/SigningGroups
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2/model"
-//   )
-//   ...
-//   signinggroupsService := signinggroups.New(esignCredential)
-package signinggroups // import "github.com/jfcote87/esignv2/signinggroups"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2/model"
+//	)
+//	...
+//	signinggroupsService := signinggroups.New(esignCredential)
+package signinggroups // import "github.com/ConsultingMD/esignv2/signinggroups"
 
 import (
 	"context"
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2/model"
 )
 
 // Service implements DocuSign SigningGroups API operations
@@ -49,7 +48,10 @@ func New(cred esign.Credential) *Service {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/signinggroups/signinggroupusers/delete
 //
 // SDK Method SigningGroups::deleteUsers
-func (s *Service) UsersDelete(signingGroupID string, signingGroupUsers *model.SigningGroupUsers) *UsersDeleteOp {
+func (s *Service) UsersDelete(
+	signingGroupID string,
+	signingGroupUsers *model.SigningGroupUsers,
+) *UsersDeleteOp {
 	return &UsersDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -100,7 +102,10 @@ func (op *UsersListOp) Do(ctx context.Context) (*model.SigningGroupUsers, error)
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/signinggroups/signinggroupusers/update
 //
 // SDK Method SigningGroups::updateUsers
-func (s *Service) UsersUpdate(signingGroupID string, signingGroupUsers *model.SigningGroupUsers) *UsersUpdateOp {
+func (s *Service) UsersUpdate(
+	signingGroupID string,
+	signingGroupUsers *model.SigningGroupUsers,
+) *UsersUpdateOp {
 	return &UsersUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",

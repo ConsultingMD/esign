@@ -14,18 +14,17 @@
 //
 // To learn more about envelopes, see [Envelopes](/docs/esign-rest-api/esign101/concepts/envelopes/).
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/reference/Envelopes
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2.1/model"
-//   )
-//   ...
-//   envelopesService := envelopes.New(esignCredential)
-package envelopes // import "github.com/jfcote87/esignv2.1/envelopes"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2.1/model"
+//	)
+//	...
+//	envelopesService := envelopes.New(esignCredential)
+package envelopes // import "github.com/ConsultingMD/esignv2.1/envelopes"
 
 import (
 	"context"
@@ -35,8 +34,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2.1/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2.1/model"
 )
 
 // Service implements DocuSign Envelopes API operations
@@ -54,15 +53,21 @@ func New(cred esign.Credential) *Service {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocumentvisibility/updaterecipientsdocumentvisibility
 //
 // SDK Method Envelopes::updateRecipientsDocumentVisibility
-func (s *Service) DocumentVisibilityUpdateRecipientsDocumentVisibility(envelopeID string, documentVisibilityList *model.DocumentVisibilityList) *DocumentVisibilityUpdateRecipientsDocumentVisibilityOp {
+func (s *Service) DocumentVisibilityUpdateRecipientsDocumentVisibility(
+	envelopeID string,
+	documentVisibilityList *model.DocumentVisibilityList,
+) *DocumentVisibilityUpdateRecipientsDocumentVisibilityOp {
 	return &DocumentVisibilityUpdateRecipientsDocumentVisibilityOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", "document_visibility"}, "/"),
-		Payload:    documentVisibilityList,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", "document_visibility"},
+			"/",
+		),
+		Payload:   documentVisibilityList,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -70,7 +75,9 @@ func (s *Service) DocumentVisibilityUpdateRecipientsDocumentVisibility(envelopeI
 type DocumentVisibilityUpdateRecipientsDocumentVisibilityOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *DocumentVisibilityUpdateRecipientsDocumentVisibilityOp) Do(ctx context.Context) (*model.DocumentVisibilityList, error) {
+func (op *DocumentVisibilityUpdateRecipientsDocumentVisibilityOp) Do(
+	ctx context.Context,
+) (*model.DocumentVisibilityList, error) {
 	var res *model.DocumentVisibilityList
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -81,7 +88,11 @@ func (op *DocumentVisibilityUpdateRecipientsDocumentVisibilityOp) Do(ctx context
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/chunkeduploads/commit
 //
 // SDK Method Envelopes::updateChunkedUpload
-func (s *Service) ChunkedUploadsCommit(chunkedUploadID string, media io.Reader, mimeType string) *ChunkedUploadsCommitOp {
+func (s *Service) ChunkedUploadsCommit(
+	chunkedUploadID string,
+	media io.Reader,
+	mimeType string,
+) *ChunkedUploadsCommitOp {
 	return &ChunkedUploadsCommitOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -115,7 +126,9 @@ func (op *ChunkedUploadsCommitOp) Action(val string) *ChunkedUploadsCommitOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/chunkeduploads/create
 //
 // SDK Method Envelopes::createChunkedUpload
-func (s *Service) ChunkedUploadsCreate(chunkedUploadRequest *model.ChunkedUploadRequest) *ChunkedUploadsCreateOp {
+func (s *Service) ChunkedUploadsCreate(
+	chunkedUploadRequest *model.ChunkedUploadRequest,
+) *ChunkedUploadsCreateOp {
 	return &ChunkedUploadsCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -198,15 +211,22 @@ func (op *ChunkedUploadsGetOp) Include(val ...string) *ChunkedUploadsGetOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/chunkeduploads/update
 //
 // SDK Method Envelopes::updateChunkedUploadPart
-func (s *Service) ChunkedUploadsUpdate(chunkedUploadID string, chunkedUploadPartSeq string, chunkedUploadRequest *model.ChunkedUploadRequest) *ChunkedUploadsUpdateOp {
+func (s *Service) ChunkedUploadsUpdate(
+	chunkedUploadID string,
+	chunkedUploadPartSeq string,
+	chunkedUploadRequest *model.ChunkedUploadRequest,
+) *ChunkedUploadsUpdateOp {
 	return &ChunkedUploadsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"chunked_uploads", chunkedUploadID, chunkedUploadPartSeq}, "/"),
-		Payload:    chunkedUploadRequest,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"chunked_uploads", chunkedUploadID, chunkedUploadPartSeq},
+			"/",
+		),
+		Payload:   chunkedUploadRequest,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -224,7 +244,10 @@ func (op *ChunkedUploadsUpdateOp) Do(ctx context.Context) (*model.ChunkedUploadR
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeattachments/create
 //
 // SDK Method Envelopes::putAttachments
-func (s *Service) AttachmentsCreate(envelopeID string, envelopeAttachmentsRequest *model.EnvelopeAttachmentsRequest) *AttachmentsCreateOp {
+func (s *Service) AttachmentsCreate(
+	envelopeID string,
+	envelopeAttachmentsRequest *model.EnvelopeAttachmentsRequest,
+) *AttachmentsCreateOp {
 	return &AttachmentsCreateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -250,7 +273,10 @@ func (op *AttachmentsCreateOp) Do(ctx context.Context) (*model.EnvelopeAttachmen
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeattachments/delete
 //
 // SDK Method Envelopes::deleteAttachments
-func (s *Service) AttachmentsDelete(envelopeID string, envelopeAttachmentsRequest *model.EnvelopeAttachmentsRequest) *AttachmentsDeleteOp {
+func (s *Service) AttachmentsDelete(
+	envelopeID string,
+	envelopeAttachmentsRequest *model.EnvelopeAttachmentsRequest,
+) *AttachmentsDeleteOp {
 	return &AttachmentsDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -324,7 +350,11 @@ func (op *AttachmentsListOp) Do(ctx context.Context) (*model.EnvelopeAttachments
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeattachments/update
 //
 // SDK Method Envelopes::putAttachment
-func (s *Service) AttachmentsUpdate(attachmentID string, envelopeID string, attachment *model.Attachment) *AttachmentsUpdateOp {
+func (s *Service) AttachmentsUpdate(
+	attachmentID string,
+	envelopeID string,
+	attachment *model.Attachment,
+) *AttachmentsUpdateOp {
 	return &AttachmentsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -350,14 +380,21 @@ func (op *AttachmentsUpdateOp) Do(ctx context.Context) (*model.EnvelopeAttachmen
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeconsumerdisclosures/get
 //
 // SDK Method Envelopes::getConsumerDisclosure
-func (s *Service) ConsumerDisclosuresGet(envelopeID string, langCode string, recipientID string) *ConsumerDisclosuresGetOp {
+func (s *Service) ConsumerDisclosuresGet(
+	envelopeID string,
+	langCode string,
+	recipientID string,
+) *ConsumerDisclosuresGetOp {
 	return &ConsumerDisclosuresGetOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "consumer_disclosure", langCode}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "consumer_disclosure", langCode},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -429,14 +466,20 @@ func (op *ConsumerDisclosuresGetOp) LangCode(val string) *ConsumerDisclosuresGet
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeconsumerdisclosures/getdefault
 //
 // SDK Method Envelopes::getConsumerDisclosureDefault
-func (s *Service) ConsumerDisclosuresGetDefault(envelopeID string, recipientID string) *ConsumerDisclosuresGetDefaultOp {
+func (s *Service) ConsumerDisclosuresGetDefault(
+	envelopeID string,
+	recipientID string,
+) *ConsumerDisclosuresGetDefaultOp {
 	return &ConsumerDisclosuresGetDefaultOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "consumer_disclosure"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "consumer_disclosure"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -444,7 +487,9 @@ func (s *Service) ConsumerDisclosuresGetDefault(envelopeID string, recipientID s
 type ConsumerDisclosuresGetDefaultOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ConsumerDisclosuresGetDefaultOp) Do(ctx context.Context) (*model.ConsumerDisclosure, error) {
+func (op *ConsumerDisclosuresGetDefaultOp) Do(
+	ctx context.Context,
+) (*model.ConsumerDisclosure, error) {
 	var res *model.ConsumerDisclosure
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -508,7 +553,10 @@ func (op *ConsumerDisclosuresGetDefaultOp) LangCode(val string) *ConsumerDisclos
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/create
 //
 // SDK Method Envelopes::createCustomFields
-func (s *Service) CustomFieldsCreate(envelopeID string, envelopeCustomFields *model.CustomFields) *CustomFieldsCreateOp {
+func (s *Service) CustomFieldsCreate(
+	envelopeID string,
+	envelopeCustomFields *model.CustomFields,
+) *CustomFieldsCreateOp {
 	return &CustomFieldsCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -533,7 +581,10 @@ func (op *CustomFieldsCreateOp) Do(ctx context.Context) (*model.CustomFields, er
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/delete
 //
 // SDK Method Envelopes::deleteCustomFields
-func (s *Service) CustomFieldsDelete(envelopeID string, envelopeCustomFields *model.CustomFields) *CustomFieldsDeleteOp {
+func (s *Service) CustomFieldsDelete(
+	envelopeID string,
+	envelopeCustomFields *model.CustomFields,
+) *CustomFieldsDeleteOp {
 	return &CustomFieldsDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -584,7 +635,10 @@ func (op *CustomFieldsListOp) Do(ctx context.Context) (*model.CustomFieldsEnvelo
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/update
 //
 // SDK Method Envelopes::updateCustomFields
-func (s *Service) CustomFieldsUpdate(envelopeID string, envelopeCustomFields *model.CustomFields) *CustomFieldsUpdateOp {
+func (s *Service) CustomFieldsUpdate(
+	envelopeID string,
+	envelopeCustomFields *model.CustomFields,
+) *CustomFieldsUpdateOp {
 	return &CustomFieldsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -610,14 +664,21 @@ func (op *CustomFieldsUpdateOp) Do(ctx context.Context) (*model.CustomFields, er
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocumentfields/create
 //
 // SDK Method Envelopes::createDocumentFields
-func (s *Service) DocumentFieldsCreate(documentID string, envelopeID string, envelopeDocumentFields *model.DocumentFieldsInformation) *DocumentFieldsCreateOp {
+func (s *Service) DocumentFieldsCreate(
+	documentID string,
+	envelopeID string,
+	envelopeDocumentFields *model.DocumentFieldsInformation,
+) *DocumentFieldsCreateOp {
 	return &DocumentFieldsCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "fields"}, "/"),
-		Payload:    envelopeDocumentFields,
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "fields"},
+			"/",
+		),
+		Payload:   envelopeDocumentFields,
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -625,7 +686,9 @@ func (s *Service) DocumentFieldsCreate(documentID string, envelopeID string, env
 type DocumentFieldsCreateOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *DocumentFieldsCreateOp) Do(ctx context.Context) (*model.DocumentFieldsInformation, error) {
+func (op *DocumentFieldsCreateOp) Do(
+	ctx context.Context,
+) (*model.DocumentFieldsInformation, error) {
 	var res *model.DocumentFieldsInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -635,15 +698,22 @@ func (op *DocumentFieldsCreateOp) Do(ctx context.Context) (*model.DocumentFields
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocumentfields/delete
 //
 // SDK Method Envelopes::deleteDocumentFields
-func (s *Service) DocumentFieldsDelete(documentID string, envelopeID string, envelopeDocumentFields *model.DocumentFieldsInformation) *DocumentFieldsDeleteOp {
+func (s *Service) DocumentFieldsDelete(
+	documentID string,
+	envelopeID string,
+	envelopeDocumentFields *model.DocumentFieldsInformation,
+) *DocumentFieldsDeleteOp {
 	return &DocumentFieldsDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "fields"}, "/"),
-		Payload:    envelopeDocumentFields,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "fields"},
+			"/",
+		),
+		Payload:   envelopeDocumentFields,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -651,7 +721,9 @@ func (s *Service) DocumentFieldsDelete(documentID string, envelopeID string, env
 type DocumentFieldsDeleteOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *DocumentFieldsDeleteOp) Do(ctx context.Context) (*model.DocumentFieldsInformation, error) {
+func (op *DocumentFieldsDeleteOp) Do(
+	ctx context.Context,
+) (*model.DocumentFieldsInformation, error) {
 	var res *model.DocumentFieldsInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -665,10 +737,13 @@ func (s *Service) DocumentFieldsList(documentID string, envelopeID string) *Docu
 	return &DocumentFieldsListOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "fields"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "fields"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -686,15 +761,22 @@ func (op *DocumentFieldsListOp) Do(ctx context.Context) (*model.DocumentFieldsIn
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocumentfields/update
 //
 // SDK Method Envelopes::updateDocumentFields
-func (s *Service) DocumentFieldsUpdate(documentID string, envelopeID string, envelopeDocumentFields *model.DocumentFieldsInformation) *DocumentFieldsUpdateOp {
+func (s *Service) DocumentFieldsUpdate(
+	documentID string,
+	envelopeID string,
+	envelopeDocumentFields *model.DocumentFieldsInformation,
+) *DocumentFieldsUpdateOp {
 	return &DocumentFieldsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "fields"}, "/"),
-		Payload:    envelopeDocumentFields,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "fields"},
+			"/",
+		),
+		Payload:   envelopeDocumentFields,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -702,7 +784,9 @@ func (s *Service) DocumentFieldsUpdate(documentID string, envelopeID string, env
 type DocumentFieldsUpdateOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *DocumentFieldsUpdateOp) Do(ctx context.Context) (*model.DocumentFieldsInformation, error) {
+func (op *DocumentFieldsUpdateOp) Do(
+	ctx context.Context,
+) (*model.DocumentFieldsInformation, error) {
 	var res *model.DocumentFieldsInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -716,10 +800,13 @@ func (s *Service) DocumentTabsGet(documentID string, envelopeID string) *Documen
 	return &DocumentTabsGetOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "tabs"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "tabs"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -757,14 +844,21 @@ func (op *DocumentTabsGetOp) PageNumbers(val string) *DocumentTabsGetOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocumenttabs/getbypage
 //
 // SDK Method Envelopes::getPageTabs
-func (s *Service) DocumentTabsGetByPage(documentID string, envelopeID string, pageNumber string) *DocumentTabsGetByPageOp {
+func (s *Service) DocumentTabsGetByPage(
+	documentID string,
+	envelopeID string,
+	pageNumber string,
+) *DocumentTabsGetByPageOp {
 	return &DocumentTabsGetByPageOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "pages", pageNumber, "tabs"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "pages", pageNumber, "tabs"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -782,14 +876,20 @@ func (op *DocumentTabsGetByPageOp) Do(ctx context.Context) (*model.Tabs, error) 
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocumentvisibility/get
 //
 // SDK Method Envelopes::getRecipientDocumentVisibility
-func (s *Service) DocumentVisibilityGet(envelopeID string, recipientID string) *DocumentVisibilityGetOp {
+func (s *Service) DocumentVisibilityGet(
+	envelopeID string,
+	recipientID string,
+) *DocumentVisibilityGetOp {
 	return &DocumentVisibilityGetOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "document_visibility"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "document_visibility"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -807,15 +907,22 @@ func (op *DocumentVisibilityGetOp) Do(ctx context.Context) (*model.DocumentVisib
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocumentvisibility/update
 //
 // SDK Method Envelopes::updateRecipientDocumentVisibility
-func (s *Service) DocumentVisibilityUpdate(envelopeID string, recipientID string, documentVisibilityList *model.DocumentVisibilityList) *DocumentVisibilityUpdateOp {
+func (s *Service) DocumentVisibilityUpdate(
+	envelopeID string,
+	recipientID string,
+	documentVisibilityList *model.DocumentVisibilityList,
+) *DocumentVisibilityUpdateOp {
 	return &DocumentVisibilityUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "document_visibility"}, "/"),
-		Payload:    documentVisibilityList,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "document_visibility"},
+			"/",
+		),
+		Payload:   documentVisibilityList,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -823,7 +930,9 @@ func (s *Service) DocumentVisibilityUpdate(envelopeID string, recipientID string
 type DocumentVisibilityUpdateOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *DocumentVisibilityUpdateOp) Do(ctx context.Context) (*model.DocumentVisibilityList, error) {
+func (op *DocumentVisibilityUpdateOp) Do(
+	ctx context.Context,
+) (*model.DocumentVisibilityList, error) {
 	var res *model.DocumentVisibilityList
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -833,7 +942,10 @@ func (op *DocumentVisibilityUpdateOp) Do(ctx context.Context) (*model.DocumentVi
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/delete
 //
 // SDK Method Envelopes::deleteDocuments
-func (s *Service) DocumentsDelete(envelopeID string, envelopeDefinition *model.EnvelopeDefinition) *DocumentsDeleteOp {
+func (s *Service) DocumentsDelete(
+	envelopeID string,
+	envelopeDefinition *model.EnvelopeDefinition,
+) *DocumentsDeleteOp {
 	return &DocumentsDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -1030,7 +1142,12 @@ func (op *DocumentsListOp) SharedUserID(val string) *DocumentsListOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/update
 //
 // SDK Method Envelopes::updateDocument
-func (s *Service) DocumentsUpdate(documentID string, envelopeID string, media io.Reader, mimeType string) *DocumentsUpdateOp {
+func (s *Service) DocumentsUpdate(
+	documentID string,
+	envelopeID string,
+	media io.Reader,
+	mimeType string,
+) *DocumentsUpdateOp {
 	return &DocumentsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -1056,7 +1173,10 @@ func (op *DocumentsUpdateOp) Do(ctx context.Context) (*model.EnvelopeDocument, e
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/updatelist
 //
 // SDK Method Envelopes::updateDocuments
-func (s *Service) DocumentsUpdateList(envelopeID string, envelopeDefinition *model.EnvelopeDefinition) *DocumentsUpdateListOp {
+func (s *Service) DocumentsUpdateList(
+	envelopeID string,
+	envelopeDefinition *model.EnvelopeDefinition,
+) *DocumentsUpdateListOp {
 	return &DocumentsUpdateListOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -1082,7 +1202,10 @@ func (op *DocumentsUpdateListOp) Do(ctx context.Context) (*model.EnvelopeDocumen
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeemailsettings/create
 //
 // SDK Method Envelopes::createEmailSettings
-func (s *Service) EmailSettingsCreate(envelopeID string, emailSettings *model.EmailSettings) *EmailSettingsCreateOp {
+func (s *Service) EmailSettingsCreate(
+	envelopeID string,
+	emailSettings *model.EmailSettings,
+) *EmailSettingsCreateOp {
 	return &EmailSettingsCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -1157,7 +1280,10 @@ func (op *EmailSettingsGetOp) Do(ctx context.Context) (*model.EmailSettings, err
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeemailsettings/update
 //
 // SDK Method Envelopes::updateEmailSettings
-func (s *Service) EmailSettingsUpdate(envelopeID string, emailSettings *model.EmailSettings) *EmailSettingsUpdateOp {
+func (s *Service) EmailSettingsUpdate(
+	envelopeID string,
+	emailSettings *model.EmailSettings,
+) *EmailSettingsUpdateOp {
 	return &EmailSettingsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -1309,14 +1435,21 @@ func (op *LocksUpdateOp) Do(ctx context.Context) (*model.LockInformation, error)
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/create
 //
 // SDK Method Envelopes::createTabs
-func (s *Service) RecipientTabsCreate(envelopeID string, recipientID string, envelopeRecipientTabs *model.Tabs) *RecipientTabsCreateOp {
+func (s *Service) RecipientTabsCreate(
+	envelopeID string,
+	recipientID string,
+	envelopeRecipientTabs *model.Tabs,
+) *RecipientTabsCreateOp {
 	return &RecipientTabsCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "tabs"}, "/"),
-		Payload:    envelopeRecipientTabs,
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "tabs"},
+			"/",
+		),
+		Payload:   envelopeRecipientTabs,
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -1335,20 +1468,25 @@ func (op *RecipientTabsCreateOp) Do(ctx context.Context) (*model.Tabs, error) {
 // `templateLocked` property set to true.
 // This property corresponds to the **Restrict changes** option in the web app.
 //
-//
-//
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/delete
 //
 // SDK Method Envelopes::deleteTabs
-func (s *Service) RecipientTabsDelete(envelopeID string, recipientID string, envelopeRecipientTabs *model.Tabs) *RecipientTabsDeleteOp {
+func (s *Service) RecipientTabsDelete(
+	envelopeID string,
+	recipientID string,
+	envelopeRecipientTabs *model.Tabs,
+) *RecipientTabsDeleteOp {
 	return &RecipientTabsDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "tabs"}, "/"),
-		Payload:    envelopeRecipientTabs,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "tabs"},
+			"/",
+		),
+		Payload:   envelopeRecipientTabs,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -1370,10 +1508,13 @@ func (s *Service) RecipientTabsList(envelopeID string, recipientID string) *Reci
 	return &RecipientTabsListOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "tabs"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "tabs"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -1404,20 +1545,25 @@ func (op *RecipientTabsListOp) IncludeMetadata(val string) *RecipientTabsListOp 
 
 // RecipientTabsUpdate updates the tabs for a recipient.
 //
-//
-//
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipienttabs/update
 //
 // SDK Method Envelopes::updateTabs
-func (s *Service) RecipientTabsUpdate(envelopeID string, recipientID string, envelopeRecipientTabs *model.Tabs) *RecipientTabsUpdateOp {
+func (s *Service) RecipientTabsUpdate(
+	envelopeID string,
+	recipientID string,
+	envelopeRecipientTabs *model.Tabs,
+) *RecipientTabsUpdateOp {
 	return &RecipientTabsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "tabs"}, "/"),
-		Payload:    envelopeRecipientTabs,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "tabs"},
+			"/",
+		),
+		Payload:   envelopeRecipientTabs,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -1435,7 +1581,10 @@ func (op *RecipientTabsUpdateOp) Do(ctx context.Context) (*model.Tabs, error) {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/create
 //
 // SDK Method Envelopes::createRecipient
-func (s *Service) RecipientsCreate(envelopeID string, envelopeRecipients *model.Recipients) *RecipientsCreateOp {
+func (s *Service) RecipientsCreate(
+	envelopeID string,
+	envelopeRecipients *model.Recipients,
+) *RecipientsCreateOp {
 	return &RecipientsCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -1503,7 +1652,10 @@ func (op *RecipientsDeleteOp) Do(ctx context.Context) (*model.Recipients, error)
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/deletelist
 //
 // SDK Method Envelopes::deleteRecipients
-func (s *Service) RecipientsDeleteList(envelopeID string, envelopeRecipients *model.Recipients) *RecipientsDeleteListOp {
+func (s *Service) RecipientsDeleteList(
+	envelopeID string,
+	envelopeRecipients *model.Recipients,
+) *RecipientsDeleteListOp {
 	return &RecipientsDeleteListOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -1586,7 +1738,10 @@ func (op *RecipientsListOp) IncludeTabs() *RecipientsListOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/update
 //
 // SDK Method Envelopes::updateRecipients
-func (s *Service) RecipientsUpdate(envelopeID string, envelopeRecipients *model.Recipients) *RecipientsUpdateOp {
+func (s *Service) RecipientsUpdate(
+	envelopeID string,
+	envelopeRecipients *model.Recipients,
+) *RecipientsUpdateOp {
 	return &RecipientsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -1646,7 +1801,10 @@ func (op *RecipientsUpdateOp) ResendEnvelope() *RecipientsUpdateOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopetemplates/apply
 //
 // SDK Method Envelopes::applyTemplate
-func (s *Service) TemplatesApply(envelopeID string, documentTemplateList *model.DocumentTemplateList) *TemplatesApplyOp {
+func (s *Service) TemplatesApply(
+	envelopeID string,
+	documentTemplateList *model.DocumentTemplateList,
+) *TemplatesApplyOp {
 	return &TemplatesApplyOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -1685,14 +1843,21 @@ func (op *TemplatesApplyOp) PreserveTemplateRecipient(val string) *TemplatesAppl
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopetemplates/applytodocument
 //
 // SDK Method Envelopes::applyTemplateToDocument
-func (s *Service) TemplatesApplyToDocument(documentID string, envelopeID string, documentTemplateList *model.DocumentTemplateList) *TemplatesApplyToDocumentOp {
+func (s *Service) TemplatesApplyToDocument(
+	documentID string,
+	envelopeID string,
+	documentTemplateList *model.DocumentTemplateList,
+) *TemplatesApplyToDocumentOp {
 	return &TemplatesApplyToDocumentOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "templates"}, "/"),
-		Payload:    documentTemplateList,
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "templates"},
+			"/",
+		),
+		Payload:   documentTemplateList,
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -1712,7 +1877,9 @@ func (op *TemplatesApplyToDocumentOp) Do(ctx context.Context) (*model.DocumentTe
 // and none of the documents include the anchor text.
 //
 // When **true,** the recipients _will be preserved_ after the template is applied.
-func (op *TemplatesApplyToDocumentOp) PreserveTemplateRecipient(val string) *TemplatesApplyToDocumentOp {
+func (op *TemplatesApplyToDocumentOp) PreserveTemplateRecipient(
+	val string,
+) *TemplatesApplyToDocumentOp {
 	if op != nil {
 		op.QueryOpts.Set("preserve_template_recipient", val)
 	}
@@ -1724,13 +1891,20 @@ func (op *TemplatesApplyToDocumentOp) PreserveTemplateRecipient(val string) *Tem
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopetemplates/delete
 //
 // SDK Method Envelopes::deleteTemplatesFromDocument
-func (s *Service) TemplatesDelete(documentID string, envelopeID string, templateID string) *TemplatesDeleteOp {
+func (s *Service) TemplatesDelete(
+	documentID string,
+	envelopeID string,
+	templateID string,
+) *TemplatesDeleteOp {
 	return &TemplatesDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "templates", templateID}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "templates", templateID},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -1780,14 +1954,20 @@ func (op *TemplatesListOp) Include(val string) *TemplatesListOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopetemplates/listbydocument
 //
 // SDK Method Envelopes::listTemplatesForDocument
-func (s *Service) TemplatesListByDocument(documentID string, envelopeID string) *TemplatesListByDocumentOp {
+func (s *Service) TemplatesListByDocument(
+	documentID string,
+	envelopeID string,
+) *TemplatesListByDocumentOp {
 	return &TemplatesListByDocumentOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "templates"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "templates"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -1817,7 +1997,9 @@ func (op *TemplatesListByDocumentOp) Include(val ...string) *TemplatesListByDocu
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createconsole
 //
 // SDK Method Envelopes::createConsoleView
-func (s *Service) ViewsCreateConsole(consoleViewRequest *model.ConsoleViewRequest) *ViewsCreateConsoleOp {
+func (s *Service) ViewsCreateConsole(
+	consoleViewRequest *model.ConsoleViewRequest,
+) *ViewsCreateConsoleOp {
 	return &ViewsCreateConsoleOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -1842,7 +2024,10 @@ func (op *ViewsCreateConsoleOp) Do(ctx context.Context) (*model.ViewURL, error) 
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createcorrect
 //
 // SDK Method Envelopes::createCorrectView
-func (s *Service) ViewsCreateCorrect(envelopeID string, correctViewRequest *model.CorrectViewRequest) *ViewsCreateCorrectOp {
+func (s *Service) ViewsCreateCorrect(
+	envelopeID string,
+	correctViewRequest *model.CorrectViewRequest,
+) *ViewsCreateCorrectOp {
 	return &ViewsCreateCorrectOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -1867,7 +2052,10 @@ func (op *ViewsCreateCorrectOp) Do(ctx context.Context) (*model.ViewURL, error) 
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createedit
 //
 // SDK Method Envelopes::createEditView
-func (s *Service) ViewsCreateEdit(envelopeID string, returnURLRequest *model.ReturnURLRequest) *ViewsCreateEditOp {
+func (s *Service) ViewsCreateEdit(
+	envelopeID string,
+	returnURLRequest *model.ReturnURLRequest,
+) *ViewsCreateEditOp {
 	return &ViewsCreateEditOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -1892,7 +2080,10 @@ func (op *ViewsCreateEditOp) Do(ctx context.Context) (*model.ViewURL, error) {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient
 //
 // SDK Method Envelopes::createRecipientView
-func (s *Service) ViewsCreateRecipient(envelopeID string, recipientViewRequest *model.RecipientViewRequest) *ViewsCreateRecipientOp {
+func (s *Service) ViewsCreateRecipient(
+	envelopeID string,
+	recipientViewRequest *model.RecipientViewRequest,
+) *ViewsCreateRecipientOp {
 	return &ViewsCreateRecipientOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -1917,7 +2108,10 @@ func (op *ViewsCreateRecipientOp) Do(ctx context.Context) (*model.ViewURL, error
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createsender
 //
 // SDK Method Envelopes::createSenderView
-func (s *Service) ViewsCreateSender(envelopeID string, returnURLRequest *model.ReturnURLRequest) *ViewsCreateSenderOp {
+func (s *Service) ViewsCreateSender(
+	envelopeID string,
+	returnURLRequest *model.ReturnURLRequest,
+) *ViewsCreateSenderOp {
 	return &ViewsCreateSenderOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -1943,7 +2137,10 @@ func (op *ViewsCreateSenderOp) Do(ctx context.Context) (*model.ViewURL, error) {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create
 //
 // SDK Method Envelopes::createEnvelope
-func (s *Service) Create(envelopeDefinition *model.EnvelopeDefinition, uploads ...*esign.UploadFile) *CreateOp {
+func (s *Service) Create(
+	envelopeDefinition *model.EnvelopeDefinition,
+	uploads ...*esign.UploadFile,
+) *CreateOp {
 	return &CreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -2003,13 +2200,20 @@ func (op *CreateOp) MergeRolesOnDraft() *CreateOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/deletedocumentpage
 //
 // SDK Method Envelopes::deleteDocumentPage
-func (s *Service) DeleteDocumentPage(documentID string, envelopeID string, pageNumber string) *DeleteDocumentPageOp {
+func (s *Service) DeleteDocumentPage(
+	documentID string,
+	envelopeID string,
+	pageNumber string,
+) *DeleteDocumentPageOp {
 	return &DeleteDocumentPageOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "pages", pageNumber}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "pages", pageNumber},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -2103,13 +2307,20 @@ func (op *GetNotificationSettingsOp) Do(ctx context.Context) (*model.Notificatio
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/getpageimage
 //
 // SDK Method Envelopes::getDocumentPageImage
-func (s *Service) GetPageImage(documentID string, envelopeID string, pageNumber string) *GetPageImageOp {
+func (s *Service) GetPageImage(
+	documentID string,
+	envelopeID string,
+	pageNumber string,
+) *GetPageImageOp {
 	return &GetPageImageOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "pages", pageNumber, "page_image"}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "pages", pageNumber, "page_image"},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -2163,10 +2374,13 @@ func (s *Service) GetPageImages(documentID string, envelopeID string) *GetPageIm
 	return &GetPageImagesOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "pages"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "pages"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -2240,13 +2454,19 @@ func (op *GetPageImagesOp) StartPosition(val int) *GetPageImagesOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/getrecipientinitialsimage
 //
 // SDK Method Envelopes::getRecipientInitialsImage
-func (s *Service) GetRecipientInitialsImage(envelopeID string, recipientID string) *GetRecipientInitialsImageOp {
+func (s *Service) GetRecipientInitialsImage(
+	envelopeID string,
+	recipientID string,
+) *GetRecipientInitialsImageOp {
 	return &GetRecipientInitialsImageOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "initials_image"}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "initials_image"},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -2272,14 +2492,20 @@ func (op *GetRecipientInitialsImageOp) IncludeChrome() *GetRecipientInitialsImag
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/getrecipientsignature
 //
 // SDK Method Envelopes::getRecipientSignature
-func (s *Service) GetRecipientSignature(envelopeID string, recipientID string) *GetRecipientSignatureOp {
+func (s *Service) GetRecipientSignature(
+	envelopeID string,
+	recipientID string,
+) *GetRecipientSignatureOp {
 	return &GetRecipientSignatureOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "signature"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "signature"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -2297,13 +2523,19 @@ func (op *GetRecipientSignatureOp) Do(ctx context.Context) (*model.UserSignature
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/getrecipientsignatureimage
 //
 // SDK Method Envelopes::getRecipientSignatureImage
-func (s *Service) GetRecipientSignatureImage(envelopeID string, recipientID string) *GetRecipientSignatureImageOp {
+func (s *Service) GetRecipientSignatureImage(
+	envelopeID string,
+	recipientID string,
+) *GetRecipientSignatureImageOp {
 	return &GetRecipientSignatureImageOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "signature_image"}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "signature_image"},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -2443,7 +2675,6 @@ func (op *ListStatusOp) FromDate(val time.Time) *ListStatusOp {
 }
 
 // FromToStatus is the envelope status that you are checking for. Possible values are:
-//
 //
 // - `Changed` (default)
 // - `Completed`
@@ -2913,14 +3144,22 @@ func (op *ListStatusChangesOp) UserName(val string) *ListStatusChangesOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/rotatedocumentpage
 //
 // SDK Method Envelopes::rotateDocumentPage
-func (s *Service) RotateDocumentPage(documentID string, envelopeID string, pageNumber string, pageRequest *model.PageRequest) *RotateDocumentPageOp {
+func (s *Service) RotateDocumentPage(
+	documentID string,
+	envelopeID string,
+	pageNumber string,
+	pageRequest *model.PageRequest,
+) *RotateDocumentPageOp {
 	return &RotateDocumentPageOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "pages", pageNumber, "page_image"}, "/"),
-		Payload:    pageRequest,
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "pages", pageNumber, "page_image"},
+			"/",
+		),
+		Payload:   pageRequest,
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -2980,7 +3219,10 @@ func (op *UpdateOp) ResendEnvelope() *UpdateOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/updatenotificationsettings
 //
 // SDK Method Envelopes::updateNotificationSettings
-func (s *Service) UpdateNotificationSettings(envelopeID string, envelopeNotificationRequest *model.EnvelopeNotificationRequest) *UpdateNotificationSettingsOp {
+func (s *Service) UpdateNotificationSettings(
+	envelopeID string,
+	envelopeNotificationRequest *model.EnvelopeNotificationRequest,
+) *UpdateNotificationSettingsOp {
 	return &UpdateNotificationSettingsOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -3007,15 +3249,23 @@ func (op *UpdateNotificationSettingsOp) Do(ctx context.Context) (*model.Notifica
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/updaterecipientinitialsimage
 //
 // SDK Method Envelopes::updateRecipientInitialsImage
-func (s *Service) UpdateRecipientInitialsImage(envelopeID string, recipientID string, media io.Reader, mimeType string) *UpdateRecipientInitialsImageOp {
+func (s *Service) UpdateRecipientInitialsImage(
+	envelopeID string,
+	recipientID string,
+	media io.Reader,
+	mimeType string,
+) *UpdateRecipientInitialsImageOp {
 	return &UpdateRecipientInitialsImageOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "initials_image"}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		Accept:     "image/gif",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "initials_image"},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		Accept:    "image/gif",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3033,15 +3283,23 @@ func (op *UpdateRecipientInitialsImageOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/updaterecipientsignatureimage
 //
 // SDK Method Envelopes::updateRecipientSignatureImage
-func (s *Service) UpdateRecipientSignatureImage(envelopeID string, recipientID string, media io.Reader, mimeType string) *UpdateRecipientSignatureImageOp {
+func (s *Service) UpdateRecipientSignatureImage(
+	envelopeID string,
+	recipientID string,
+	media io.Reader,
+	mimeType string,
+) *UpdateRecipientSignatureImageOp {
 	return &UpdateRecipientSignatureImageOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "signature_image"}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		Accept:     "image/gif",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "signature_image"},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		Accept:    "image/gif",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3139,14 +3397,21 @@ func (op *CommentsGetOp) Encoding(val string) *CommentsGetOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/documentresponsivehtmlpreview/create
 //
 // SDK Method Envelopes::createDocumentResponsiveHtmlPreview
-func (s *Service) DocumentResponsiveHTMLPreviewCreate(documentID string, envelopeID string, documentHTMLDefinition *model.DocumentHTMLDefinition) *DocumentResponsiveHTMLPreviewCreateOp {
+func (s *Service) DocumentResponsiveHTMLPreviewCreate(
+	documentID string,
+	envelopeID string,
+	documentHTMLDefinition *model.DocumentHTMLDefinition,
+) *DocumentResponsiveHTMLPreviewCreateOp {
 	return &DocumentResponsiveHTMLPreviewCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "responsive_html_preview"}, "/"),
-		Payload:    documentHTMLDefinition,
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "responsive_html_preview"},
+			"/",
+		),
+		Payload:   documentHTMLDefinition,
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3154,7 +3419,9 @@ func (s *Service) DocumentResponsiveHTMLPreviewCreate(documentID string, envelop
 type DocumentResponsiveHTMLPreviewCreateOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *DocumentResponsiveHTMLPreviewCreateOp) Do(ctx context.Context) (*model.DocumentHTMLDefinitions, error) {
+func (op *DocumentResponsiveHTMLPreviewCreateOp) Do(
+	ctx context.Context,
+) (*model.DocumentHTMLDefinitions, error) {
 	var res *model.DocumentHTMLDefinitions
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3165,14 +3432,20 @@ func (op *DocumentResponsiveHTMLPreviewCreateOp) Do(ctx context.Context) (*model
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocumenthtmldefinitions/get
 //
 // SDK Method Envelopes::getEnvelopeDocumentHtmlDefinitions
-func (s *Service) DocumentHTMLDefinitionsGet(documentID string, envelopeID string) *DocumentHTMLDefinitionsGetOp {
+func (s *Service) DocumentHTMLDefinitionsGet(
+	documentID string,
+	envelopeID string,
+) *DocumentHTMLDefinitionsGetOp {
 	return &DocumentHTMLDefinitionsGetOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "html_definitions"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "html_definitions"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3180,7 +3453,9 @@ func (s *Service) DocumentHTMLDefinitionsGet(documentID string, envelopeID strin
 type DocumentHTMLDefinitionsGetOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *DocumentHTMLDefinitionsGetOp) Do(ctx context.Context) (*model.DocumentHTMLDefinitionOriginals, error) {
+func (op *DocumentHTMLDefinitionsGetOp) Do(
+	ctx context.Context,
+) (*model.DocumentHTMLDefinitionOriginals, error) {
 	var res *model.DocumentHTMLDefinitionOriginals
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3190,14 +3465,21 @@ func (op *DocumentHTMLDefinitionsGetOp) Do(ctx context.Context) (*model.Document
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocumenttabs/create
 //
 // SDK Method Envelopes::createDocumentTabs
-func (s *Service) DocumentTabsCreate(documentID string, envelopeID string, tabs *model.Tabs) *DocumentTabsCreateOp {
+func (s *Service) DocumentTabsCreate(
+	documentID string,
+	envelopeID string,
+	tabs *model.Tabs,
+) *DocumentTabsCreateOp {
 	return &DocumentTabsCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "tabs"}, "/"),
-		Payload:    tabs,
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "tabs"},
+			"/",
+		),
+		Payload:   tabs,
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3215,15 +3497,22 @@ func (op *DocumentTabsCreateOp) Do(ctx context.Context) (*model.Tabs, error) {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocumenttabs/delete
 //
 // SDK Method Envelopes::deleteDocumentTabs
-func (s *Service) DocumentTabsDelete(documentID string, envelopeID string, tabs *model.Tabs) *DocumentTabsDeleteOp {
+func (s *Service) DocumentTabsDelete(
+	documentID string,
+	envelopeID string,
+	tabs *model.Tabs,
+) *DocumentTabsDeleteOp {
 	return &DocumentTabsDeleteOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "tabs"}, "/"),
-		Payload:    tabs,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "tabs"},
+			"/",
+		),
+		Payload:   tabs,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3241,15 +3530,22 @@ func (op *DocumentTabsDeleteOp) Do(ctx context.Context) (*model.Tabs, error) {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocumenttabs/update
 //
 // SDK Method Envelopes::updateDocumentTabs
-func (s *Service) DocumentTabsUpdate(documentID string, envelopeID string, tabs *model.Tabs) *DocumentTabsUpdateOp {
+func (s *Service) DocumentTabsUpdate(
+	documentID string,
+	envelopeID string,
+	tabs *model.Tabs,
+) *DocumentTabsUpdateOp {
 	return &DocumentTabsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", documentID, "tabs"}, "/"),
-		Payload:    tabs,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", documentID, "tabs"},
+			"/",
+		),
+		Payload:   tabs,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3267,14 +3563,21 @@ func (op *DocumentTabsUpdateOp) Do(ctx context.Context) (*model.Tabs, error) {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/updateregendocument
 //
 // SDK Method Envelopes::updateRegenDocument
-func (s *Service) DocumentsUpdateRegenDocument(envelopeID string, regenDocumentID string, document *model.Document) *DocumentsUpdateRegenDocumentOp {
+func (s *Service) DocumentsUpdateRegenDocument(
+	envelopeID string,
+	regenDocumentID string,
+	document *model.Document,
+) *DocumentsUpdateRegenDocumentOp {
 	return &DocumentsUpdateRegenDocumentOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "documents", regenDocumentID, "regen"}, "/"),
-		Payload:    document,
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "documents", regenDocumentID, "regen"},
+			"/",
+		),
+		Payload:   document,
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3307,7 +3610,9 @@ func (s *Service) HTMLDefinitionsList(envelopeID string) *HTMLDefinitionsListOp 
 type HTMLDefinitionsListOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *HTMLDefinitionsListOp) Do(ctx context.Context) (*model.DocumentHTMLDefinitionOriginals, error) {
+func (op *HTMLDefinitionsListOp) Do(
+	ctx context.Context,
+) (*model.DocumentHTMLDefinitionOriginals, error) {
 	var res *model.DocumentHTMLDefinitionOriginals
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3317,7 +3622,9 @@ func (op *HTMLDefinitionsListOp) Do(ctx context.Context) (*model.DocumentHTMLDef
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopepublish/createhistoricalenvelopepublishtransaction
 //
 // SDK Method Envelopes::createHistoricalEnvelopePublishTransaction
-func (s *Service) PublishCreateHistoricalEnvelopePublishTransaction(connectHistoricalEnvelopeRepublish *model.ConnectHistoricalEnvelopeRepublish) *PublishCreateHistoricalEnvelopePublishTransactionOp {
+func (s *Service) PublishCreateHistoricalEnvelopePublishTransaction(
+	connectHistoricalEnvelopeRepublish *model.ConnectHistoricalEnvelopeRepublish,
+) *PublishCreateHistoricalEnvelopePublishTransactionOp {
 	return &PublishCreateHistoricalEnvelopePublishTransactionOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -3332,7 +3639,9 @@ func (s *Service) PublishCreateHistoricalEnvelopePublishTransaction(connectHisto
 type PublishCreateHistoricalEnvelopePublishTransactionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *PublishCreateHistoricalEnvelopePublishTransactionOp) Do(ctx context.Context) (*model.EnvelopePublishTransaction, error) {
+func (op *PublishCreateHistoricalEnvelopePublishTransactionOp) Do(
+	ctx context.Context,
+) (*model.EnvelopePublishTransaction, error) {
 	var res *model.EnvelopePublishTransaction
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3342,7 +3651,10 @@ func (op *PublishCreateHistoricalEnvelopePublishTransactionOp) Do(ctx context.Co
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/createenveloperecipientpreview
 //
 // SDK Method Envelopes::createEnvelopeRecipientPreview
-func (s *Service) RecipientsCreateEnvelopeRecipientPreview(envelopeID string, recipientPreviewRequest *model.RecipientPreviewRequest) *RecipientsCreateEnvelopeRecipientPreviewOp {
+func (s *Service) RecipientsCreateEnvelopeRecipientPreview(
+	envelopeID string,
+	recipientPreviewRequest *model.RecipientPreviewRequest,
+) *RecipientsCreateEnvelopeRecipientPreviewOp {
 	return &RecipientsCreateEnvelopeRecipientPreviewOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -3357,7 +3669,9 @@ func (s *Service) RecipientsCreateEnvelopeRecipientPreview(envelopeID string, re
 type RecipientsCreateEnvelopeRecipientPreviewOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *RecipientsCreateEnvelopeRecipientPreviewOp) Do(ctx context.Context) (*model.ViewURL, error) {
+func (op *RecipientsCreateEnvelopeRecipientPreviewOp) Do(
+	ctx context.Context,
+) (*model.ViewURL, error) {
 	var res *model.ViewURL
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3368,14 +3682,29 @@ func (op *RecipientsCreateEnvelopeRecipientPreviewOp) Do(ctx context.Context) (*
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/createrecipientmanualreviewview
 //
 // SDK Method Envelopes::createRecipientManualReviewView
-func (s *Service) RecipientsCreateRecipientManualReviewView(envelopeID string, recipientID string, media io.Reader, mimeType string) *RecipientsCreateRecipientManualReviewViewOp {
+func (s *Service) RecipientsCreateRecipientManualReviewView(
+	envelopeID string,
+	recipientID string,
+	media io.Reader,
+	mimeType string,
+) *RecipientsCreateRecipientManualReviewViewOp {
 	return &RecipientsCreateRecipientManualReviewViewOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "views", "identity_manual_review"}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{
+				"envelopes",
+				envelopeID,
+				"recipients",
+				recipientID,
+				"views",
+				"identity_manual_review",
+			},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3383,7 +3712,9 @@ func (s *Service) RecipientsCreateRecipientManualReviewView(envelopeID string, r
 type RecipientsCreateRecipientManualReviewViewOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *RecipientsCreateRecipientManualReviewViewOp) Do(ctx context.Context) (*model.ViewURL, error) {
+func (op *RecipientsCreateRecipientManualReviewViewOp) Do(
+	ctx context.Context,
+) (*model.ViewURL, error) {
 	var res *model.ViewURL
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3394,14 +3725,22 @@ func (op *RecipientsCreateRecipientManualReviewViewOp) Do(ctx context.Context) (
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/createrecipientprooffileresourcetoken
 //
 // SDK Method Envelopes::createRecipientProofFileResourceToken
-func (s *Service) RecipientsCreateRecipientProofFileResourceToken(envelopeID string, recipientID string, media io.Reader, mimeType string) *RecipientsCreateRecipientProofFileResourceTokenOp {
+func (s *Service) RecipientsCreateRecipientProofFileResourceToken(
+	envelopeID string,
+	recipientID string,
+	media io.Reader,
+	mimeType string,
+) *RecipientsCreateRecipientProofFileResourceTokenOp {
 	return &RecipientsCreateRecipientProofFileResourceTokenOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "recipients", recipientID, "identity_proof_token"}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "recipients", recipientID, "identity_proof_token"},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3409,7 +3748,9 @@ func (s *Service) RecipientsCreateRecipientProofFileResourceToken(envelopeID str
 type RecipientsCreateRecipientProofFileResourceTokenOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *RecipientsCreateRecipientProofFileResourceTokenOp) Do(ctx context.Context) (*model.IDEvidenceResourceToken, error) {
+func (op *RecipientsCreateRecipientProofFileResourceTokenOp) Do(
+	ctx context.Context,
+) (*model.IDEvidenceResourceToken, error) {
 	var res *model.IDEvidenceResourceToken
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3419,7 +3760,9 @@ func (op *RecipientsCreateRecipientProofFileResourceTokenOp) Do(ctx context.Cont
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopetransferrules/create
 //
 // SDK Method Envelopes::create
-func (s *Service) TransferRulesCreate(envelopeTransferRuleRequest *model.EnvelopeTransferRuleRequest) *TransferRulesCreateOp {
+func (s *Service) TransferRulesCreate(
+	envelopeTransferRuleRequest *model.EnvelopeTransferRuleRequest,
+) *TransferRulesCreateOp {
 	return &TransferRulesCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -3434,7 +3777,9 @@ func (s *Service) TransferRulesCreate(envelopeTransferRuleRequest *model.Envelop
 type TransferRulesCreateOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *TransferRulesCreateOp) Do(ctx context.Context) (*model.EnvelopeTransferRuleInformation, error) {
+func (op *TransferRulesCreateOp) Do(
+	ctx context.Context,
+) (*model.EnvelopeTransferRuleInformation, error) {
 	var res *model.EnvelopeTransferRuleInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3482,7 +3827,9 @@ func (s *Service) TransferRulesGet() *TransferRulesGetOp {
 type TransferRulesGetOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *TransferRulesGetOp) Do(ctx context.Context) (*model.EnvelopeTransferRuleInformation, error) {
+func (op *TransferRulesGetOp) Do(
+	ctx context.Context,
+) (*model.EnvelopeTransferRuleInformation, error) {
 	var res *model.EnvelopeTransferRuleInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3516,7 +3863,9 @@ func (op *TransferRulesGetOp) StartPosition(val string) *TransferRulesGetOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopetransferrules/update
 //
 // SDK Method Envelopes::update
-func (s *Service) TransferRulesUpdate(envelopeTransferRuleInformation *model.EnvelopeTransferRuleInformation) *TransferRulesUpdateOp {
+func (s *Service) TransferRulesUpdate(
+	envelopeTransferRuleInformation *model.EnvelopeTransferRuleInformation,
+) *TransferRulesUpdateOp {
 	return &TransferRulesUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -3532,7 +3881,9 @@ func (s *Service) TransferRulesUpdate(envelopeTransferRuleInformation *model.Env
 type TransferRulesUpdateOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *TransferRulesUpdateOp) Do(ctx context.Context) (*model.EnvelopeTransferRuleInformation, error) {
+func (op *TransferRulesUpdateOp) Do(
+	ctx context.Context,
+) (*model.EnvelopeTransferRuleInformation, error) {
 	var res *model.EnvelopeTransferRuleInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3542,7 +3893,10 @@ func (op *TransferRulesUpdateOp) Do(ctx context.Context) (*model.EnvelopeTransfe
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopetransferrules/updateenvelopetransferrule
 //
 // SDK Method Envelopes::updateEnvelopeTransferRule
-func (s *Service) TransferRulesUpdateEnvelopeTransferRule(envelopeTransferRuleID string, envelopeTransferRule *model.EnvelopeTransferRule) *TransferRulesUpdateEnvelopeTransferRuleOp {
+func (s *Service) TransferRulesUpdateEnvelopeTransferRule(
+	envelopeTransferRuleID string,
+	envelopeTransferRule *model.EnvelopeTransferRule,
+) *TransferRulesUpdateEnvelopeTransferRuleOp {
 	return &TransferRulesUpdateEnvelopeTransferRuleOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -3558,7 +3912,9 @@ func (s *Service) TransferRulesUpdateEnvelopeTransferRule(envelopeTransferRuleID
 type TransferRulesUpdateEnvelopeTransferRuleOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *TransferRulesUpdateEnvelopeTransferRuleOp) Do(ctx context.Context) (*model.EnvelopeTransferRule, error) {
+func (op *TransferRulesUpdateEnvelopeTransferRuleOp) Do(
+	ctx context.Context,
+) (*model.EnvelopeTransferRule, error) {
 	var res *model.EnvelopeTransferRule
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3568,7 +3924,10 @@ func (op *TransferRulesUpdateEnvelopeTransferRuleOp) Do(ctx context.Context) (*m
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createsharedrecipient
 //
 // SDK Method Envelopes::createEnvelopeRecipientSharedView
-func (s *Service) ViewsCreateSharedRecipient(envelopeID string, recipientViewRequest *model.RecipientViewRequest) *ViewsCreateSharedRecipientOp {
+func (s *Service) ViewsCreateSharedRecipient(
+	envelopeID string,
+	recipientViewRequest *model.RecipientViewRequest,
+) *ViewsCreateSharedRecipientOp {
 	return &ViewsCreateSharedRecipientOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -3593,7 +3952,10 @@ func (op *ViewsCreateSharedRecipientOp) Do(ctx context.Context) (*model.ViewURL,
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/deleteenvelopecorrectview
 //
 // SDK Method Envelopes::deleteEnvelopeCorrectView
-func (s *Service) ViewsDeleteEnvelopeCorrectView(envelopeID string, correctViewRequest *model.CorrectViewRequest) *ViewsDeleteEnvelopeCorrectViewOp {
+func (s *Service) ViewsDeleteEnvelopeCorrectView(
+	envelopeID string,
+	correctViewRequest *model.CorrectViewRequest,
+) *ViewsDeleteEnvelopeCorrectViewOp {
 	return &ViewsDeleteEnvelopeCorrectViewOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -3617,7 +3979,10 @@ func (op *ViewsDeleteEnvelopeCorrectViewOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/createenvelopeworkflowstepdefinition
 //
 // SDK Method Envelopes::createEnvelopeWorkflowStepDefinition
-func (s *Service) WorkflowDefinitionCreateEnvelopeWorkflowStepDefinition(envelopeID string, workflowStep *model.WorkflowStep) *WorkflowDefinitionCreateEnvelopeWorkflowStepDefinitionOp {
+func (s *Service) WorkflowDefinitionCreateEnvelopeWorkflowStepDefinition(
+	envelopeID string,
+	workflowStep *model.WorkflowStep,
+) *WorkflowDefinitionCreateEnvelopeWorkflowStepDefinitionOp {
 	return &WorkflowDefinitionCreateEnvelopeWorkflowStepDefinitionOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -3632,7 +3997,9 @@ func (s *Service) WorkflowDefinitionCreateEnvelopeWorkflowStepDefinition(envelop
 type WorkflowDefinitionCreateEnvelopeWorkflowStepDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionCreateEnvelopeWorkflowStepDefinitionOp) Do(ctx context.Context) (*model.WorkflowStep, error) {
+func (op *WorkflowDefinitionCreateEnvelopeWorkflowStepDefinitionOp) Do(
+	ctx context.Context,
+) (*model.WorkflowStep, error) {
 	var res *model.WorkflowStep
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3642,7 +4009,10 @@ func (op *WorkflowDefinitionCreateEnvelopeWorkflowStepDefinitionOp) Do(ctx conte
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/createtemplateworkflowstepdefinition
 //
 // SDK Method Envelopes::createTemplateWorkflowStepDefinition
-func (s *Service) WorkflowDefinitionCreateTemplateWorkflowStepDefinition(templateID string, workflowStep *model.WorkflowStep) *WorkflowDefinitionCreateTemplateWorkflowStepDefinitionOp {
+func (s *Service) WorkflowDefinitionCreateTemplateWorkflowStepDefinition(
+	templateID string,
+	workflowStep *model.WorkflowStep,
+) *WorkflowDefinitionCreateTemplateWorkflowStepDefinitionOp {
 	return &WorkflowDefinitionCreateTemplateWorkflowStepDefinitionOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -3657,7 +4027,9 @@ func (s *Service) WorkflowDefinitionCreateTemplateWorkflowStepDefinition(templat
 type WorkflowDefinitionCreateTemplateWorkflowStepDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionCreateTemplateWorkflowStepDefinitionOp) Do(ctx context.Context) (*model.WorkflowStep, error) {
+func (op *WorkflowDefinitionCreateTemplateWorkflowStepDefinitionOp) Do(
+	ctx context.Context,
+) (*model.WorkflowStep, error) {
 	var res *model.WorkflowStep
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3667,13 +4039,19 @@ func (op *WorkflowDefinitionCreateTemplateWorkflowStepDefinitionOp) Do(ctx conte
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/deleteenvelopedelayedroutingdefinition
 //
 // SDK Method Envelopes::deleteEnvelopeDelayedRoutingDefinition
-func (s *Service) WorkflowDefinitionDeleteEnvelopeDelayedRoutingDefinition(envelopeID string, workflowStepID string) *WorkflowDefinitionDeleteEnvelopeDelayedRoutingDefinitionOp {
+func (s *Service) WorkflowDefinitionDeleteEnvelopeDelayedRoutingDefinition(
+	envelopeID string,
+	workflowStepID string,
+) *WorkflowDefinitionDeleteEnvelopeDelayedRoutingDefinitionOp {
 	return &WorkflowDefinitionDeleteEnvelopeDelayedRoutingDefinitionOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "workflow", "steps", workflowStepID, "delayedRouting"}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "workflow", "steps", workflowStepID, "delayedRouting"},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3681,7 +4059,9 @@ func (s *Service) WorkflowDefinitionDeleteEnvelopeDelayedRoutingDefinition(envel
 type WorkflowDefinitionDeleteEnvelopeDelayedRoutingDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionDeleteEnvelopeDelayedRoutingDefinitionOp) Do(ctx context.Context) error {
+func (op *WorkflowDefinitionDeleteEnvelopeDelayedRoutingDefinitionOp) Do(
+	ctx context.Context,
+) error {
 	return ((*esign.Op)(op)).Do(ctx, nil)
 }
 
@@ -3690,13 +4070,18 @@ func (op *WorkflowDefinitionDeleteEnvelopeDelayedRoutingDefinitionOp) Do(ctx con
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/deleteenvelopescheduledsendingdefinition
 //
 // SDK Method Envelopes::deleteEnvelopeScheduledSendingDefinition
-func (s *Service) WorkflowDefinitionDeleteEnvelopeScheduledSendingDefinition(envelopeID string) *WorkflowDefinitionDeleteEnvelopeScheduledSendingDefinitionOp {
+func (s *Service) WorkflowDefinitionDeleteEnvelopeScheduledSendingDefinition(
+	envelopeID string,
+) *WorkflowDefinitionDeleteEnvelopeScheduledSendingDefinitionOp {
 	return &WorkflowDefinitionDeleteEnvelopeScheduledSendingDefinitionOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "workflow", "scheduledSending"}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "workflow", "scheduledSending"},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3704,7 +4089,9 @@ func (s *Service) WorkflowDefinitionDeleteEnvelopeScheduledSendingDefinition(env
 type WorkflowDefinitionDeleteEnvelopeScheduledSendingDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionDeleteEnvelopeScheduledSendingDefinitionOp) Do(ctx context.Context) error {
+func (op *WorkflowDefinitionDeleteEnvelopeScheduledSendingDefinitionOp) Do(
+	ctx context.Context,
+) error {
 	return ((*esign.Op)(op)).Do(ctx, nil)
 }
 
@@ -3713,7 +4100,9 @@ func (op *WorkflowDefinitionDeleteEnvelopeScheduledSendingDefinitionOp) Do(ctx c
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/deleteenvelopeworkflowdefinition
 //
 // SDK Method Envelopes::deleteEnvelopeWorkflowDefinition
-func (s *Service) WorkflowDefinitionDeleteEnvelopeWorkflowDefinition(envelopeID string) *WorkflowDefinitionDeleteEnvelopeWorkflowDefinitionOp {
+func (s *Service) WorkflowDefinitionDeleteEnvelopeWorkflowDefinition(
+	envelopeID string,
+) *WorkflowDefinitionDeleteEnvelopeWorkflowDefinitionOp {
 	return &WorkflowDefinitionDeleteEnvelopeWorkflowDefinitionOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -3736,13 +4125,19 @@ func (op *WorkflowDefinitionDeleteEnvelopeWorkflowDefinitionOp) Do(ctx context.C
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/deleteenvelopeworkflowstepdefinition
 //
 // SDK Method Envelopes::deleteEnvelopeWorkflowStepDefinition
-func (s *Service) WorkflowDefinitionDeleteEnvelopeWorkflowStepDefinition(envelopeID string, workflowStepID string) *WorkflowDefinitionDeleteEnvelopeWorkflowStepDefinitionOp {
+func (s *Service) WorkflowDefinitionDeleteEnvelopeWorkflowStepDefinition(
+	envelopeID string,
+	workflowStepID string,
+) *WorkflowDefinitionDeleteEnvelopeWorkflowStepDefinitionOp {
 	return &WorkflowDefinitionDeleteEnvelopeWorkflowStepDefinitionOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "workflow", "steps", workflowStepID}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "workflow", "steps", workflowStepID},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3759,13 +4154,19 @@ func (op *WorkflowDefinitionDeleteEnvelopeWorkflowStepDefinitionOp) Do(ctx conte
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/deletetemplatedelayedroutingdefinition
 //
 // SDK Method Envelopes::deleteTemplateDelayedRoutingDefinition
-func (s *Service) WorkflowDefinitionDeleteTemplateDelayedRoutingDefinition(templateID string, workflowStepID string) *WorkflowDefinitionDeleteTemplateDelayedRoutingDefinitionOp {
+func (s *Service) WorkflowDefinitionDeleteTemplateDelayedRoutingDefinition(
+	templateID string,
+	workflowStepID string,
+) *WorkflowDefinitionDeleteTemplateDelayedRoutingDefinitionOp {
 	return &WorkflowDefinitionDeleteTemplateDelayedRoutingDefinitionOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"templates", templateID, "workflow", "steps", workflowStepID, "delayedRouting"}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"templates", templateID, "workflow", "steps", workflowStepID, "delayedRouting"},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3773,7 +4174,9 @@ func (s *Service) WorkflowDefinitionDeleteTemplateDelayedRoutingDefinition(templ
 type WorkflowDefinitionDeleteTemplateDelayedRoutingDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionDeleteTemplateDelayedRoutingDefinitionOp) Do(ctx context.Context) error {
+func (op *WorkflowDefinitionDeleteTemplateDelayedRoutingDefinitionOp) Do(
+	ctx context.Context,
+) error {
 	return ((*esign.Op)(op)).Do(ctx, nil)
 }
 
@@ -3782,13 +4185,18 @@ func (op *WorkflowDefinitionDeleteTemplateDelayedRoutingDefinitionOp) Do(ctx con
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/deletetemplatescheduledsendingdefinition
 //
 // SDK Method Envelopes::deleteTemplateScheduledSendingDefinition
-func (s *Service) WorkflowDefinitionDeleteTemplateScheduledSendingDefinition(templateID string) *WorkflowDefinitionDeleteTemplateScheduledSendingDefinitionOp {
+func (s *Service) WorkflowDefinitionDeleteTemplateScheduledSendingDefinition(
+	templateID string,
+) *WorkflowDefinitionDeleteTemplateScheduledSendingDefinitionOp {
 	return &WorkflowDefinitionDeleteTemplateScheduledSendingDefinitionOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"templates", templateID, "workflow", "scheduledSending"}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"templates", templateID, "workflow", "scheduledSending"},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3796,7 +4204,9 @@ func (s *Service) WorkflowDefinitionDeleteTemplateScheduledSendingDefinition(tem
 type WorkflowDefinitionDeleteTemplateScheduledSendingDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionDeleteTemplateScheduledSendingDefinitionOp) Do(ctx context.Context) error {
+func (op *WorkflowDefinitionDeleteTemplateScheduledSendingDefinitionOp) Do(
+	ctx context.Context,
+) error {
 	return ((*esign.Op)(op)).Do(ctx, nil)
 }
 
@@ -3805,7 +4215,9 @@ func (op *WorkflowDefinitionDeleteTemplateScheduledSendingDefinitionOp) Do(ctx c
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/deletetemplateworkflowdefinition
 //
 // SDK Method Envelopes::deleteTemplateWorkflowDefinition
-func (s *Service) WorkflowDefinitionDeleteTemplateWorkflowDefinition(templateID string) *WorkflowDefinitionDeleteTemplateWorkflowDefinitionOp {
+func (s *Service) WorkflowDefinitionDeleteTemplateWorkflowDefinition(
+	templateID string,
+) *WorkflowDefinitionDeleteTemplateWorkflowDefinitionOp {
 	return &WorkflowDefinitionDeleteTemplateWorkflowDefinitionOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -3828,13 +4240,19 @@ func (op *WorkflowDefinitionDeleteTemplateWorkflowDefinitionOp) Do(ctx context.C
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/deletetemplateworkflowstepdefinition
 //
 // SDK Method Envelopes::deleteTemplateWorkflowStepDefinition
-func (s *Service) WorkflowDefinitionDeleteTemplateWorkflowStepDefinition(templateID string, workflowStepID string) *WorkflowDefinitionDeleteTemplateWorkflowStepDefinitionOp {
+func (s *Service) WorkflowDefinitionDeleteTemplateWorkflowStepDefinition(
+	templateID string,
+	workflowStepID string,
+) *WorkflowDefinitionDeleteTemplateWorkflowStepDefinitionOp {
 	return &WorkflowDefinitionDeleteTemplateWorkflowStepDefinitionOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"templates", templateID, "workflow", "steps", workflowStepID}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"templates", templateID, "workflow", "steps", workflowStepID},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3851,14 +4269,20 @@ func (op *WorkflowDefinitionDeleteTemplateWorkflowStepDefinitionOp) Do(ctx conte
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/getenvelopedelayedroutingdefinition
 //
 // SDK Method Envelopes::getEnvelopeDelayedRoutingDefinition
-func (s *Service) WorkflowDefinitionGetEnvelopeDelayedRoutingDefinition(envelopeID string, workflowStepID string) *WorkflowDefinitionGetEnvelopeDelayedRoutingDefinitionOp {
+func (s *Service) WorkflowDefinitionGetEnvelopeDelayedRoutingDefinition(
+	envelopeID string,
+	workflowStepID string,
+) *WorkflowDefinitionGetEnvelopeDelayedRoutingDefinitionOp {
 	return &WorkflowDefinitionGetEnvelopeDelayedRoutingDefinitionOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "workflow", "steps", workflowStepID, "delayedRouting"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "workflow", "steps", workflowStepID, "delayedRouting"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3866,7 +4290,9 @@ func (s *Service) WorkflowDefinitionGetEnvelopeDelayedRoutingDefinition(envelope
 type WorkflowDefinitionGetEnvelopeDelayedRoutingDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionGetEnvelopeDelayedRoutingDefinitionOp) Do(ctx context.Context) (*model.DelayedRouting, error) {
+func (op *WorkflowDefinitionGetEnvelopeDelayedRoutingDefinitionOp) Do(
+	ctx context.Context,
+) (*model.DelayedRouting, error) {
 	var res *model.DelayedRouting
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3876,14 +4302,19 @@ func (op *WorkflowDefinitionGetEnvelopeDelayedRoutingDefinitionOp) Do(ctx contex
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/getenvelopescheduledsendingdefinition
 //
 // SDK Method Envelopes::getEnvelopeScheduledSendingDefinition
-func (s *Service) WorkflowDefinitionGetEnvelopeScheduledSendingDefinition(envelopeID string) *WorkflowDefinitionGetEnvelopeScheduledSendingDefinitionOp {
+func (s *Service) WorkflowDefinitionGetEnvelopeScheduledSendingDefinition(
+	envelopeID string,
+) *WorkflowDefinitionGetEnvelopeScheduledSendingDefinitionOp {
 	return &WorkflowDefinitionGetEnvelopeScheduledSendingDefinitionOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "workflow", "scheduledSending"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "workflow", "scheduledSending"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3891,7 +4322,9 @@ func (s *Service) WorkflowDefinitionGetEnvelopeScheduledSendingDefinition(envelo
 type WorkflowDefinitionGetEnvelopeScheduledSendingDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionGetEnvelopeScheduledSendingDefinitionOp) Do(ctx context.Context) (*model.ScheduledSending, error) {
+func (op *WorkflowDefinitionGetEnvelopeScheduledSendingDefinitionOp) Do(
+	ctx context.Context,
+) (*model.ScheduledSending, error) {
 	var res *model.ScheduledSending
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3901,7 +4334,9 @@ func (op *WorkflowDefinitionGetEnvelopeScheduledSendingDefinitionOp) Do(ctx cont
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/getenvelopeworkflowdefinition
 //
 // SDK Method Envelopes::getEnvelopeWorkflowDefinition
-func (s *Service) WorkflowDefinitionGetEnvelopeWorkflowDefinition(envelopeID string) *WorkflowDefinitionGetEnvelopeWorkflowDefinitionOp {
+func (s *Service) WorkflowDefinitionGetEnvelopeWorkflowDefinition(
+	envelopeID string,
+) *WorkflowDefinitionGetEnvelopeWorkflowDefinitionOp {
 	return &WorkflowDefinitionGetEnvelopeWorkflowDefinitionOp{
 		Credential: s.credential,
 		Method:     "GET",
@@ -3916,7 +4351,9 @@ func (s *Service) WorkflowDefinitionGetEnvelopeWorkflowDefinition(envelopeID str
 type WorkflowDefinitionGetEnvelopeWorkflowDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionGetEnvelopeWorkflowDefinitionOp) Do(ctx context.Context) (*model.Workflow, error) {
+func (op *WorkflowDefinitionGetEnvelopeWorkflowDefinitionOp) Do(
+	ctx context.Context,
+) (*model.Workflow, error) {
 	var res *model.Workflow
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3926,14 +4363,20 @@ func (op *WorkflowDefinitionGetEnvelopeWorkflowDefinitionOp) Do(ctx context.Cont
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/getenvelopeworkflowstepdefinition
 //
 // SDK Method Envelopes::getEnvelopeWorkflowStepDefinition
-func (s *Service) WorkflowDefinitionGetEnvelopeWorkflowStepDefinition(envelopeID string, workflowStepID string) *WorkflowDefinitionGetEnvelopeWorkflowStepDefinitionOp {
+func (s *Service) WorkflowDefinitionGetEnvelopeWorkflowStepDefinition(
+	envelopeID string,
+	workflowStepID string,
+) *WorkflowDefinitionGetEnvelopeWorkflowStepDefinitionOp {
 	return &WorkflowDefinitionGetEnvelopeWorkflowStepDefinitionOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "workflow", "steps", workflowStepID}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "workflow", "steps", workflowStepID},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3941,7 +4384,9 @@ func (s *Service) WorkflowDefinitionGetEnvelopeWorkflowStepDefinition(envelopeID
 type WorkflowDefinitionGetEnvelopeWorkflowStepDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionGetEnvelopeWorkflowStepDefinitionOp) Do(ctx context.Context) (*model.WorkflowStep, error) {
+func (op *WorkflowDefinitionGetEnvelopeWorkflowStepDefinitionOp) Do(
+	ctx context.Context,
+) (*model.WorkflowStep, error) {
 	var res *model.WorkflowStep
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3951,14 +4396,20 @@ func (op *WorkflowDefinitionGetEnvelopeWorkflowStepDefinitionOp) Do(ctx context.
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/gettemplatedelayedroutingdefinition
 //
 // SDK Method Envelopes::getTemplateDelayedRoutingDefinition
-func (s *Service) WorkflowDefinitionGetTemplateDelayedRoutingDefinition(templateID string, workflowStepID string) *WorkflowDefinitionGetTemplateDelayedRoutingDefinitionOp {
+func (s *Service) WorkflowDefinitionGetTemplateDelayedRoutingDefinition(
+	templateID string,
+	workflowStepID string,
+) *WorkflowDefinitionGetTemplateDelayedRoutingDefinitionOp {
 	return &WorkflowDefinitionGetTemplateDelayedRoutingDefinitionOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"templates", templateID, "workflow", "steps", workflowStepID, "delayedRouting"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"templates", templateID, "workflow", "steps", workflowStepID, "delayedRouting"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3966,7 +4417,9 @@ func (s *Service) WorkflowDefinitionGetTemplateDelayedRoutingDefinition(template
 type WorkflowDefinitionGetTemplateDelayedRoutingDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionGetTemplateDelayedRoutingDefinitionOp) Do(ctx context.Context) (*model.DelayedRouting, error) {
+func (op *WorkflowDefinitionGetTemplateDelayedRoutingDefinitionOp) Do(
+	ctx context.Context,
+) (*model.DelayedRouting, error) {
 	var res *model.DelayedRouting
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -3976,14 +4429,19 @@ func (op *WorkflowDefinitionGetTemplateDelayedRoutingDefinitionOp) Do(ctx contex
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/gettemplatescheduledsendingdefinition
 //
 // SDK Method Envelopes::getTemplateScheduledSendingDefinition
-func (s *Service) WorkflowDefinitionGetTemplateScheduledSendingDefinition(templateID string) *WorkflowDefinitionGetTemplateScheduledSendingDefinitionOp {
+func (s *Service) WorkflowDefinitionGetTemplateScheduledSendingDefinition(
+	templateID string,
+) *WorkflowDefinitionGetTemplateScheduledSendingDefinitionOp {
 	return &WorkflowDefinitionGetTemplateScheduledSendingDefinitionOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"templates", templateID, "workflow", "scheduledSending"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"templates", templateID, "workflow", "scheduledSending"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -3991,7 +4449,9 @@ func (s *Service) WorkflowDefinitionGetTemplateScheduledSendingDefinition(templa
 type WorkflowDefinitionGetTemplateScheduledSendingDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionGetTemplateScheduledSendingDefinitionOp) Do(ctx context.Context) (*model.ScheduledSending, error) {
+func (op *WorkflowDefinitionGetTemplateScheduledSendingDefinitionOp) Do(
+	ctx context.Context,
+) (*model.ScheduledSending, error) {
 	var res *model.ScheduledSending
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -4001,7 +4461,9 @@ func (op *WorkflowDefinitionGetTemplateScheduledSendingDefinitionOp) Do(ctx cont
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/gettemplateworkflowdefinition
 //
 // SDK Method Envelopes::getTemplateWorkflowDefinition
-func (s *Service) WorkflowDefinitionGetTemplateWorkflowDefinition(templateID string) *WorkflowDefinitionGetTemplateWorkflowDefinitionOp {
+func (s *Service) WorkflowDefinitionGetTemplateWorkflowDefinition(
+	templateID string,
+) *WorkflowDefinitionGetTemplateWorkflowDefinitionOp {
 	return &WorkflowDefinitionGetTemplateWorkflowDefinitionOp{
 		Credential: s.credential,
 		Method:     "GET",
@@ -4016,7 +4478,9 @@ func (s *Service) WorkflowDefinitionGetTemplateWorkflowDefinition(templateID str
 type WorkflowDefinitionGetTemplateWorkflowDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionGetTemplateWorkflowDefinitionOp) Do(ctx context.Context) (*model.Workflow, error) {
+func (op *WorkflowDefinitionGetTemplateWorkflowDefinitionOp) Do(
+	ctx context.Context,
+) (*model.Workflow, error) {
 	var res *model.Workflow
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -4026,14 +4490,20 @@ func (op *WorkflowDefinitionGetTemplateWorkflowDefinitionOp) Do(ctx context.Cont
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/gettemplateworkflowstepdefinition
 //
 // SDK Method Envelopes::getTemplateWorkflowStepDefinition
-func (s *Service) WorkflowDefinitionGetTemplateWorkflowStepDefinition(templateID string, workflowStepID string) *WorkflowDefinitionGetTemplateWorkflowStepDefinitionOp {
+func (s *Service) WorkflowDefinitionGetTemplateWorkflowStepDefinition(
+	templateID string,
+	workflowStepID string,
+) *WorkflowDefinitionGetTemplateWorkflowStepDefinitionOp {
 	return &WorkflowDefinitionGetTemplateWorkflowStepDefinitionOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"templates", templateID, "workflow", "steps", workflowStepID}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"templates", templateID, "workflow", "steps", workflowStepID},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -4041,7 +4511,9 @@ func (s *Service) WorkflowDefinitionGetTemplateWorkflowStepDefinition(templateID
 type WorkflowDefinitionGetTemplateWorkflowStepDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionGetTemplateWorkflowStepDefinitionOp) Do(ctx context.Context) (*model.WorkflowStep, error) {
+func (op *WorkflowDefinitionGetTemplateWorkflowStepDefinitionOp) Do(
+	ctx context.Context,
+) (*model.WorkflowStep, error) {
 	var res *model.WorkflowStep
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -4051,15 +4523,22 @@ func (op *WorkflowDefinitionGetTemplateWorkflowStepDefinitionOp) Do(ctx context.
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/updateenvelopedelayedroutingdefinition
 //
 // SDK Method Envelopes::updateEnvelopeDelayedRoutingDefinition
-func (s *Service) WorkflowDefinitionUpdateEnvelopeDelayedRoutingDefinition(envelopeID string, workflowStepID string, delayedRouting *model.DelayedRouting) *WorkflowDefinitionUpdateEnvelopeDelayedRoutingDefinitionOp {
+func (s *Service) WorkflowDefinitionUpdateEnvelopeDelayedRoutingDefinition(
+	envelopeID string,
+	workflowStepID string,
+	delayedRouting *model.DelayedRouting,
+) *WorkflowDefinitionUpdateEnvelopeDelayedRoutingDefinitionOp {
 	return &WorkflowDefinitionUpdateEnvelopeDelayedRoutingDefinitionOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "workflow", "steps", workflowStepID, "delayedRouting"}, "/"),
-		Payload:    delayedRouting,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "workflow", "steps", workflowStepID, "delayedRouting"},
+			"/",
+		),
+		Payload:   delayedRouting,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -4067,7 +4546,9 @@ func (s *Service) WorkflowDefinitionUpdateEnvelopeDelayedRoutingDefinition(envel
 type WorkflowDefinitionUpdateEnvelopeDelayedRoutingDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionUpdateEnvelopeDelayedRoutingDefinitionOp) Do(ctx context.Context) (*model.DelayedRouting, error) {
+func (op *WorkflowDefinitionUpdateEnvelopeDelayedRoutingDefinitionOp) Do(
+	ctx context.Context,
+) (*model.DelayedRouting, error) {
 	var res *model.DelayedRouting
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -4077,15 +4558,21 @@ func (op *WorkflowDefinitionUpdateEnvelopeDelayedRoutingDefinitionOp) Do(ctx con
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/updateenvelopescheduledsendingdefinition
 //
 // SDK Method Envelopes::updateEnvelopeScheduledSendingDefinition
-func (s *Service) WorkflowDefinitionUpdateEnvelopeScheduledSendingDefinition(envelopeID string, scheduledSending *model.ScheduledSending) *WorkflowDefinitionUpdateEnvelopeScheduledSendingDefinitionOp {
+func (s *Service) WorkflowDefinitionUpdateEnvelopeScheduledSendingDefinition(
+	envelopeID string,
+	scheduledSending *model.ScheduledSending,
+) *WorkflowDefinitionUpdateEnvelopeScheduledSendingDefinitionOp {
 	return &WorkflowDefinitionUpdateEnvelopeScheduledSendingDefinitionOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "workflow", "scheduledSending"}, "/"),
-		Payload:    scheduledSending,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "workflow", "scheduledSending"},
+			"/",
+		),
+		Payload:   scheduledSending,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -4093,7 +4580,9 @@ func (s *Service) WorkflowDefinitionUpdateEnvelopeScheduledSendingDefinition(env
 type WorkflowDefinitionUpdateEnvelopeScheduledSendingDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionUpdateEnvelopeScheduledSendingDefinitionOp) Do(ctx context.Context) (*model.ScheduledSending, error) {
+func (op *WorkflowDefinitionUpdateEnvelopeScheduledSendingDefinitionOp) Do(
+	ctx context.Context,
+) (*model.ScheduledSending, error) {
 	var res *model.ScheduledSending
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -4103,7 +4592,10 @@ func (op *WorkflowDefinitionUpdateEnvelopeScheduledSendingDefinitionOp) Do(ctx c
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/updateenvelopeworkflowdefinition
 //
 // SDK Method Envelopes::updateEnvelopeWorkflowDefinition
-func (s *Service) WorkflowDefinitionUpdateEnvelopeWorkflowDefinition(envelopeID string, workflow *model.Workflow) *WorkflowDefinitionUpdateEnvelopeWorkflowDefinitionOp {
+func (s *Service) WorkflowDefinitionUpdateEnvelopeWorkflowDefinition(
+	envelopeID string,
+	workflow *model.Workflow,
+) *WorkflowDefinitionUpdateEnvelopeWorkflowDefinitionOp {
 	return &WorkflowDefinitionUpdateEnvelopeWorkflowDefinitionOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -4119,7 +4611,9 @@ func (s *Service) WorkflowDefinitionUpdateEnvelopeWorkflowDefinition(envelopeID 
 type WorkflowDefinitionUpdateEnvelopeWorkflowDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionUpdateEnvelopeWorkflowDefinitionOp) Do(ctx context.Context) (*model.Workflow, error) {
+func (op *WorkflowDefinitionUpdateEnvelopeWorkflowDefinitionOp) Do(
+	ctx context.Context,
+) (*model.Workflow, error) {
 	var res *model.Workflow
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -4129,15 +4623,22 @@ func (op *WorkflowDefinitionUpdateEnvelopeWorkflowDefinitionOp) Do(ctx context.C
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/updateenvelopeworkflowstepdefinition
 //
 // SDK Method Envelopes::updateEnvelopeWorkflowStepDefinition
-func (s *Service) WorkflowDefinitionUpdateEnvelopeWorkflowStepDefinition(envelopeID string, workflowStepID string, workflowStep *model.WorkflowStep) *WorkflowDefinitionUpdateEnvelopeWorkflowStepDefinitionOp {
+func (s *Service) WorkflowDefinitionUpdateEnvelopeWorkflowStepDefinition(
+	envelopeID string,
+	workflowStepID string,
+	workflowStep *model.WorkflowStep,
+) *WorkflowDefinitionUpdateEnvelopeWorkflowStepDefinitionOp {
 	return &WorkflowDefinitionUpdateEnvelopeWorkflowStepDefinitionOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"envelopes", envelopeID, "workflow", "steps", workflowStepID}, "/"),
-		Payload:    workflowStep,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"envelopes", envelopeID, "workflow", "steps", workflowStepID},
+			"/",
+		),
+		Payload:   workflowStep,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -4145,7 +4646,9 @@ func (s *Service) WorkflowDefinitionUpdateEnvelopeWorkflowStepDefinition(envelop
 type WorkflowDefinitionUpdateEnvelopeWorkflowStepDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionUpdateEnvelopeWorkflowStepDefinitionOp) Do(ctx context.Context) (*model.WorkflowStep, error) {
+func (op *WorkflowDefinitionUpdateEnvelopeWorkflowStepDefinitionOp) Do(
+	ctx context.Context,
+) (*model.WorkflowStep, error) {
 	var res *model.WorkflowStep
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -4155,15 +4658,22 @@ func (op *WorkflowDefinitionUpdateEnvelopeWorkflowStepDefinitionOp) Do(ctx conte
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/updatetemplatedelayedroutingdefinition
 //
 // SDK Method Envelopes::updateTemplateDelayedRoutingDefinition
-func (s *Service) WorkflowDefinitionUpdateTemplateDelayedRoutingDefinition(templateID string, workflowStepID string, delayedRouting *model.DelayedRouting) *WorkflowDefinitionUpdateTemplateDelayedRoutingDefinitionOp {
+func (s *Service) WorkflowDefinitionUpdateTemplateDelayedRoutingDefinition(
+	templateID string,
+	workflowStepID string,
+	delayedRouting *model.DelayedRouting,
+) *WorkflowDefinitionUpdateTemplateDelayedRoutingDefinitionOp {
 	return &WorkflowDefinitionUpdateTemplateDelayedRoutingDefinitionOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"templates", templateID, "workflow", "steps", workflowStepID, "delayedRouting"}, "/"),
-		Payload:    delayedRouting,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"templates", templateID, "workflow", "steps", workflowStepID, "delayedRouting"},
+			"/",
+		),
+		Payload:   delayedRouting,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -4171,7 +4681,9 @@ func (s *Service) WorkflowDefinitionUpdateTemplateDelayedRoutingDefinition(templ
 type WorkflowDefinitionUpdateTemplateDelayedRoutingDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionUpdateTemplateDelayedRoutingDefinitionOp) Do(ctx context.Context) (*model.DelayedRouting, error) {
+func (op *WorkflowDefinitionUpdateTemplateDelayedRoutingDefinitionOp) Do(
+	ctx context.Context,
+) (*model.DelayedRouting, error) {
 	var res *model.DelayedRouting
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -4181,15 +4693,21 @@ func (op *WorkflowDefinitionUpdateTemplateDelayedRoutingDefinitionOp) Do(ctx con
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/updatetemplatescheduledsendingdefinition
 //
 // SDK Method Envelopes::updateTemplateScheduledSendingDefinition
-func (s *Service) WorkflowDefinitionUpdateTemplateScheduledSendingDefinition(templateID string, scheduledSending *model.ScheduledSending) *WorkflowDefinitionUpdateTemplateScheduledSendingDefinitionOp {
+func (s *Service) WorkflowDefinitionUpdateTemplateScheduledSendingDefinition(
+	templateID string,
+	scheduledSending *model.ScheduledSending,
+) *WorkflowDefinitionUpdateTemplateScheduledSendingDefinitionOp {
 	return &WorkflowDefinitionUpdateTemplateScheduledSendingDefinitionOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"templates", templateID, "workflow", "scheduledSending"}, "/"),
-		Payload:    scheduledSending,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"templates", templateID, "workflow", "scheduledSending"},
+			"/",
+		),
+		Payload:   scheduledSending,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -4197,7 +4715,9 @@ func (s *Service) WorkflowDefinitionUpdateTemplateScheduledSendingDefinition(tem
 type WorkflowDefinitionUpdateTemplateScheduledSendingDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionUpdateTemplateScheduledSendingDefinitionOp) Do(ctx context.Context) (*model.ScheduledSending, error) {
+func (op *WorkflowDefinitionUpdateTemplateScheduledSendingDefinitionOp) Do(
+	ctx context.Context,
+) (*model.ScheduledSending, error) {
 	var res *model.ScheduledSending
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -4207,7 +4727,10 @@ func (op *WorkflowDefinitionUpdateTemplateScheduledSendingDefinitionOp) Do(ctx c
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/updatetemplateworkflowdefinition
 //
 // SDK Method Envelopes::updateTemplateWorkflowDefinition
-func (s *Service) WorkflowDefinitionUpdateTemplateWorkflowDefinition(templateID string, workflow *model.Workflow) *WorkflowDefinitionUpdateTemplateWorkflowDefinitionOp {
+func (s *Service) WorkflowDefinitionUpdateTemplateWorkflowDefinition(
+	templateID string,
+	workflow *model.Workflow,
+) *WorkflowDefinitionUpdateTemplateWorkflowDefinitionOp {
 	return &WorkflowDefinitionUpdateTemplateWorkflowDefinitionOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -4223,7 +4746,9 @@ func (s *Service) WorkflowDefinitionUpdateTemplateWorkflowDefinition(templateID 
 type WorkflowDefinitionUpdateTemplateWorkflowDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionUpdateTemplateWorkflowDefinitionOp) Do(ctx context.Context) (*model.Workflow, error) {
+func (op *WorkflowDefinitionUpdateTemplateWorkflowDefinitionOp) Do(
+	ctx context.Context,
+) (*model.Workflow, error) {
 	var res *model.Workflow
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -4233,15 +4758,22 @@ func (op *WorkflowDefinitionUpdateTemplateWorkflowDefinitionOp) Do(ctx context.C
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeworkflowdefinition/updatetemplateworkflowstepdefinition
 //
 // SDK Method Envelopes::updateTemplateWorkflowStepDefinition
-func (s *Service) WorkflowDefinitionUpdateTemplateWorkflowStepDefinition(templateID string, workflowStepID string, workflowStep *model.WorkflowStep) *WorkflowDefinitionUpdateTemplateWorkflowStepDefinitionOp {
+func (s *Service) WorkflowDefinitionUpdateTemplateWorkflowStepDefinition(
+	templateID string,
+	workflowStepID string,
+	workflowStep *model.WorkflowStep,
+) *WorkflowDefinitionUpdateTemplateWorkflowStepDefinitionOp {
 	return &WorkflowDefinitionUpdateTemplateWorkflowStepDefinitionOp{
 		Credential: s.credential,
 		Method:     "PUT",
-		Path:       strings.Join([]string{"templates", templateID, "workflow", "steps", workflowStepID}, "/"),
-		Payload:    workflowStep,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"templates", templateID, "workflow", "steps", workflowStepID},
+			"/",
+		),
+		Payload:   workflowStep,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -4249,7 +4781,9 @@ func (s *Service) WorkflowDefinitionUpdateTemplateWorkflowStepDefinition(templat
 type WorkflowDefinitionUpdateTemplateWorkflowStepDefinitionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *WorkflowDefinitionUpdateTemplateWorkflowStepDefinitionOp) Do(ctx context.Context) (*model.WorkflowStep, error) {
+func (op *WorkflowDefinitionUpdateTemplateWorkflowStepDefinitionOp) Do(
+	ctx context.Context,
+) (*model.WorkflowStep, error) {
 	var res *model.WorkflowStep
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -4259,7 +4793,10 @@ func (op *WorkflowDefinitionUpdateTemplateWorkflowStepDefinitionOp) Do(ctx conte
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/responsivehtmlpreview/create
 //
 // SDK Method Envelopes::createResponsiveHtmlPreview
-func (s *Service) ResponsiveHTMLPreviewCreate(envelopeID string, documentHTMLDefinition *model.DocumentHTMLDefinition) *ResponsiveHTMLPreviewCreateOp {
+func (s *Service) ResponsiveHTMLPreviewCreate(
+	envelopeID string,
+	documentHTMLDefinition *model.DocumentHTMLDefinition,
+) *ResponsiveHTMLPreviewCreateOp {
 	return &ResponsiveHTMLPreviewCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -4274,7 +4811,9 @@ func (s *Service) ResponsiveHTMLPreviewCreate(envelopeID string, documentHTMLDef
 type ResponsiveHTMLPreviewCreateOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ResponsiveHTMLPreviewCreateOp) Do(ctx context.Context) (*model.DocumentHTMLDefinitions, error) {
+func (op *ResponsiveHTMLPreviewCreateOp) Do(
+	ctx context.Context,
+) (*model.DocumentHTMLDefinitions, error) {
 	var res *model.DocumentHTMLDefinitions
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -4308,7 +4847,11 @@ func (op *TabsBlobGetTabsBlobOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/tabsblob/puttabsblob
 //
 // SDK Method Envelopes::putTabsBlob
-func (s *Service) TabsBlobPutTabsBlob(envelopeID string, media io.Reader, mimeType string) *TabsBlobPutTabsBlobOp {
+func (s *Service) TabsBlobPutTabsBlob(
+	envelopeID string,
+	media io.Reader,
+	mimeType string,
+) *TabsBlobPutTabsBlobOp {
 	return &TabsBlobPutTabsBlobOp{
 		Credential: s.credential,
 		Method:     "PUT",

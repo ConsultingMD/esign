@@ -11,18 +11,17 @@
 // Use the Folders category to organize envelopes and templates.
 // You can list the folder contents and move envelopes and templates between folders.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/reference/Folders
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2.1/model"
-//   )
-//   ...
-//   foldersService := folders.New(esignCredential)
-package folders // import "github.com/jfcote87/esignv2.1/folders"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2.1/model"
+//	)
+//	...
+//	foldersService := folders.New(esignCredential)
+package folders // import "github.com/ConsultingMD/esignv2.1/folders"
 
 import (
 	"context"
@@ -31,8 +30,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2.1/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2.1/model"
 )
 
 // Service implements DocuSign Folders API operations
@@ -216,7 +215,10 @@ func (op *ListItemsOp) ToDate(val time.Time) *ListItemsOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/folders/folders/moveenvelopes
 //
 // SDK Method Folders::moveEnvelopes
-func (s *Service) MoveEnvelopes(folderID string, foldersRequest *model.FoldersRequest) *MoveEnvelopesOp {
+func (s *Service) MoveEnvelopes(
+	folderID string,
+	foldersRequest *model.FoldersRequest,
+) *MoveEnvelopesOp {
 	return &MoveEnvelopesOp{
 		Credential: s.credential,
 		Method:     "PUT",

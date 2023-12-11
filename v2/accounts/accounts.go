@@ -18,18 +18,17 @@
 // The Account category also includes end points for
 // * Listing the recipient names associated with an email address that was used by the account. For example, a single email address is often shared by mulitple members of a family.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/Accounts
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2/model"
-//   )
-//   ...
-//   accountsService := accounts.New(esignCredential)
-package accounts // import "github.com/jfcote87/esignv2/accounts"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2/model"
+//	)
+//	...
+//	accountsService := accounts.New(esignCredential)
+package accounts // import "github.com/ConsultingMD/esignv2/accounts"
 
 import (
 	"context"
@@ -38,8 +37,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2/model"
 )
 
 // Service implements DocuSign Accounts API operations
@@ -242,7 +241,10 @@ func (op *BrandsGetLogoOp) Do(ctx context.Context) (*esign.Download, error) {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/accountbrands/getresource
 //
 // SDK Method Accounts::getBrandResourcesByContentType
-func (s *Service) BrandsGetResource(brandID string, resourceContentType string) *BrandsGetResourceOp {
+func (s *Service) BrandsGetResource(
+	brandID string,
+	resourceContentType string,
+) *BrandsGetResourceOp {
 	return &BrandsGetResourceOp{
 		Credential: s.credential,
 		Method:     "GET",
@@ -373,7 +375,11 @@ func (op *BrandsUpdateOp) Do(ctx context.Context) (*model.Brand, error) {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/accountbrands/updatelogo
 //
 // SDK Method Accounts::updateBrandLogoByType
-func (s *Service) BrandsUpdateLogo(brandID string, logoType string, logoFileBytes []byte) *BrandsUpdateLogoOp {
+func (s *Service) BrandsUpdateLogo(
+	brandID string,
+	logoType string,
+	logoFileBytes []byte,
+) *BrandsUpdateLogoOp {
 	return &BrandsUpdateLogoOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -399,7 +405,12 @@ func (op *BrandsUpdateLogoOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/accountbrands/updateresource
 //
 // SDK Method Accounts::updateBrandResourcesByContentType
-func (s *Service) BrandsUpdateResource(brandID string, resourceContentType string, media io.Reader, mimeType string) *BrandsUpdateResourceOp {
+func (s *Service) BrandsUpdateResource(
+	brandID string,
+	resourceContentType string,
+	media io.Reader,
+	mimeType string,
+) *BrandsUpdateResourceOp {
 	return &BrandsUpdateResourceOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -465,7 +476,9 @@ func (s *Service) ConsumerDisclosuresGetDefault() *ConsumerDisclosuresGetDefault
 type ConsumerDisclosuresGetDefaultOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ConsumerDisclosuresGetDefaultOp) Do(ctx context.Context) (*model.ConsumerDisclosure, error) {
+func (op *ConsumerDisclosuresGetDefaultOp) Do(
+	ctx context.Context,
+) (*model.ConsumerDisclosure, error) {
 	var res *model.ConsumerDisclosure
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -485,7 +498,10 @@ func (op *ConsumerDisclosuresGetDefaultOp) LangCode(val string) *ConsumerDisclos
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/accountconsumerdisclosures/update
 //
 // SDK Method Accounts::updateConsumerDisclosure
-func (s *Service) ConsumerDisclosuresUpdate(langCode string, consumerDisclosure *model.ConsumerDisclosure) *ConsumerDisclosuresUpdateOp {
+func (s *Service) ConsumerDisclosuresUpdate(
+	langCode string,
+	consumerDisclosure *model.ConsumerDisclosure,
+) *ConsumerDisclosuresUpdateOp {
 	return &ConsumerDisclosuresUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -608,7 +624,10 @@ func (op *CustomFieldsListOp) Do(ctx context.Context) (*model.CustomFields, erro
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/accountcustomfields/update
 //
 // SDK Method Accounts::updateCustomField
-func (s *Service) CustomFieldsUpdate(customFieldID string, customField *model.CustomField) *CustomFieldsUpdateOp {
+func (s *Service) CustomFieldsUpdate(
+	customFieldID string,
+	customField *model.CustomField,
+) *CustomFieldsUpdateOp {
 	return &CustomFieldsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -692,7 +711,9 @@ func (op *PasswordRulesGetForUserOp) Do(ctx context.Context) (*model.UserPasswor
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/accountpasswordrules/update
 //
 // SDK Method Accounts::updateAccountPasswordRules
-func (s *Service) PasswordRulesUpdate(accountPasswordRules *model.AccountPasswordRules) *PasswordRulesUpdateOp {
+func (s *Service) PasswordRulesUpdate(
+	accountPasswordRules *model.AccountPasswordRules,
+) *PasswordRulesUpdateOp {
 	return &PasswordRulesUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -718,7 +739,9 @@ func (op *PasswordRulesUpdateOp) Do(ctx context.Context) (*model.AccountPassword
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/accountpermissionprofiles/create
 //
 // SDK Method Accounts::createPermissionProfile
-func (s *Service) PermissionProfilesCreate(permissionProfile *model.PermissionProfile) *PermissionProfilesCreateOp {
+func (s *Service) PermissionProfilesCreate(
+	permissionProfile *model.PermissionProfile,
+) *PermissionProfilesCreateOp {
 	return &PermissionProfilesCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -844,7 +867,9 @@ func (s *Service) PermissionProfilesList() *PermissionProfilesListOp {
 type PermissionProfilesListOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *PermissionProfilesListOp) Do(ctx context.Context) (*model.PermissionProfileInformation, error) {
+func (op *PermissionProfilesListOp) Do(
+	ctx context.Context,
+) (*model.PermissionProfileInformation, error) {
 	var res *model.PermissionProfileInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -862,7 +887,10 @@ func (op *PermissionProfilesListOp) Include(val string) *PermissionProfilesListO
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/accountpermissionprofiles/update
 //
 // SDK Method Accounts::updatePermissionProfile
-func (s *Service) PermissionProfilesUpdate(permissionProfileID string, permissionProfile *model.PermissionProfile) *PermissionProfilesUpdateOp {
+func (s *Service) PermissionProfilesUpdate(
+	permissionProfileID string,
+	permissionProfile *model.PermissionProfile,
+) *PermissionProfilesUpdateOp {
 	return &PermissionProfilesUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -918,7 +946,9 @@ func (s *Service) SignatureProvidersList() *SignatureProvidersListOp {
 type SignatureProvidersListOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *SignatureProvidersListOp) Do(ctx context.Context) (*model.AccountSignatureProviders, error) {
+func (op *SignatureProvidersListOp) Do(
+	ctx context.Context,
+) (*model.AccountSignatureProviders, error) {
 	var res *model.AccountSignatureProviders
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -953,7 +983,9 @@ func (op *TabSettingsGetOp) Do(ctx context.Context) (*model.TabAccountSettings, 
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/accounttabsettings/update
 //
 // SDK Method Accounts::updateAccountTabSettings
-func (s *Service) TabSettingsUpdate(tabAccountSettings *model.TabAccountSettings) *TabSettingsUpdateOp {
+func (s *Service) TabSettingsUpdate(
+	tabAccountSettings *model.TabAccountSettings,
+) *TabSettingsUpdateOp {
 	return &TabSettingsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -1112,7 +1144,10 @@ func (op *DeleteOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/accounts/deletecaptiverecipient
 //
 // SDK Method Accounts::deleteCaptiveRecipient
-func (s *Service) DeleteCaptiveRecipient(recipientPart string, captiveRecipientInformation *model.CaptiveRecipientInformation) *DeleteCaptiveRecipientOp {
+func (s *Service) DeleteCaptiveRecipient(
+	recipientPart string,
+	captiveRecipientInformation *model.CaptiveRecipientInformation,
+) *DeleteCaptiveRecipientOp {
 	return &DeleteCaptiveRecipientOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -1128,7 +1163,9 @@ func (s *Service) DeleteCaptiveRecipient(recipientPart string, captiveRecipientI
 type DeleteCaptiveRecipientOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *DeleteCaptiveRecipientOp) Do(ctx context.Context) (*model.CaptiveRecipientInformation, error) {
+func (op *DeleteCaptiveRecipientOp) Do(
+	ctx context.Context,
+) (*model.CaptiveRecipientInformation, error) {
 	var res *model.CaptiveRecipientInformation
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -1248,7 +1285,9 @@ func (s *Service) ListRecipientNamesByEmail() *ListRecipientNamesByEmailOp {
 type ListRecipientNamesByEmailOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *ListRecipientNamesByEmailOp) Do(ctx context.Context) (*model.RecipientNamesResponse, error) {
+func (op *ListRecipientNamesByEmailOp) Do(
+	ctx context.Context,
+) (*model.RecipientNamesResponse, error) {
 	var res *model.RecipientNamesResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -1447,7 +1486,9 @@ func (op *ListUnsupportedFileTypesOp) Do(ctx context.Context) (*model.FileTypeLi
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/accounts/updatesettings
 //
 // SDK Method Accounts::updateSettings
-func (s *Service) UpdateSettings(accountSettingsInformation *model.AccountSettingsInformation) *UpdateSettingsOp {
+func (s *Service) UpdateSettings(
+	accountSettingsInformation *model.AccountSettingsInformation,
+) *UpdateSettingsOp {
 	return &UpdateSettingsOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -1471,7 +1512,9 @@ func (op *UpdateSettingsOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/accounts/updatesharedaccess
 //
 // SDK Method Accounts::updateSharedAccess
-func (s *Service) UpdateSharedAccess(accountSharedAccess *model.AccountSharedAccess) *UpdateSharedAccessOp {
+func (s *Service) UpdateSharedAccess(
+	accountSharedAccess *model.AccountSharedAccess,
+) *UpdateSharedAccessOp {
 	return &UpdateSharedAccessOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -1565,7 +1608,9 @@ func (op *ENoteConfigurationsGetOp) Do(ctx context.Context) (*model.ENoteConfigu
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/accounts/enoteconfigurations/update
 //
 // SDK Method Accounts::updateENoteConfiguration
-func (s *Service) ENoteConfigurationsUpdate(eNoteConfiguration *model.ENoteConfiguration) *ENoteConfigurationsUpdateOp {
+func (s *Service) ENoteConfigurationsUpdate(
+	eNoteConfiguration *model.ENoteConfiguration,
+) *ENoteConfigurationsUpdateOp {
 	return &ENoteConfigurationsUpdateOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -1612,13 +1657,19 @@ func (op *SealProvidersListOp) Do(ctx context.Context) (*model.AccountSeals, err
 // GetAccountSettingsExport is SDK Method Accounts::getAccountSettingsExport
 //
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/Accounts/Accounts/getAccountSettingsExport
-func (s *Service) GetAccountSettingsExport(organizationID string, resultID string) *GetAccountSettingsExportOp {
+func (s *Service) GetAccountSettingsExport(
+	organizationID string,
+	resultID string,
+) *GetAccountSettingsExportOp {
 	return &GetAccountSettingsExportOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organization_exports", organizationID, "account_settings", resultID}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv2,
+		Path: strings.Join(
+			[]string{"", "v2", "organization_exports", organizationID, "account_settings", resultID},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv2,
 	}
 }
 
@@ -1633,7 +1684,10 @@ func (op *GetAccountSettingsExportOp) Do(ctx context.Context) error {
 // ConnectSecretCreateConnectSecret is SDK Method Accounts::createConnectSecret
 //
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/Accounts/ConnectSecret/createConnectSecret
-func (s *Service) ConnectSecretCreateConnectSecret(media io.Reader, mimeType string) *ConnectSecretCreateConnectSecretOp {
+func (s *Service) ConnectSecretCreateConnectSecret(
+	media io.Reader,
+	mimeType string,
+) *ConnectSecretCreateConnectSecretOp {
 	return &ConnectSecretCreateConnectSecretOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -1655,7 +1709,9 @@ func (op *ConnectSecretCreateConnectSecretOp) Do(ctx context.Context) error {
 // ConnectSecretDeleteConnectSecret is SDK Method Accounts::deleteConnectSecret
 //
 // https://developers.docusign.com/docs/esign-rest-api/v2/reference/Accounts/ConnectSecret/deleteConnectSecret
-func (s *Service) ConnectSecretDeleteConnectSecret(keyID string) *ConnectSecretDeleteConnectSecretOp {
+func (s *Service) ConnectSecretDeleteConnectSecret(
+	keyID string,
+) *ConnectSecretDeleteConnectSecretOp {
 	return &ConnectSecretDeleteConnectSecretOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -1691,7 +1747,9 @@ func (s *Service) IdentityVerificationsList() *IdentityVerificationsListOp {
 type IdentityVerificationsListOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *IdentityVerificationsListOp) Do(ctx context.Context) (*model.AccountIdentityVerificationResponse, error) {
+func (op *IdentityVerificationsListOp) Do(
+	ctx context.Context,
+) (*model.AccountIdentityVerificationResponse, error) {
 	var res *model.AccountIdentityVerificationResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }

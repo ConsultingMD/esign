@@ -10,18 +10,17 @@
 //
 // Methods to import and export users and accounts.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/admin-api/reference/BulkOperations
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/admin"
-//   )
-//   ...
-//   bulkoperationsService := bulkoperations.New(esignCredential)
-package bulkoperations // import "github.com/jfcote87/esignadmin/bulkoperations"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/admin"
+//	)
+//	...
+//	bulkoperationsService := bulkoperations.New(esignCredential)
+package bulkoperations // import "github.com/ConsultingMD/esignadmin/bulkoperations"
 
 import (
 	"context"
@@ -29,8 +28,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/admin"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/admin"
 )
 
 // Service implements DocuSign BulkOperations API operations
@@ -48,15 +47,21 @@ func New(cred esign.Credential) *Service {
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/accountsettingsexport/createaccountsettingsexport
 //
 // SDK Method BulkOperations::createAccountSettingsExport
-func (s *Service) CreateAccountSettingsExport(organizationID string, request *admin.OrganizationAccountsRequest) *CreateAccountSettingsExportOp {
+func (s *Service) CreateAccountSettingsExport(
+	organizationID string,
+	request *admin.OrganizationAccountsRequest,
+) *CreateAccountSettingsExportOp {
 	return &CreateAccountSettingsExportOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "exports", "account_settings"}, "/"),
-		Payload:    request,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "exports", "account_settings"},
+			"/",
+		),
+		Payload:   request,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -64,7 +69,9 @@ func (s *Service) CreateAccountSettingsExport(organizationID string, request *ad
 type CreateAccountSettingsExportOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *CreateAccountSettingsExportOp) Do(ctx context.Context) (*admin.OrganizationExportResponse, error) {
+func (op *CreateAccountSettingsExportOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationExportResponse, error) {
 	var res *admin.OrganizationExportResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -74,13 +81,19 @@ func (op *CreateAccountSettingsExportOp) Do(ctx context.Context) (*admin.Organiz
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/accountsettingsexport/deleteaccountsettingsexport
 //
 // SDK Method BulkOperations::deleteAccountSettingsExport
-func (s *Service) DeleteAccountSettingsExport(organizationID string, exportID string) *DeleteAccountSettingsExportOp {
+func (s *Service) DeleteAccountSettingsExport(
+	organizationID string,
+	exportID string,
+) *DeleteAccountSettingsExportOp {
 	return &DeleteAccountSettingsExportOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "exports", "account_settings", exportID}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "exports", "account_settings", exportID},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -98,14 +111,20 @@ func (op *DeleteAccountSettingsExportOp) Do(ctx context.Context) (map[string]int
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/accountsettingsexport/getaccountsettingsexport
 //
 // SDK Method BulkOperations::getAccountSettingsExport
-func (s *Service) GetAccountSettingsExport(organizationID string, exportID string) *GetAccountSettingsExportOp {
+func (s *Service) GetAccountSettingsExport(
+	organizationID string,
+	exportID string,
+) *GetAccountSettingsExportOp {
 	return &GetAccountSettingsExportOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "exports", "account_settings", exportID}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "exports", "account_settings", exportID},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -113,7 +132,9 @@ func (s *Service) GetAccountSettingsExport(organizationID string, exportID strin
 type GetAccountSettingsExportOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetAccountSettingsExportOp) Do(ctx context.Context) (*admin.OrganizationExportResponse, error) {
+func (op *GetAccountSettingsExportOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationExportResponse, error) {
 	var res *admin.OrganizationExportResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -127,10 +148,13 @@ func (s *Service) GetAccountSettingsExports(organizationID string) *GetAccountSe
 	return &GetAccountSettingsExportsOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "exports", "account_settings"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "exports", "account_settings"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -138,7 +162,9 @@ func (s *Service) GetAccountSettingsExports(organizationID string) *GetAccountSe
 type GetAccountSettingsExportsOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetAccountSettingsExportsOp) Do(ctx context.Context) (*admin.OrganizationExportsResponse, error) {
+func (op *GetAccountSettingsExportsOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationExportsResponse, error) {
 	var res *admin.OrganizationExportsResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -148,15 +174,21 @@ func (op *GetAccountSettingsExportsOp) Do(ctx context.Context) (*admin.Organizat
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userexport/createuserlistexport
 //
 // SDK Method BulkOperations::createUserListExport
-func (s *Service) CreateUserListExport(organizationID string, request *admin.OrganizationExportRequest) *CreateUserListExportOp {
+func (s *Service) CreateUserListExport(
+	organizationID string,
+	request *admin.OrganizationExportRequest,
+) *CreateUserListExportOp {
 	return &CreateUserListExportOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "exports", "user_list"}, "/"),
-		Payload:    request,
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "exports", "user_list"},
+			"/",
+		),
+		Payload:   request,
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -164,7 +196,9 @@ func (s *Service) CreateUserListExport(organizationID string, request *admin.Org
 type CreateUserListExportOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *CreateUserListExportOp) Do(ctx context.Context) (*admin.OrganizationExportResponse, error) {
+func (op *CreateUserListExportOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationExportResponse, error) {
 	var res *admin.OrganizationExportResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -174,13 +208,19 @@ func (op *CreateUserListExportOp) Do(ctx context.Context) (*admin.OrganizationEx
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userexport/deleteuserlistexport
 //
 // SDK Method BulkOperations::deleteUserListExport
-func (s *Service) DeleteUserListExport(organizationID string, exportID string) *DeleteUserListExportOp {
+func (s *Service) DeleteUserListExport(
+	organizationID string,
+	exportID string,
+) *DeleteUserListExportOp {
 	return &DeleteUserListExportOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "exports", "user_list", exportID}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "exports", "user_list", exportID},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -202,10 +242,13 @@ func (s *Service) GetUserListExport(organizationID string, exportID string) *Get
 	return &GetUserListExportOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "exports", "user_list", exportID}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "exports", "user_list", exportID},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -227,10 +270,13 @@ func (s *Service) GetUserListExports(organizationID string) *GetUserListExportsO
 	return &GetUserListExportsOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "exports", "user_list"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "exports", "user_list"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -238,7 +284,9 @@ func (s *Service) GetUserListExports(organizationID string) *GetUserListExportsO
 type GetUserListExportsOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetUserListExportsOp) Do(ctx context.Context) (*admin.OrganizationExportsResponse, error) {
+func (op *GetUserListExportsOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationExportsResponse, error) {
 	var res *admin.OrganizationExportsResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -249,15 +297,22 @@ func (op *GetUserListExportsOp) Do(ctx context.Context) (*admin.OrganizationExpo
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/accountsettingsimport/addbulkaccountsettingsimport
 //
 // SDK Method BulkOperations::addBulkAccountSettingsImport
-func (s *Service) AddBulkAccountSettingsImport(organizationID string, media io.Reader, mimeType string) *AddBulkAccountSettingsImportOp {
+func (s *Service) AddBulkAccountSettingsImport(
+	organizationID string,
+	media io.Reader,
+	mimeType string,
+) *AddBulkAccountSettingsImportOp {
 	return &AddBulkAccountSettingsImportOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "imports", "account_settings"}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "imports", "account_settings"},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -265,7 +320,9 @@ func (s *Service) AddBulkAccountSettingsImport(organizationID string, media io.R
 type AddBulkAccountSettingsImportOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *AddBulkAccountSettingsImportOp) Do(ctx context.Context) (*admin.OrganizationAccountSettingsImportResponse, error) {
+func (op *AddBulkAccountSettingsImportOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationAccountSettingsImportResponse, error) {
 	var res *admin.OrganizationAccountSettingsImportResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -275,14 +332,20 @@ func (op *AddBulkAccountSettingsImportOp) Do(ctx context.Context) (*admin.Organi
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/accountsettingsimport/deletebulkaccountsettingsimport
 //
 // SDK Method BulkOperations::deleteBulkAccountSettingsImport
-func (s *Service) DeleteBulkAccountSettingsImport(organizationID string, importID string) *DeleteBulkAccountSettingsImportOp {
+func (s *Service) DeleteBulkAccountSettingsImport(
+	organizationID string,
+	importID string,
+) *DeleteBulkAccountSettingsImportOp {
 	return &DeleteBulkAccountSettingsImportOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "imports", "account_settings", importID}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "imports", "account_settings", importID},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -290,7 +353,9 @@ func (s *Service) DeleteBulkAccountSettingsImport(organizationID string, importI
 type DeleteBulkAccountSettingsImportOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *DeleteBulkAccountSettingsImportOp) Do(ctx context.Context) (map[string]interface{}, error) {
+func (op *DeleteBulkAccountSettingsImportOp) Do(
+	ctx context.Context,
+) (map[string]interface{}, error) {
 	var res map[string]interface{}
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -300,14 +365,20 @@ func (op *DeleteBulkAccountSettingsImportOp) Do(ctx context.Context) (map[string
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/accountsettingsimport/getbulkaccountsettingsimport
 //
 // SDK Method BulkOperations::getBulkAccountSettingsImport
-func (s *Service) GetBulkAccountSettingsImport(organizationID string, importID string) *GetBulkAccountSettingsImportOp {
+func (s *Service) GetBulkAccountSettingsImport(
+	organizationID string,
+	importID string,
+) *GetBulkAccountSettingsImportOp {
 	return &GetBulkAccountSettingsImportOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "imports", "account_settings", importID}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "imports", "account_settings", importID},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -315,7 +386,9 @@ func (s *Service) GetBulkAccountSettingsImport(organizationID string, importID s
 type GetBulkAccountSettingsImportOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetBulkAccountSettingsImportOp) Do(ctx context.Context) (*admin.OrganizationAccountSettingsImportResponse, error) {
+func (op *GetBulkAccountSettingsImportOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationAccountSettingsImportResponse, error) {
 	var res *admin.OrganizationAccountSettingsImportResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -325,14 +398,19 @@ func (op *GetBulkAccountSettingsImportOp) Do(ctx context.Context) (*admin.Organi
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/accountsettingsimport/getbulkaccountsettingsimports
 //
 // SDK Method BulkOperations::getBulkAccountSettingsImports
-func (s *Service) GetBulkAccountSettingsImports(organizationID string) *GetBulkAccountSettingsImportsOp {
+func (s *Service) GetBulkAccountSettingsImports(
+	organizationID string,
+) *GetBulkAccountSettingsImportsOp {
 	return &GetBulkAccountSettingsImportsOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "imports", "account_settings"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "imports", "account_settings"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -352,15 +430,32 @@ func (op *GetBulkAccountSettingsImportsOp) Do(ctx context.Context) ([]interface{
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/singleaccountuserimport/createbulkimportsingleaccountaddusersrequest
 //
 // SDK Method BulkOperations::createBulkImportSingleAccountAddUsersRequest
-func (s *Service) CreateBulkImportSingleAccountAddUsersRequest(organizationID string, media io.Reader, mimeType string) *CreateBulkImportSingleAccountAddUsersRequestOp {
+func (s *Service) CreateBulkImportSingleAccountAddUsersRequest(
+	organizationID string,
+	media io.Reader,
+	mimeType string,
+) *CreateBulkImportSingleAccountAddUsersRequestOp {
 	return &CreateBulkImportSingleAccountAddUsersRequestOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "accounts", "{accountId}", "imports", "bulk_users", "add"}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2",
+				"organizations",
+				organizationID,
+				"accounts",
+				"{accountId}",
+				"imports",
+				"bulk_users",
+				"add",
+			},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -368,7 +463,9 @@ func (s *Service) CreateBulkImportSingleAccountAddUsersRequest(organizationID st
 type CreateBulkImportSingleAccountAddUsersRequestOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *CreateBulkImportSingleAccountAddUsersRequestOp) Do(ctx context.Context) (*admin.OrganizationImportResponse, error) {
+func (op *CreateBulkImportSingleAccountAddUsersRequestOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationImportResponse, error) {
 	var res *admin.OrganizationImportResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -380,15 +477,32 @@ func (op *CreateBulkImportSingleAccountAddUsersRequestOp) Do(ctx context.Context
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/singleaccountuserimport/createbulkimportsingleaccountupdateusersrequest
 //
 // SDK Method BulkOperations::createBulkImportSingleAccountUpdateUsersRequest
-func (s *Service) CreateBulkImportSingleAccountUpdateUsersRequest(organizationID string, media io.Reader, mimeType string) *CreateBulkImportSingleAccountUpdateUsersRequestOp {
+func (s *Service) CreateBulkImportSingleAccountUpdateUsersRequest(
+	organizationID string,
+	media io.Reader,
+	mimeType string,
+) *CreateBulkImportSingleAccountUpdateUsersRequestOp {
 	return &CreateBulkImportSingleAccountUpdateUsersRequestOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "accounts", "{accountId}", "imports", "bulk_users", "update"}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2",
+				"organizations",
+				organizationID,
+				"accounts",
+				"{accountId}",
+				"imports",
+				"bulk_users",
+				"update",
+			},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -396,7 +510,9 @@ func (s *Service) CreateBulkImportSingleAccountUpdateUsersRequest(organizationID
 type CreateBulkImportSingleAccountUpdateUsersRequestOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *CreateBulkImportSingleAccountUpdateUsersRequestOp) Do(ctx context.Context) (*admin.OrganizationImportResponse, error) {
+func (op *CreateBulkImportSingleAccountUpdateUsersRequestOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationImportResponse, error) {
 	var res *admin.OrganizationImportResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -407,15 +523,22 @@ func (op *CreateBulkImportSingleAccountUpdateUsersRequestOp) Do(ctx context.Cont
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/addbulkuserimport
 //
 // SDK Method BulkOperations::addBulkUserImport
-func (s *Service) AddBulkUserImport(organizationID string, media io.Reader, mimeType string) *AddBulkUserImportOp {
+func (s *Service) AddBulkUserImport(
+	organizationID string,
+	media io.Reader,
+	mimeType string,
+) *AddBulkUserImportOp {
 	return &AddBulkUserImportOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "imports", "bulk_users", "add"}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "imports", "bulk_users", "add"},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -434,15 +557,30 @@ func (op *AddBulkUserImportOp) Do(ctx context.Context) (*admin.OrganizationImpor
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/closebulkexternaluserimportrequest
 //
 // SDK Method BulkOperations::closeBulkExternalUserImportRequest
-func (s *Service) CloseBulkExternalUserImportRequest(organizationID string, media io.Reader, mimeType string) *CloseBulkExternalUserImportRequestOp {
+func (s *Service) CloseBulkExternalUserImportRequest(
+	organizationID string,
+	media io.Reader,
+	mimeType string,
+) *CloseBulkExternalUserImportRequestOp {
 	return &CloseBulkExternalUserImportRequestOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "imports", "bulk_users", "close_external"}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2",
+				"organizations",
+				organizationID,
+				"imports",
+				"bulk_users",
+				"close_external",
+			},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -450,7 +588,9 @@ func (s *Service) CloseBulkExternalUserImportRequest(organizationID string, medi
 type CloseBulkExternalUserImportRequestOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *CloseBulkExternalUserImportRequestOp) Do(ctx context.Context) (*admin.OrganizationImportResponse, error) {
+func (op *CloseBulkExternalUserImportRequestOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationImportResponse, error) {
 	var res *admin.OrganizationImportResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -461,15 +601,22 @@ func (op *CloseBulkExternalUserImportRequestOp) Do(ctx context.Context) (*admin.
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/closebulkuserimportrequest
 //
 // SDK Method BulkOperations::closeBulkUserImportRequest
-func (s *Service) CloseBulkUserImportRequest(organizationID string, media io.Reader, mimeType string) *CloseBulkUserImportRequestOp {
+func (s *Service) CloseBulkUserImportRequest(
+	organizationID string,
+	media io.Reader,
+	mimeType string,
+) *CloseBulkUserImportRequestOp {
 	return &CloseBulkUserImportRequestOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "imports", "bulk_users", "close"}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "imports", "bulk_users", "close"},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -477,7 +624,9 @@ func (s *Service) CloseBulkUserImportRequest(organizationID string, media io.Rea
 type CloseBulkUserImportRequestOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *CloseBulkUserImportRequestOp) Do(ctx context.Context) (*admin.OrganizationImportResponse, error) {
+func (op *CloseBulkUserImportRequestOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationImportResponse, error) {
 	var res *admin.OrganizationImportResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -487,13 +636,19 @@ func (op *CloseBulkUserImportRequestOp) Do(ctx context.Context) (*admin.Organiza
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/deletebulkuserimport
 //
 // SDK Method BulkOperations::deleteBulkUserImport
-func (s *Service) DeleteBulkUserImport(organizationID string, importID string) *DeleteBulkUserImportOp {
+func (s *Service) DeleteBulkUserImport(
+	organizationID string,
+	importID string,
+) *DeleteBulkUserImportOp {
 	return &DeleteBulkUserImportOp{
 		Credential: s.credential,
 		Method:     "DELETE",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "imports", "bulk_users", importID}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "imports", "bulk_users", importID},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -512,13 +667,28 @@ func (op *DeleteBulkUserImportOp) Do(ctx context.Context) (map[string]interface{
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/getbulkuserimportcsv
 //
 // SDK Method BulkOperations::getBulkUserImportCSV
-func (s *Service) GetBulkUserImportCSV(organizationID string, importID string) *GetBulkUserImportCSVOp {
+func (s *Service) GetBulkUserImportCSV(
+	organizationID string,
+	importID string,
+) *GetBulkUserImportCSVOp {
 	return &GetBulkUserImportCSVOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "imports", "bulk_users", importID, "results_csv"}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{
+				"",
+				"v2",
+				"organizations",
+				organizationID,
+				"imports",
+				"bulk_users",
+				importID,
+				"results_csv",
+			},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -536,14 +706,20 @@ func (op *GetBulkUserImportCSVOp) Do(ctx context.Context) (map[string]interface{
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/getbulkuserimportrequest
 //
 // SDK Method BulkOperations::getBulkUserImportRequest
-func (s *Service) GetBulkUserImportRequest(organizationID string, importID string) *GetBulkUserImportRequestOp {
+func (s *Service) GetBulkUserImportRequest(
+	organizationID string,
+	importID string,
+) *GetBulkUserImportRequestOp {
 	return &GetBulkUserImportRequestOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "imports", "bulk_users", importID}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "imports", "bulk_users", importID},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -551,7 +727,9 @@ func (s *Service) GetBulkUserImportRequest(organizationID string, importID strin
 type GetBulkUserImportRequestOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetBulkUserImportRequestOp) Do(ctx context.Context) (*admin.OrganizationImportResponse, error) {
+func (op *GetBulkUserImportRequestOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationImportResponse, error) {
 	var res *admin.OrganizationImportResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -565,10 +743,13 @@ func (s *Service) GetBulkUserImportRequests(organizationID string) *GetBulkUserI
 	return &GetBulkUserImportRequestsOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "imports", "bulk_users"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "imports", "bulk_users"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -576,7 +757,9 @@ func (s *Service) GetBulkUserImportRequests(organizationID string) *GetBulkUserI
 type GetBulkUserImportRequestsOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetBulkUserImportRequestsOp) Do(ctx context.Context) (*admin.OrganizationImportsResponse, error) {
+func (op *GetBulkUserImportRequestsOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationImportsResponse, error) {
 	var res *admin.OrganizationImportsResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -587,15 +770,22 @@ func (op *GetBulkUserImportRequestsOp) Do(ctx context.Context) (*admin.Organizat
 // https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/updatebulkuserimports
 //
 // SDK Method BulkOperations::updateBulkUserImports
-func (s *Service) UpdateBulkUserImports(organizationID string, media io.Reader, mimeType string) *UpdateBulkUserImportsOp {
+func (s *Service) UpdateBulkUserImports(
+	organizationID string,
+	media io.Reader,
+	mimeType string,
+) *UpdateBulkUserImportsOp {
 	return &UpdateBulkUserImportsOp{
 		Credential: s.credential,
 		Method:     "POST",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "imports", "bulk_users", "update"}, "/"),
-		Payload:    &esign.UploadFile{Reader: media, ContentType: mimeType},
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "imports", "bulk_users", "update"},
+			"/",
+		),
+		Payload:   &esign.UploadFile{Reader: media, ContentType: mimeType},
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 
@@ -603,7 +793,9 @@ func (s *Service) UpdateBulkUserImports(organizationID string, media io.Reader, 
 type UpdateBulkUserImportsOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *UpdateBulkUserImportsOp) Do(ctx context.Context) (*admin.OrganizationImportResponse, error) {
+func (op *UpdateBulkUserImportsOp) Do(
+	ctx context.Context,
+) (*admin.OrganizationImportResponse, error) {
 	var res *admin.OrganizationImportResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }

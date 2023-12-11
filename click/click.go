@@ -8,26 +8,23 @@
 // Package click implements the DocuSign SDK
 // category Click.
 //
-//
-//
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/click-api/reference/accounts
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//   )
-//   ...
-//   clickService := click.New(esignCredential)
-package click // import "github.com/jfcote87/esign/click"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	)
+//	...
+//	clickService := click.New(esignCredential)
+package click // import "github.com/ConsultingMD/esign/click"
 
 import (
 	"context"
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
+	"github.com/ConsultingMD/esign"
 )
 
 // Service implements DocuSign Click API operations
@@ -70,7 +67,10 @@ func (op *CreateClickwrapOp) Do(ctx context.Context) (ClickwrapVersionSummaryRes
 // https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrapversion
 //
 // SDK Method Click::createClickwrapVersion
-func (s *Service) CreateClickwrapVersion(clickwrapID string, clickwrapRequest ClickwrapRequest) *CreateClickwrapVersionOp {
+func (s *Service) CreateClickwrapVersion(
+	clickwrapID string,
+	clickwrapRequest ClickwrapRequest,
+) *CreateClickwrapVersionOp {
 	return &CreateClickwrapVersionOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -85,7 +85,9 @@ func (s *Service) CreateClickwrapVersion(clickwrapID string, clickwrapRequest Cl
 type CreateClickwrapVersionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *CreateClickwrapVersionOp) Do(ctx context.Context) (ClickwrapVersionSummaryResponse, error) {
+func (op *CreateClickwrapVersionOp) Do(
+	ctx context.Context,
+) (ClickwrapVersionSummaryResponse, error) {
 	var res ClickwrapVersionSummaryResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -95,7 +97,10 @@ func (op *CreateClickwrapVersionOp) Do(ctx context.Context) (ClickwrapVersionSum
 // https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createhasagreed
 //
 // SDK Method Click::createHasAgreed
-func (s *Service) CreateHasAgreed(clickwrapID string, userAgreementRequest UserAgreementRequest) *CreateHasAgreedOp {
+func (s *Service) CreateHasAgreed(
+	clickwrapID string,
+	userAgreementRequest UserAgreementRequest,
+) *CreateHasAgreedOp {
 	return &CreateHasAgreedOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -153,7 +158,10 @@ func (op *DeleteClickwrapOp) Versions(val string) *DeleteClickwrapOp {
 // https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/deleteclickwrapversion
 //
 // SDK Method Click::deleteClickwrapVersion
-func (s *Service) DeleteClickwrapVersion(clickwrapID string, versionID string) *DeleteClickwrapVersionOp {
+func (s *Service) DeleteClickwrapVersion(
+	clickwrapID string,
+	versionID string,
+) *DeleteClickwrapVersionOp {
 	return &DeleteClickwrapVersionOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -168,7 +176,9 @@ func (s *Service) DeleteClickwrapVersion(clickwrapID string, versionID string) *
 type DeleteClickwrapVersionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *DeleteClickwrapVersionOp) Do(ctx context.Context) (ClickwrapVersionDeleteResponse, error) {
+func (op *DeleteClickwrapVersionOp) Do(
+	ctx context.Context,
+) (ClickwrapVersionDeleteResponse, error) {
 	var res ClickwrapVersionDeleteResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -178,7 +188,10 @@ func (op *DeleteClickwrapVersionOp) Do(ctx context.Context) (ClickwrapVersionDel
 // https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/deleteclickwrapversionbynumber
 //
 // SDK Method Click::deleteClickwrapVersionByNumber
-func (s *Service) DeleteClickwrapVersionByNumber(clickwrapID string, versionNumber string) *DeleteClickwrapVersionByNumberOp {
+func (s *Service) DeleteClickwrapVersionByNumber(
+	clickwrapID string,
+	versionNumber string,
+) *DeleteClickwrapVersionByNumberOp {
 	return &DeleteClickwrapVersionByNumberOp{
 		Credential: s.credential,
 		Method:     "DELETE",
@@ -193,7 +206,9 @@ func (s *Service) DeleteClickwrapVersionByNumber(clickwrapID string, versionNumb
 type DeleteClickwrapVersionByNumberOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *DeleteClickwrapVersionByNumberOp) Do(ctx context.Context) (ClickwrapVersionSummaryResponse, error) {
+func (op *DeleteClickwrapVersionByNumberOp) Do(
+	ctx context.Context,
+) (ClickwrapVersionSummaryResponse, error) {
 	var res ClickwrapVersionSummaryResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -218,7 +233,9 @@ func (s *Service) DeleteClickwrapVersions(clickwrapID string) *DeleteClickwrapVe
 type DeleteClickwrapVersionsOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *DeleteClickwrapVersionsOp) Do(ctx context.Context) (ClickwrapVersionsDeleteResponse, error) {
+func (op *DeleteClickwrapVersionsOp) Do(
+	ctx context.Context,
+) (ClickwrapVersionsDeleteResponse, error) {
 	var res ClickwrapVersionsDeleteResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -298,9 +315,12 @@ func (s *Service) GetAgreementPdf(agreementID string, clickwrapID string) *GetAg
 	return &GetAgreementPdfOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"clickwraps", clickwrapID, "agreements", agreementID, "download"}, "/"),
-		QueryOpts:  make(url.Values),
-		Version:    esign.ClickV1,
+		Path: strings.Join(
+			[]string{"clickwraps", clickwrapID, "agreements", agreementID, "download"},
+			"/",
+		),
+		QueryOpts: make(url.Values),
+		Version:   esign.ClickV1,
 	}
 }
 
@@ -432,14 +452,20 @@ func (op *GetClickwrapVersionOp) Do(ctx context.Context) (ClickwrapVersionRespon
 // https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapversionagreements
 //
 // SDK Method Click::getClickwrapVersionAgreements
-func (s *Service) GetClickwrapVersionAgreements(clickwrapID string, versionID string) *GetClickwrapVersionAgreementsOp {
+func (s *Service) GetClickwrapVersionAgreements(
+	clickwrapID string,
+	versionID string,
+) *GetClickwrapVersionAgreementsOp {
 	return &GetClickwrapVersionAgreementsOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"clickwraps", clickwrapID, "versions", versionID, "users"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.ClickV1,
+		Path: strings.Join(
+			[]string{"clickwraps", clickwrapID, "versions", versionID, "users"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.ClickV1,
 	}
 }
 
@@ -447,13 +473,17 @@ func (s *Service) GetClickwrapVersionAgreements(clickwrapID string, versionID st
 type GetClickwrapVersionAgreementsOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetClickwrapVersionAgreementsOp) Do(ctx context.Context) (ClickwrapAgreementsResponse, error) {
+func (op *GetClickwrapVersionAgreementsOp) Do(
+	ctx context.Context,
+) (ClickwrapAgreementsResponse, error) {
 	var res ClickwrapAgreementsResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
 
 // ClientUserID set the call query parameter client_user_id
-func (op *GetClickwrapVersionAgreementsOp) ClientUserID(val string) *GetClickwrapVersionAgreementsOp {
+func (op *GetClickwrapVersionAgreementsOp) ClientUserID(
+	val string,
+) *GetClickwrapVersionAgreementsOp {
 	if op != nil {
 		op.QueryOpts.Set("client_user_id", val)
 	}
@@ -501,14 +531,20 @@ func (op *GetClickwrapVersionAgreementsOp) ToDate(val string) *GetClickwrapVersi
 // https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapversionagreementsbynumber
 //
 // SDK Method Click::getClickwrapVersionAgreementsByNumber
-func (s *Service) GetClickwrapVersionAgreementsByNumber(clickwrapID string, versionNumber string) *GetClickwrapVersionAgreementsByNumberOp {
+func (s *Service) GetClickwrapVersionAgreementsByNumber(
+	clickwrapID string,
+	versionNumber string,
+) *GetClickwrapVersionAgreementsByNumberOp {
 	return &GetClickwrapVersionAgreementsByNumberOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"clickwraps", clickwrapID, "versions", versionNumber, "users"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.ClickV1,
+		Path: strings.Join(
+			[]string{"clickwraps", clickwrapID, "versions", versionNumber, "users"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.ClickV1,
 	}
 }
 
@@ -516,13 +552,17 @@ func (s *Service) GetClickwrapVersionAgreementsByNumber(clickwrapID string, vers
 type GetClickwrapVersionAgreementsByNumberOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetClickwrapVersionAgreementsByNumberOp) Do(ctx context.Context) (ClickwrapAgreementsResponse, error) {
+func (op *GetClickwrapVersionAgreementsByNumberOp) Do(
+	ctx context.Context,
+) (ClickwrapAgreementsResponse, error) {
 	var res ClickwrapAgreementsResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
 
 // ClientUserID is the client user ID.
-func (op *GetClickwrapVersionAgreementsByNumberOp) ClientUserID(val string) *GetClickwrapVersionAgreementsByNumberOp {
+func (op *GetClickwrapVersionAgreementsByNumberOp) ClientUserID(
+	val string,
+) *GetClickwrapVersionAgreementsByNumberOp {
 	if op != nil {
 		op.QueryOpts.Set("client_user_id", val)
 	}
@@ -530,7 +570,9 @@ func (op *GetClickwrapVersionAgreementsByNumberOp) ClientUserID(val string) *Get
 }
 
 // FromDate optional. The earliest date to return agreements from.
-func (op *GetClickwrapVersionAgreementsByNumberOp) FromDate(val string) *GetClickwrapVersionAgreementsByNumberOp {
+func (op *GetClickwrapVersionAgreementsByNumberOp) FromDate(
+	val string,
+) *GetClickwrapVersionAgreementsByNumberOp {
 	if op != nil {
 		op.QueryOpts.Set("from_date", val)
 	}
@@ -538,7 +580,9 @@ func (op *GetClickwrapVersionAgreementsByNumberOp) FromDate(val string) *GetClic
 }
 
 // PageNumber optional. The page number to return.
-func (op *GetClickwrapVersionAgreementsByNumberOp) PageNumber(val string) *GetClickwrapVersionAgreementsByNumberOp {
+func (op *GetClickwrapVersionAgreementsByNumberOp) PageNumber(
+	val string,
+) *GetClickwrapVersionAgreementsByNumberOp {
 	if op != nil {
 		op.QueryOpts.Set("page_number", val)
 	}
@@ -550,7 +594,9 @@ func (op *GetClickwrapVersionAgreementsByNumberOp) PageNumber(val string) *GetCl
 // - `active`
 // - `inactive`
 // - `deleted`
-func (op *GetClickwrapVersionAgreementsByNumberOp) Status(val string) *GetClickwrapVersionAgreementsByNumberOp {
+func (op *GetClickwrapVersionAgreementsByNumberOp) Status(
+	val string,
+) *GetClickwrapVersionAgreementsByNumberOp {
 	if op != nil {
 		op.QueryOpts.Set("status", val)
 	}
@@ -558,7 +604,9 @@ func (op *GetClickwrapVersionAgreementsByNumberOp) Status(val string) *GetClickw
 }
 
 // ToDate optional. The latest date to return agreements from.
-func (op *GetClickwrapVersionAgreementsByNumberOp) ToDate(val string) *GetClickwrapVersionAgreementsByNumberOp {
+func (op *GetClickwrapVersionAgreementsByNumberOp) ToDate(
+	val string,
+) *GetClickwrapVersionAgreementsByNumberOp {
 	if op != nil {
 		op.QueryOpts.Set("to_date", val)
 	}
@@ -570,7 +618,10 @@ func (op *GetClickwrapVersionAgreementsByNumberOp) ToDate(val string) *GetClickw
 // https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapversionbynumber
 //
 // SDK Method Click::getClickwrapVersionByNumber
-func (s *Service) GetClickwrapVersionByNumber(clickwrapID string, versionNumber string) *GetClickwrapVersionByNumberOp {
+func (s *Service) GetClickwrapVersionByNumber(
+	clickwrapID string,
+	versionNumber string,
+) *GetClickwrapVersionByNumberOp {
 	return &GetClickwrapVersionByNumberOp{
 		Credential: s.credential,
 		Method:     "GET",
@@ -696,7 +747,10 @@ func (op *GetServiceInformationOp) Do(ctx context.Context) (ServiceInformation, 
 // https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrap
 //
 // SDK Method Click::updateClickwrap
-func (s *Service) UpdateClickwrap(clickwrapID string, clickwrapTransferRequest ClickwrapTransferRequest) *UpdateClickwrapOp {
+func (s *Service) UpdateClickwrap(
+	clickwrapID string,
+	clickwrapTransferRequest ClickwrapTransferRequest,
+) *UpdateClickwrapOp {
 	return &UpdateClickwrapOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -722,7 +776,11 @@ func (op *UpdateClickwrapOp) Do(ctx context.Context) (ClickwrapVersionSummaryRes
 // https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion
 //
 // SDK Method Click::updateClickwrapVersion
-func (s *Service) UpdateClickwrapVersion(clickwrapID string, versionID string, clickwrapRequest ClickwrapRequest) *UpdateClickwrapVersionOp {
+func (s *Service) UpdateClickwrapVersion(
+	clickwrapID string,
+	versionID string,
+	clickwrapRequest ClickwrapRequest,
+) *UpdateClickwrapVersionOp {
 	return &UpdateClickwrapVersionOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -738,7 +796,9 @@ func (s *Service) UpdateClickwrapVersion(clickwrapID string, versionID string, c
 type UpdateClickwrapVersionOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *UpdateClickwrapVersionOp) Do(ctx context.Context) (ClickwrapVersionSummaryResponse, error) {
+func (op *UpdateClickwrapVersionOp) Do(
+	ctx context.Context,
+) (ClickwrapVersionSummaryResponse, error) {
 	var res ClickwrapVersionSummaryResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -748,7 +808,11 @@ func (op *UpdateClickwrapVersionOp) Do(ctx context.Context) (ClickwrapVersionSum
 // https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversionbynumber
 //
 // SDK Method Click::updateClickwrapVersionByNumber
-func (s *Service) UpdateClickwrapVersionByNumber(clickwrapID string, versionNumber string, clickwrapRequest ClickwrapRequest) *UpdateClickwrapVersionByNumberOp {
+func (s *Service) UpdateClickwrapVersionByNumber(
+	clickwrapID string,
+	versionNumber string,
+	clickwrapRequest ClickwrapRequest,
+) *UpdateClickwrapVersionByNumberOp {
 	return &UpdateClickwrapVersionByNumberOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -764,7 +828,9 @@ func (s *Service) UpdateClickwrapVersionByNumber(clickwrapID string, versionNumb
 type UpdateClickwrapVersionByNumberOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *UpdateClickwrapVersionByNumberOp) Do(ctx context.Context) (ClickwrapVersionSummaryResponse, error) {
+func (op *UpdateClickwrapVersionByNumberOp) Do(
+	ctx context.Context,
+) (ClickwrapVersionSummaryResponse, error) {
 	var res ClickwrapVersionSummaryResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }

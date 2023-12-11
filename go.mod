@@ -1,4 +1,4 @@
-module github.com/jfcote87/esign
+module github.com/ConsultingMD/esign
 
 go 1.14
 

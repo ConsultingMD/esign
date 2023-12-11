@@ -10,18 +10,17 @@
 //
 // A user is a person who is either added to a room (as a participant), or who is a member of a company. This section shows you how to manage users, including how to update and delete National Association of REALTORS® member numbers.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/rooms-api/reference/Users
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/rooms"
-//   )
-//   ...
-//   usersService := users.New(esignCredential)
-package users // import "github.com/jfcote87/esignrooms//users"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/rooms"
+//	)
+//	...
+//	usersService := users.New(esignCredential)
+package users // import "github.com/ConsultingMD/esignrooms//users"
 
 import (
 	"context"
@@ -30,8 +29,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/rooms"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/rooms"
 )
 
 // Service implements DocuSign Users API operations
@@ -428,7 +427,10 @@ func (op *RemoveUserOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/rooms-api/reference/users/users/removeuserfromoffice
 //
 // SDK Method Users::RemoveUserFromOffice
-func (s *Service) RemoveUserFromOffice(userID string, body *rooms.DesignatedOffice) *RemoveUserFromOfficeOp {
+func (s *Service) RemoveUserFromOffice(
+	userID string,
+	body *rooms.DesignatedOffice,
+) *RemoveUserFromOfficeOp {
 	return &RemoveUserFromOfficeOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -453,7 +455,10 @@ func (op *RemoveUserFromOfficeOp) Do(ctx context.Context) error {
 // https://developers.docusign.com/docs/rooms-api/reference/users/users/removeuserfromregion
 //
 // SDK Method Users::RemoveUserFromRegion
-func (s *Service) RemoveUserFromRegion(userID string, body *rooms.DesignatedRegion) *RemoveUserFromRegionOp {
+func (s *Service) RemoveUserFromRegion(
+	userID string,
+	body *rooms.DesignatedRegion,
+) *RemoveUserFromRegionOp {
 	return &RemoveUserFromRegionOp{
 		Credential: s.credential,
 		Method:     "POST",

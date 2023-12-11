@@ -14,18 +14,17 @@
 // * Retrieve invoices.
 // * Retrieve and update payment information.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/reference/Billing
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2.1/model"
-//   )
-//   ...
-//   billingService := billing.New(esignCredential)
-package billing // import "github.com/jfcote87/esignv2.1/billing"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2.1/model"
+//	)
+//	...
+//	billingService := billing.New(esignCredential)
+package billing // import "github.com/ConsultingMD/esignv2.1/billing"
 
 import (
 	"context"
@@ -33,8 +32,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2.1/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2.1/model"
 )
 
 // Service implements DocuSign Billing API operations
@@ -92,7 +91,9 @@ func (s *Service) PlansGetAccountPlan() *PlansGetAccountPlanOp {
 type PlansGetAccountPlanOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *PlansGetAccountPlanOp) Do(ctx context.Context) (*model.AccountBillingPlanResponse, error) {
+func (op *PlansGetAccountPlanOp) Do(
+	ctx context.Context,
+) (*model.AccountBillingPlanResponse, error) {
 	var res *model.AccountBillingPlanResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -192,7 +193,9 @@ func (op *PlansListOp) Do(ctx context.Context) (*model.BillingPlansResponse, err
 // https://developers.docusign.com/docs/esign-rest-api/reference/billing/billingplans/purchaseenvelopes
 //
 // SDK Method Billing::purchaseEnvelopes
-func (s *Service) PlansPurchaseEnvelopes(purchasedEnvelopesInformation *model.PurchasedEnvelopesInformation) *PlansPurchaseEnvelopesOp {
+func (s *Service) PlansPurchaseEnvelopes(
+	purchasedEnvelopesInformation *model.PurchasedEnvelopesInformation,
+) *PlansPurchaseEnvelopesOp {
 	return &PlansPurchaseEnvelopesOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -341,7 +344,9 @@ func (op *InvoicesListPastDueOp) Do(ctx context.Context) (*model.BillingInvoices
 // https://developers.docusign.com/docs/esign-rest-api/reference/billing/payments/create
 //
 // SDK Method Billing::makePayment
-func (s *Service) PaymentsCreate(billingPaymentRequest *model.BillingPaymentRequest) *PaymentsCreateOp {
+func (s *Service) PaymentsCreate(
+	billingPaymentRequest *model.BillingPaymentRequest,
+) *PaymentsCreateOp {
 	return &PaymentsCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -447,7 +452,9 @@ func (s *Service) PlansGetDowngradeRequestBillingInfo() *PlansGetDowngradeReques
 type PlansGetDowngradeRequestBillingInfoOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *PlansGetDowngradeRequestBillingInfoOp) Do(ctx context.Context) (*model.DowngradRequestBillingInfoResponse, error) {
+func (op *PlansGetDowngradeRequestBillingInfoOp) Do(
+	ctx context.Context,
+) (*model.DowngradRequestBillingInfoResponse, error) {
 	var res *model.DowngradRequestBillingInfoResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -457,7 +464,9 @@ func (op *PlansGetDowngradeRequestBillingInfoOp) Do(ctx context.Context) (*model
 // https://developers.docusign.com/docs/esign-rest-api/reference/billing/billingplans/updatedowngradeaccountbillingplan
 //
 // SDK Method Billing::updateDowngradeAccountBillingPlan
-func (s *Service) PlansUpdateDowngradeAccountBillingPlan(downgradeBillingPlanInformation *model.DowngradeBillingPlanInformation) *PlansUpdateDowngradeAccountBillingPlanOp {
+func (s *Service) PlansUpdateDowngradeAccountBillingPlan(
+	downgradeBillingPlanInformation *model.DowngradeBillingPlanInformation,
+) *PlansUpdateDowngradeAccountBillingPlanOp {
 	return &PlansUpdateDowngradeAccountBillingPlanOp{
 		Credential: s.credential,
 		Method:     "PUT",
@@ -473,7 +482,9 @@ func (s *Service) PlansUpdateDowngradeAccountBillingPlan(downgradeBillingPlanInf
 type PlansUpdateDowngradeAccountBillingPlanOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *PlansUpdateDowngradeAccountBillingPlanOp) Do(ctx context.Context) (*model.DowngradePlanUpdateResponse, error) {
+func (op *PlansUpdateDowngradeAccountBillingPlanOp) Do(
+	ctx context.Context,
+) (*model.DowngradePlanUpdateResponse, error) {
 	var res *model.DowngradePlanUpdateResponse
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }

@@ -10,26 +10,25 @@
 //
 // Methods to get a list of reserved domains.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/admin-api/reference/ReservedDomains
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/admin"
-//   )
-//   ...
-//   reserveddomainsService := reserveddomains.New(esignCredential)
-package reserveddomains // import "github.com/jfcote87/esignadmin/reserveddomains"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/admin"
+//	)
+//	...
+//	reserveddomainsService := reserveddomains.New(esignCredential)
+package reserveddomains // import "github.com/ConsultingMD/esignadmin/reserveddomains"
 
 import (
 	"context"
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/admin"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/admin"
 )
 
 // Service implements DocuSign ReservedDomains API operations
@@ -51,10 +50,13 @@ func (s *Service) GetReservedDomains(organizationID string) *GetReservedDomainsO
 	return &GetReservedDomainsOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"", "v2", "organizations", organizationID, "reserved_domains"}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.AdminV2,
+		Path: strings.Join(
+			[]string{"", "v2", "organizations", organizationID, "reserved_domains"},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.AdminV2,
 	}
 }
 

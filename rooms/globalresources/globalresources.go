@@ -27,25 +27,24 @@
 // - Time Zones
 // - Transaction Sides
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/rooms-api/reference/GlobalResources
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/rooms"
-//   )
-//   ...
-//   globalresourcesService := globalresources.New(esignCredential)
-package globalresources // import "github.com/jfcote87/esignrooms//globalresources"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/rooms"
+//	)
+//	...
+//	globalresourcesService := globalresources.New(esignCredential)
+package globalresources // import "github.com/ConsultingMD/esignrooms//globalresources"
 
 import (
 	"context"
 	"net/url"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/rooms"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/rooms"
 )
 
 // Service implements DocuSign GlobalResources API operations
@@ -278,7 +277,9 @@ func (s *Service) GetSellerDecisionTypes() *GetSellerDecisionTypesOp {
 type GetSellerDecisionTypesOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetSellerDecisionTypesOp) Do(ctx context.Context) (*rooms.GlobalSellerDecisionTypes, error) {
+func (op *GetSellerDecisionTypesOp) Do(
+	ctx context.Context,
+) (*rooms.GlobalSellerDecisionTypes, error) {
 	var res *rooms.GlobalSellerDecisionTypes
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -303,7 +304,9 @@ func (s *Service) GetSpecialCircumstanceTypes() *GetSpecialCircumstanceTypesOp {
 type GetSpecialCircumstanceTypesOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetSpecialCircumstanceTypesOp) Do(ctx context.Context) (*rooms.GlobalSpecialCircumstanceTypes, error) {
+func (op *GetSpecialCircumstanceTypesOp) Do(
+	ctx context.Context,
+) (*rooms.GlobalSpecialCircumstanceTypes, error) {
 	var res *rooms.GlobalSpecialCircumstanceTypes
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }
@@ -378,7 +381,9 @@ func (s *Service) GetTaskResponsibilityTypes() *GetTaskResponsibilityTypesOp {
 type GetTaskResponsibilityTypesOp esign.Op
 
 // Do executes the op.  A nil context will return error.
-func (op *GetTaskResponsibilityTypesOp) Do(ctx context.Context) (*rooms.GlobalTaskResponsibilityTypes, error) {
+func (op *GetTaskResponsibilityTypesOp) Do(
+	ctx context.Context,
+) (*rooms.GlobalTaskResponsibilityTypes, error) {
 	var res *rooms.GlobalTaskResponsibilityTypes
 	return res, ((*esign.Op)(op)).Do(ctx, &res)
 }

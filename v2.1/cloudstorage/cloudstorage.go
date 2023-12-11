@@ -12,18 +12,17 @@
 //
 // It is also used to manage the user's authentication/accounts with cloud storage service providers.
 //
-//
 // Service Api documentation may be found at:
 // https://developers.docusign.com/docs/esign-rest-api/reference/CloudStorage
 // Usage example:
 //
-//   import (
-//       "github.com/jfcote87/esign"
-//       "github.com/jfcote87/esign/v2.1/model"
-//   )
-//   ...
-//   cloudstorageService := cloudstorage.New(esignCredential)
-package cloudstorage // import "github.com/jfcote87/esignv2.1/cloudstorage"
+//	import (
+//	    "github.com/ConsultingMD/esign"
+//	    "github.com/ConsultingMD/esign/v2.1/model"
+//	)
+//	...
+//	cloudstorageService := cloudstorage.New(esignCredential)
+package cloudstorage // import "github.com/ConsultingMD/esignv2.1/cloudstorage"
 
 import (
 	"context"
@@ -31,8 +30,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jfcote87/esign"
-	"github.com/jfcote87/esign/v2.1/model"
+	"github.com/ConsultingMD/esign"
+	"github.com/ConsultingMD/esign/v2.1/model"
 )
 
 // Service implements DocuSign CloudStorage API operations
@@ -54,10 +53,13 @@ func (s *Service) List(folderID string, serviceID string, userID string) *ListOp
 	return &ListOp{
 		Credential: s.credential,
 		Method:     "GET",
-		Path:       strings.Join([]string{"users", userID, "cloud_storage", serviceID, "folders", folderID}, "/"),
-		Accept:     "application/json",
-		QueryOpts:  make(url.Values),
-		Version:    esign.APIv21,
+		Path: strings.Join(
+			[]string{"users", userID, "cloud_storage", serviceID, "folders", folderID},
+			"/",
+		),
+		Accept:    "application/json",
+		QueryOpts: make(url.Values),
+		Version:   esign.APIv21,
 	}
 }
 
@@ -101,7 +103,6 @@ func (op *ListOp) Count(val int) *ListOp {
 // Order is the order in which to sort the results.
 //
 // Valid values are:
-//
 //
 // * `asc`: Ascending order.
 // * `desc`: Descending order.
@@ -196,7 +197,6 @@ func (op *ListFoldersOp) Count(val int) *ListFoldersOp {
 //
 // Valid values are:
 //
-//
 // * `asc`: Ascending order.
 // * `desc`: Descending order.
 func (op *ListFoldersOp) Order(val string) *ListFoldersOp {
@@ -246,7 +246,10 @@ func (op *ListFoldersOp) StartPosition(val int) *ListFoldersOp {
 // https://developers.docusign.com/docs/esign-rest-api/reference/cloudstorage/cloudstorageproviders/create
 //
 // SDK Method CloudStorage::createProvider
-func (s *Service) ProvidersCreate(userID string, cloudStorageProviders *model.CloudStorageProviders) *ProvidersCreateOp {
+func (s *Service) ProvidersCreate(
+	userID string,
+	cloudStorageProviders *model.CloudStorageProviders,
+) *ProvidersCreateOp {
 	return &ProvidersCreateOp{
 		Credential: s.credential,
 		Method:     "POST",
@@ -296,7 +299,10 @@ func (op *ProvidersDeleteOp) Do(ctx context.Context) (*model.CloudStorageProvide
 // https://developers.docusign.com/docs/esign-rest-api/reference/cloudstorage/cloudstorageproviders/deletelist
 //
 // SDK Method CloudStorage::deleteProviders
-func (s *Service) ProvidersDeleteList(userID string, cloudStorageProviders *model.CloudStorageProviders) *ProvidersDeleteListOp {
+func (s *Service) ProvidersDeleteList(
+	userID string,
+	cloudStorageProviders *model.CloudStorageProviders,
+) *ProvidersDeleteListOp {
 	return &ProvidersDeleteListOp{
 		Credential: s.credential,
 		Method:     "DELETE",
