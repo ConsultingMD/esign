@@ -239,6 +239,8 @@ type JWTConfig struct {
 	// DocuSign users may have more than one account.  If AccountID is
 	// not set then the user's default account will be used.
 	AccountID string `json:"account_id,omitempty"`
+	UserID    string `json:"user_id,omitempty"`
+	//AccountID string `json:"account_id,omitempty"`
 	// Options can specify how long the token will be valid. DocuSign
 	// limits this to 1 hour.  1 hour is assumed if left empty.  Offsets
 	// for expiring token may also be used.  Do not set FormValues or Custom Claims.
@@ -366,7 +368,7 @@ func (c *JWTConfig) Credential(
 		return nil, err
 	}
 	return &OAuth2Credential{
-		accountID:   c.AccountID,
+		accountID:   c.UserID,
 		cachedToken: token,
 		refresher:   c.jwtRefresher(apiUserName, signer, scopes...),
 		cacheFunc:   c.CacheFunc,
